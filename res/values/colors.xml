@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="fauve">#cc6600</color>
+    <color name="grey">#999999</color>
+    <color name="miel">#f8e439</color>
+    <color name="flanelle">#E0E0E0</color>
+    <color name="black">#000</color>
+    <color name="white">#FFF</color>
+    <color name="acier">#4FC3F7</color>
+    <color name="mauve">#9999CC</color>
+    <color name="olive">#CC9999</color>
+    <color name="grenat">#990033</color>
+
+</resources>

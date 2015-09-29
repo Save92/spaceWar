@@ -1,0 +1,197 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include <jni.h>
+#include <android/sensor.h>
+#include <math.h> 
+#include <android/log.h>
+#include "SDL.h"
+#include "SDL_TTF.h"
+
+
+/****
+/*Test effectué : par curiosité j'ai essayé d'implémenter les fonctions lié au capteur directement dans le main.
+/*J'ai eu des erreurs de compilation alors que le fichier android/sensor.h est chargé :
+*
+*L
+*[armeabi] SharedLibrary  : libmain.so
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/android-project2/android-project/jni/main.c:157: error: undefined reference to 'ASensorEventQueue_getEvents'
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/android-project2/android-project/jni/main.c:203: error: undefined reference to 'ALooper_forThread'
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/android-project2/android-project/jni/main.c:208: error: undefined reference to 'ALooper_prepare'
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/android-project2/android-project/jni/main.c:211: error: undefined reference to 'ASensorManager_getInstance'
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/android-project2/android-project/jni/main.c:212: error: undefined reference to 'ASensorManager_getDefaultSensor'
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/android-project2/android-project/jni/main.c:215: error: undefined reference to 'ASensorManager_createEventQueue'
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/android-project2/android-project/jni/main.c:216: error: undefined reference to 'ASensorEventQueue_enableSensor'
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/android-project2/android-project/jni/main.c:218: error: undefined reference to 'ASensor_getMinDelay'
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/android-project2/android-project/jni/main.c:219: error: undefined reference to 'ASensorEventQueue_setEventRate'
+* l'activité a été modifié pour charger SDL2.
+/*
+*****/
+
+
+
+
+
+
+
+
+
+void draw(SDL_Window* window, SDL_Renderer* renderer, const Sprite sprite)
+{
+	int w, h;
+	SDL_GetWindowSize(window, &w, &h);
+	SDL_Rect destRect = {w/2 - sprite.w/2, h/2 - sprite.h/2, sprite.w, sprite.h};
+	/* Blit the sprite onto the screen */
+	SDL_RenderCopy(renderer, sprite.texture, NULL, &destRect);
+}
+
+
+/****
+*Fp,ctop,s de création de l'échiquier
+*
+****/
+void drawEchec(SDL_Renderer* renderer)
+{
+    SDL_RenderClear(renderer);
+        int i = 0;
+        int j = 0;
+
+
+        int color = 0;
+        SDL_Rect rectangle= {0, 0, 48, 48};
+        SDL_Rect rectangleBorder = {0, 0, 50, 50};
+
+        for(i; i < 8 ;i++)
+        {
+            j = 0;
+            for(j ; j < 8 ; j++)
+            {
+                rectangle.x = j * 49 + (j+1) ;
+                rectangle.y = i * 49 + (i+1);
+                rectangleBorder.x = i * 50;
+                rectangleBorder.y = j * 50;
+
+                SDL_SetRenderDrawColor(renderer, 170, 57, 57, 255);
+                SDL_RenderDrawRect(renderer,&rectangleBorder);  
+
+             
+                if(i%2 == 0 && color == 0)
+                {
+                    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+                }
+                else if(i%2 == 1 && color == 1)
+                {
+                    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);              
+                }
+                else
+                {
+                    SDL_SetRenderDrawColor(renderer, 127, 127, 127, 255);  
+                }
+                
+                if(color == 0)
+                {
+                    color = 1;
+                }  
+                else
+                {
+                    color = 0;
+                }
+                SDL_RenderFillRect(renderer, &rectangle);
+                //Pour dessiner un seul rectangle    
+            }
+        }
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderPresent(renderer);
+        SDL_Delay(10);   
+}
+ASensorEventQueue* sensorEventQueue;
+
+
+static int get_sensor_events(int fd, int events, void* data) 
+{
+
+    ASensorEvent event;
+     while (ASensorEventQueue_getEvents(sensorEventQueue, &event, 1) > 0) 
+     {
+
+        if(event.type == ASENSOR_TYPE_ACCELEROMETER) {
+            char stat[100];
+            sprintf(stat, "accl(x,y,z,t): %f %f %f %lld",event.acceleration.x, event.acceleration.y, event.acceleration.z, event.timestamp);
+            
+            TTF_Font* Sans = TTF_OpenFont("Sans.ttf", 24); //this opens a font style and sets a size
+
+                SDL_Color White = {255, 255, 255};  // this is the color in rgb format, maxing out all would give you the color white, and it will be your text's color
+                SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, &stat, White); // as TTF_RenderText_Solid could only be used on SDL_Surface then you have to create the surface first
+                SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage); //now you can convert it into a texture
+                SDL_Rect Message_rect; //create a rect
+                Message_rect.x = 0;  //controls the rect's x coordinate 
+                Message_rect.y = 0; // controls the rect's y coordinte
+                Message_rect.w = 100; // controls the width of the rect
+                Message_rect.h = 100; // controls the height of the rect
+                SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+        }
+
+    }
+    return 1;
+}
+
+
+
+int main(int argc, char *argv[])
+{
+    SDL_Window *window;
+   
+
+    if(SDL_CreateWindowAndRenderer(0, 0, 0, &window, &renderer) < 0)
+        exit(2);
+/*
+	Sprite sprite = LoadSprite("image.bmp", renderer);
+    if(sprite.texture == NULL)
+        exit(2);
+*/	
+	
+    /* Main render loop */
+    Uint8 done = 0;
+    SDL_Event event;
+    ASensorManager* sensorManager;
+    ASensor * accSensor;
+
+    ALooper* looper = ALooper_forThread();
+
+
+    if(looper == NULL)
+    {
+        looper = ALooper_prepare(ALOOPER_PREPARE_ALLOW_NON_CALLBACKS);
+    }
+
+    sensorManager = ASensorManager_getInstance();
+    accSensor = ASensorManager_getDefaultSensor(sensorManager, ASENSOR_TYPE_ACCELEROMETER);
+    void* sensor_data = malloc(1000);
+
+    sensorEventQueue = ASensorManager_createEventQueue(sensorManager, looper, 3, get_sensor_events, sensor_data);
+    ASensorEventQueue_enableSensor(sensorEventQueue, accSensor);
+
+    int a = ASensor_getMinDelay(accSensor);
+    ASensorEventQueue_setEventRate(sensorEventQueue, accSensor, 100000);
+
+    TTF_Init();
+
+ 
+    while(!done)
+	{
+       
+        /* Check for events */
+        while(SDL_PollEvent(&event))
+		{
+            
+        }
+
+
+    }
+
+
+    SDL_Quit();
+    exit(0);
+}
+
+

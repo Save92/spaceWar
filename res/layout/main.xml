@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/star_menu">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:id="@+id/title"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/spacewartitle"
+        android:layout_marginTop="80dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Jouer"
+        android:id="@+id/jouerBtn"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="85dp"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/miel"
+        android:background="@drawable/menu_button"
+        android:padding="10dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Continuer"
+        android:id="@+id/continuerBtn"
+        android:layout_below="@+id/jouerBtn"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/miel"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/menu_button"
+        android:padding="10dp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/settingsButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_settings_white_36dp" 
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"/>
+</RelativeLayout>
+
+
+

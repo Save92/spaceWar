@@ -1,0 +1,403 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"SDL",
+				"SDL_Rect"
+			],
+			[
+				"user",
+				"userShip"
+			],
+			[
+				"sp",
+				"sprintf"
+			],
+			[
+				"mov",
+				"movX"
+			],
+			[
+				"dis",
+				"distanceX"
+			],
+			[
+				"y",
+				"y_centre"
+			],
+			[
+				"profe",
+				"professional_state"
+			],
+			[
+				"prof",
+				"professionnal_state_name"
+			],
+			[
+				"arr",
+				"arrayItem"
+			],
+			[
+				"err",
+				"errorCount"
+			],
+			[
+				"A",
+				"Array_date"
+			],
+			[
+				"array",
+				"Array_date"
+			],
+			[
+				"add",
+				"addFamilyState"
+			],
+			[
+				"fam",
+				"familystateListe"
+			],
+			[
+				"pro",
+				"professionalstateList"
+			],
+			[
+				"co",
+				"columnProfessionalState"
+			],
+			[
+				"pr",
+				"professionalstateList"
+			],
+			[
+				"profess",
+				"professionalstate"
+			],
+			[
+				"get",
+				"getJSON"
+			],
+			[
+				"arra",
+				"arrayPosition"
+			],
+			[
+				"userL",
+				"userListData"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "main.c",
+			"settings":
+			{
+				"buffer_size": 4876,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "user/userShip.c",
+			"settings":
+			{
+				"buffer_size": 1288,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "user/userShip.h",
+			"settings":
+			{
+				"buffer_size": 588,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Android.mk",
+			"settings":
+			{
+				"buffer_size": 511,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "LOCAL_PATH := $(call my-dir)\n\ninclude $(CLEAR_VARS)\nSDL_PATH := ../SDL\nLOCAL_MODULE := myShip\n\nLOCAL_C_INCLUDES := $(LOCAL_PATH)/$(SDL_PATH)/include \n\n\n# Add your application source files here...\nLOCAL_SRC_FILES := userShip.c\n\nLOCAL_LDLIBS :=  -llog -lGLESv1_CM -lGLESv2 \n\ninclude $(BUILD_SHARED_LIBRARY)\n\n",
+			"file": "user/Android.mk",
+			"file_size": 306,
+			"file_write_time": 1442960330000000,
+			"settings":
+			{
+				"buffer_size": 306,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/Java/JavaC.sublime-build",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/thierryallardsaintalbin/Developpement/Api/survey/survey/routes/professional_state.js",
+		"/Users/thierryallardsaintalbin/Developpement/Api/survey/survey/public/javascripts/global.js",
+		"/Users/thierryallardsaintalbin/Developpement/Api/survey/survey/routes/gender.js"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"userShip",
+			"rectangle",
+			"repaint",
+			"console",
+			"console.log",
+			"shit"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "main.c",
+					"settings":
+					{
+						"buffer_size": 4876,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4854,
+								4854
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2126.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "user/userShip.c",
+					"settings":
+					{
+						"buffer_size": 1288,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								156,
+								156
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "user/userShip.h",
+					"settings":
+					{
+						"buffer_size": 588,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								202,
+								186
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 26.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/Android.mk",
+					"settings":
+					{
+						"buffer_size": 511,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								108,
+								108
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "user/Android.mk",
+					"settings":
+					{
+						"buffer_size": 306,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								93,
+								93
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 177.0,
+	"status_bar_visible": true
+}
