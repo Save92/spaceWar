@@ -1,2 +1,2 @@
-/Users/Save92/Documents/NDKProject/SpaceWar/bin/AndroidManifest.xml : \
-/Users/Save92/Documents/NDKProject/SpaceWar/AndroidManifest.xml \
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/bin/AndroidManifest.xml : \
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/AndroidManifest.xml \

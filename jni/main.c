@@ -112,14 +112,19 @@ int main(int argc, char *argv[])
     int *widthScreen = malloc (sizeof(int));
     int *heightScreen = malloc (sizeof(int));
     SDL_GetWindowSize(window,widthScreen,heightScreen);
+    __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "02");
     UserShip * myShip = initialisationUserShip(*widthScreen,*heightScreen);
+    __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "01");
     drawMyShip(renderer , myShip);
     //= malloc (sizeof(Shoot)) ;
     ListShoot * listShoot = malloc(sizeof(ListShoot)) ;
     if(listShoot == NULL)
         return;
     
+    
     listShoot->size = 0;
+    __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "03");
+    listShoot->start = NULL;
     /*listShoot->start = malloc(sizeof(listShoot));
     if(listShoot->start == NULL)
         return;
@@ -150,18 +155,18 @@ int main(int argc, char *argv[])
                 done = 1;
             }
         }
-        
-
+        __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Android_JNI_GetAccelerometerValues");
         Android_JNI_GetAccelerometerValues(accelValues);
         moveAllMyShoots(listShoot,0,*widthScreen,*heightScreen);
         drawAllMyShoots(renderer,listShoot);
         moveMyShipGeneral(accelValues,SIZEACCELVALUES,myShip,*widthScreen,*heightScreen);
-        __android_log_print(ANDROID_LOG_DEBUG, "moveMyShipGeneral",  "Shoot posX : %d posY :%d",  myShip->posX ,myShip->posY);
+        __android_log_print(ANDROID_LOG_DEBUG, "moveMyShipGeneral",  "Vaisseau posX : %d posY :%d",  myShip->posX ,myShip->posY);
 
         drawMyShip(renderer , myShip);
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderPresent(renderer);
-       // filterMyShoots(listShoot);
+        filterMyShoots(listShoot);
+        __android_log_print(ANDROID_LOG_DEBUG, "stopFilter",  "Shots filtered");
     }
     freeShip(myShip);
     exit(0);

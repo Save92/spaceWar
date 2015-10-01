@@ -20,6 +20,8 @@ struct Shoot
     int speed;
     int color[4];
     int visible;
+    int type ;
+    int index ;
     SDL_Rect *rectangle;
     Shoot * nextShoot ;
 };
@@ -38,7 +40,7 @@ void moveMyShoot(Shoot * shoot , int typeShoot,int widthScreen , int heightScree
 void moveVerticaly(Shoot * shoot,int widthScreen,int heightScreen);
 void setVisibility(Shoot * shoot,int widthScreen,int heightScreen);
 void drawAllMyShoots(SDL_Renderer* renderer , ListShoot * shoot);
-ListShoot * filterMyShoots(ListShoot * listShoot);
+void filterMyShoots(ListShoot * listShoot);
 void FreeMyShoot(Shoot * shoot);
 void myShipShoot(UserShip myShip,ListShoot * Shoot);
 void moveAllMyShoots(ListShoot * listShoot,int typeShoot,int widthScreen,int heightScreen);
