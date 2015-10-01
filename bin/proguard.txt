@@ -1,3 +1,6 @@
+# view AndroidManifest.xml #generated:41
+-keep class esgi.fouriam.ConfigurationActivity { <init>(...); }
+
 # view AndroidManifest.xml #generated:32
 -keep class esgi.fouriam.MainActivity { <init>(...); }
 

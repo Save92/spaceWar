@@ -1,7 +1,9 @@
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/classes.dex : \
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/esgi/fouriam/BuildConfig.class \
+/Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/esgi/fouriam/ConfigurationActivity.class \
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/esgi/fouriam/DummyEdit.class \
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/esgi/fouriam/MainActivity$1.class \
+/Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/esgi/fouriam/MainActivity$2.class \
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/esgi/fouriam/MainActivity.class \
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/esgi/fouriam/R$attr.class \
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/esgi/fouriam/R$color.class \
@@ -23,10 +25,3 @@
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/esgi/fouriam/SDLMain.class \
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/esgi/fouriam/SDLSurface$1.class \
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/esgi/fouriam/SDLSurface.class \
-/Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/org/libsdl/app/BuildConfig.class \
-/Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/org/libsdl/app/R$attr.class \
-/Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/org/libsdl/app/R$drawable.class \
-/Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/org/libsdl/app/R$id.class \
-/Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/org/libsdl/app/R$layout.class \
-/Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/org/libsdl/app/R$string.class \
-/Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/org/libsdl/app/R.class \

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/star_menu"
+    android:weightSum="1">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/configurationtitle"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Nom du joueur"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/playerNameTitle"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:padding="10dp"/>
+
+    <EditText
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:singleLine="true"
+        android:text=""
+        android:textColor="@color/miel"
+        android:textStyle="bold"
+        android:ems="10"
+        android:padding="10dp"
+        android:hint="Votre nom..."
+        android:textColorHint="@color/grey"
+        android:background="@drawable/menu_button"
+        android:id="@+id/playerNameText"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Commandes"
+        android:id="@+id/commandesTitle"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <TextView
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Gyroscope"
+            android:id="@+id/gyroBtn"
+            android:textColor="@color/white"
+            android:background="@drawable/menu_button"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginRight="15dp"/>
+        <TextView
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Touch"
+            android:id="@+id/touchBtn"
+            android:textColor="@color/white"
+            android:background="@drawable/menu_button"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/white"
+        android:text="Extra"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/musicButton"
+            android:src="@drawable/ic_music_note_white_36dp"
+            android:layout_weight="0.21"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginRight="10dp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/vibrationButton"
+            android:src="@drawable/ic_vibrate_white_36dp"
+            android:layout_weight="0.21"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+
+</LinearLayout>
