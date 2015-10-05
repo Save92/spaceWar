@@ -95,40 +95,47 @@ void drawAllMyShoots(SDL_Renderer* renderer , ListShoot * listShoot)
     }
 }
 
-ListShoot * filterMyShoots(ListShoot * listShoot)
+void filterMyShoots(ListShoot * listShoot)
 {
-    ListShoot * filteredShoots = malloc(sizeof(listShoot)) ;
-    filteredShoots->size = 0;
-    if(listShoot->size > 0)
+    Shoot  *tmp;
+    Shoot  *previous;
+    if(listShoot != NULL && listShoot->start != NULL)
     {
-        
-        Shoot * lastShootFiltered;
-        Shoot * nextShoot = listShoot->start;
-        while(nextShoot != NULL)
+        previous = listShoot->start;
+        if(previous->nextShoot == NULL)
         {
-            if(nextShoot->visible == 1)                 //Si Le tir est visible
+            if(previous->visible == 0)
             {
-                if(lastShootFiltered == NULL)           //Si c'est la 1ere fois qu'on trouve un tir visible
+                FreeMyShoot(listShoot->start);
+                listShoot->start = NULL;
+            }
+        }
+        else
+        {
+            tmp = previous;
+            previous = NULL;
+            
+            while(tmp != NULL)
+            {
+                if(tmp->visible == 0)
                 {
-                    lastShootFiltered = nextShoot;      // Le dernier tir est le tir
-                    filteredShoots->start = nextShoot;         // le 1er tir est le début de notre liste chainéé
+                    Shoot * deletedShoot = tmp;
+                    tmp = tmp->nextShoot;
+                    FreeMyShoot(deletedShoot);
+                    if(previous == NULL)
+                    {
+                        listShoot->start = tmp;
+                    }
+                    listShoot->size--;
                 }
                 else
                 {
-                    lastShootFiltered->nextShoot = nextShoot;       //On rajoute un tir suivant
-                    lastShootFiltered = nextShoot;                  // on bouge notre pointeur à la valeur suivante
+                    previous = tmp;
+                    tmp= tmp->nextShoot;
                 }
-                nextShoot = nextShoot->nextShoot;
-            }
-            else
-            {
-                Shoot * deletedShoot = nextShoot;
-                nextShoot = nextShoot->nextShoot;
-                FreeMyShoot(deletedShoot);
             }
         }
     }
-     return filteredShoots;
 }
 
 void myShipShoot(UserShip myShip,ListShoot * listShoot)
@@ -145,6 +152,7 @@ void myShipShoot(UserShip myShip,ListShoot * listShoot)
     (*nextShoot).color[3] = 255;
     (*nextShoot).rectangle = malloc( sizeof(SDL_Rect));
     (*nextShoot).visible = 1;
+    
    
     __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "Shoot posX : %d posY :%d",  (*nextShoot).posX ,(*nextShoot).posY);
     if(listShoot->size > 0 && (*listShoot).start != NULL)
@@ -172,6 +180,7 @@ void myShipShoot(UserShip myShip,ListShoot * listShoot)
 void FreeMyShoot(Shoot * shoot)
 {
     free(shoot->rectangle);
+    __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "Free1"  );
     free(shoot);
 }
 

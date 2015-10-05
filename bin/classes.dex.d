@@ -25,3 +25,4 @@
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/esgi/fouriam/SDLMain.class \
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/esgi/fouriam/SDLSurface$1.class \
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/classes/esgi/fouriam/SDLSurface.class \
+

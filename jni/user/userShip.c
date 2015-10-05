@@ -136,6 +136,7 @@ UserShip * initialisationUserShip(int width,int height)
     myShip->color[2] = 181;
     myShip->color[3] = 255;
     myShip->life = 5;
+    myShip->shotLevel = 1;
     
     return myShip;
 
