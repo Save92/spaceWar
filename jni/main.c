@@ -144,8 +144,7 @@ int main(int argc, char *argv[])
         /* Check for events */
         while(SDL_PollEvent(&event))
         {
-            if(event.type == SDL_FINGERDOWN)
-            {
+            if(event.type == SDL_FINGERDOWN){
                 __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "SLD_FINGERDOWN");
                 UserShipShoot(*myShip,listShoot);
                   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Ship position PosX : %d , PosY : %d",(*listShoot->start).posX,(*listShoot->start).posY);
