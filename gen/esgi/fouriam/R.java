@@ -23,21 +23,34 @@ public final class R {
         public static final int white=0x7f040005;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int ic_settings_white_36dp=0x7f020001;
-        public static final int menu_button=0x7f020002;
-        public static final int spacewartitle=0x7f020003;
-        public static final int star_menu=0x7f020004;
+        public static final int configurationtitle=0x7f020000;
+        public static final int ic_cellphone_white_36dp=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
+        public static final int ic_music_note_off_white_36dp=0x7f020003;
+        public static final int ic_music_note_white_36dp=0x7f020004;
+        public static final int ic_settings_white_36dp=0x7f020005;
+        public static final int ic_vibrate_white_36dp=0x7f020006;
+        public static final int menu_button=0x7f020007;
+        public static final int spacewartitle=0x7f020008;
+        public static final int star_menu=0x7f020009;
     }
     public static final class id {
-        public static final int continuerBtn=0x7f060002;
-        public static final int jouerBtn=0x7f060001;
-        public static final int settingsButton=0x7f060003;
+        public static final int commandesTitle=0x7f060003;
+        public static final int continuerBtn=0x7f06000b;
+        public static final int gyroBtn=0x7f060004;
+        public static final int jouerBtn=0x7f06000a;
+        public static final int musicButton=0x7f060007;
+        public static final int playerNameText=0x7f060002;
+        public static final int playerNameTitle=0x7f060001;
+        public static final int settingsButton=0x7f060009;
+        public static final int textView=0x7f060006;
         public static final int title=0x7f060000;
+        public static final int touchBtn=0x7f060005;
+        public static final int vibrationButton=0x7f060008;
     }
     public static final class layout {
-        public static final int main=0x7f030000;
-        public static final int menu_button=0x7f030001;
+        public static final int configuration=0x7f030000;
+        public static final int main=0x7f030001;
     }
     public static final class string {
         public static final int app_name=0x7f050000;

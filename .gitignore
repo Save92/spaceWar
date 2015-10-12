@@ -1,3 +1,7 @@
 local.properties
 obj/**
 libs/**
+bin/build.prop
+bin/spaceWar*
+bin/classes*
+gen/R.java.d
