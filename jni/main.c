@@ -147,7 +147,7 @@ int main(int argc, char *argv[])
             if(event.type == SDL_FINGERDOWN)
             {
                 __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "SLD_FINGERDOWN");
-                myShipShoot(*myShip,listShoot);
+                UserShipShoot(*myShip,listShoot);
                   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Ship position PosX : %d , PosY : %d",(*listShoot->start).posX,(*listShoot->start).posY);
                 
                 
@@ -157,7 +157,7 @@ int main(int argc, char *argv[])
         }
         __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Android_JNI_GetAccelerometerValues");
         Android_JNI_GetAccelerometerValues(accelValues);
-        moveAllMyShoots(listShoot,0,*widthScreen,*heightScreen);
+        moveAllMyShoots(listShoot,*widthScreen,*heightScreen);
         drawAllMyShoots(renderer,listShoot);
         moveMyShipGeneral(accelValues,SIZEACCELVALUES,myShip,*widthScreen,*heightScreen);
         __android_log_print(ANDROID_LOG_DEBUG, "moveMyShipGeneral",  "Vaisseau posX : %d posY :%d",  myShip->posX ,myShip->posY);

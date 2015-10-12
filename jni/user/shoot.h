@@ -24,8 +24,22 @@ struct Shoot
     int index ;
     SDL_Rect *rectangle;
     Shoot * nextShoot ;
+    int direction ;
+    int damage ;
+    int cmptMoov ;
+
 };
 
+
+/*
+ direction :
+ 0 : verticale
+ 1 : diagonale coin haut gauche
+ 2 : diagonale coin haut droit
+ 3 : diagonale haut gauche
+ 4 : diagonale haut droit
+ 5 : missile tête chercheuse
+ */
 
 
 typedef struct ListShoot{
@@ -36,14 +50,28 @@ typedef struct ListShoot{
 
 
 void drawMyShoot(SDL_Renderer* renderer , Shoot * listShoot);
-void moveMyShoot(Shoot * shoot , int typeShoot,int widthScreen , int heightScreen);
-void moveVerticaly(Shoot * shoot,int widthScreen,int heightScreen);
-void setVisibility(Shoot * shoot,int widthScreen,int heightScreen);
 void drawAllMyShoots(SDL_Renderer* renderer , ListShoot * shoot);
+
+void moveMyShoot(Shoot * shoot ,int widthScreen , int heightScreen);
+void moveVerticaly(Shoot * shoot,int widthScreen,int heightScreen);
+void moveDiagonaleLeft(Shoot * shoot,int widthScreen,int heightScreen);
+void moveDiagonaleRight(Shoot * shoot,int widthScreen,int heightScreen);
+void moveDiagonaleSubRight(Shoot * shoot,int widthScreen,int heightScreen);
+void moveDiagonaleSubLeft(Shoot * shoot,int widthScreen,int heightScreen);
+void moveAllMyShoots(ListShoot * listShoot,int widthScreen,int heightScreen);
+
+
+
+
+void setVisibility(Shoot * shoot,int widthScreen,int heightScreen);
+
 void filterMyShoots(ListShoot * listShoot);
 void FreeMyShoot(Shoot * shoot);
-void myShipShoot(UserShip myShip,ListShoot * Shoot);
-void moveAllMyShoots(ListShoot * listShoot,int typeShoot,int widthScreen,int heightScreen);
+void myShipShoot(UserShip myShip,ListShoot * listShoot,int direction,int damage);
+
+void UserShipShoot(UserShip myShip,ListShoot * listShoot);
+
+
 
 
 #endif /* defined(____shoot__) */

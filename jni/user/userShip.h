@@ -18,6 +18,7 @@ typedef struct UserShip
     int life;
     int color[4];
     SDL_Rect *rectangle;
+    int shotLevel;
 } UserShip;
 
 
