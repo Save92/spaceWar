@@ -69,9 +69,7 @@ EnemyShip * initialisationTypeStart(EnemyShip * enemyShip,int typeStart)
             
         case LEFT_SCREEN :
             
-            
-        
-        
+   
         
     }
 
