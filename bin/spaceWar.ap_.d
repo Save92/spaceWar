@@ -37,6 +37,7 @@
 /Users/Save92/Documents/NDKProject/SpaceWar/res/drawable-xxhdpi/star_menu.png \
 /Users/Save92/Documents/NDKProject/SpaceWar/res/layout/configuration.xml \
 /Users/Save92/Documents/NDKProject/SpaceWar/res/layout/main.xml \
+/Users/Save92/Documents/NDKProject/SpaceWar/res/layout/menu_button.xml \
 /Users/Save92/Documents/NDKProject/SpaceWar/res/values/colors.xml \
 /Users/Save92/Documents/NDKProject/SpaceWar/res/values/strings.xml \
 /Users/Save92/Documents/NDKProject/SpaceWar/res/values/styles.xml \

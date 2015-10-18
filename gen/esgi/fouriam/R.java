@@ -36,13 +36,14 @@ public final class R {
     }
     public static final class id {
         public static final int commandesTitle=0x7f060003;
-        public static final int continuerBtn=0x7f06000b;
+        public static final int continuerBtn=0x7f06000c;
         public static final int gyroBtn=0x7f060004;
-        public static final int jouerBtn=0x7f06000a;
+        public static final int jouerBtn=0x7f06000b;
         public static final int musicButton=0x7f060007;
         public static final int playerNameText=0x7f060002;
         public static final int playerNameTitle=0x7f060001;
-        public static final int settingsButton=0x7f060009;
+        public static final int saveBtn=0x7f060009;
+        public static final int settingsButton=0x7f06000a;
         public static final int textView=0x7f060006;
         public static final int title=0x7f060000;
         public static final int touchBtn=0x7f060005;
@@ -51,8 +52,21 @@ public final class R {
     public static final class layout {
         public static final int configuration=0x7f030000;
         public static final int main=0x7f030001;
+        public static final int menu_button=0x7f030002;
     }
     public static final class string {
+        public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
+        public static final int commandesText=0x7f050006;
+        public static final int continueBtn=0x7f05000b;
+        public static final int extraText=0x7f050003;
+        public static final int gyroscopeBtn=0x7f050005;
+        public static final int namePlaceholder=0x7f050007;
+        public static final int playBtn=0x7f05000a;
+        public static final int playerName=0x7f050008;
+        public static final int playerNameText=0x7f050009;
+        public static final int saveBtn=0x7f050002;
+        public static final int saved=0x7f05000c;
+        public static final int touchBtn=0x7f050004;
     }
 }

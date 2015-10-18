@@ -5,3 +5,4 @@ bin/build.prop
 bin/spaceWar*
 bin/classes*
 gen/R.java.d
+project.properties

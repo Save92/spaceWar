@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MainActivity</string>
+    <string name="app_name">Spacewar</string>
+    <string name="action_settings">Settings</string>
+    <string name="saveBtn">Save</string>
+    <string name="extraText">Extra</string>
+    <string name="touchBtn">Touch</string>
+    <string name="gyroscopeBtn">Gyroscope</string>
+    <string name="commandesText">Commandes</string>
+    <string name="namePlaceholder">Votre nom...</string>
+    <string name="playerName">Nom du joueur</string>
+    <string name="playerNameText">Saisir votre nom</string>
+    <string name="playBtn">Jouer</string>
+    <string name="continueBtn">Continuer</string>
+    <string name="saved">Données sauvegardées</string>
+
 </resources>
