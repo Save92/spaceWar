@@ -11,17 +11,21 @@
 
 #include <stdio.h>
 
+
+
+
+
 typedef struct MovementScheme
 {
     
     int startX;
     int startY;
-    int LengthMovement;
+    int distanceFromHorizonalLimit ;
+    int distanceFromVerticalLimit ;
     int type;
     
 } MovementScheme;
 
 
-
-
+MovementScheme * initializeMovementScheme(int startX,int startY,int distanceHorizontalLimit,int distanceFromVerticalLimit,int typeMovementScheme);
 #endif /* movementScheme_h */

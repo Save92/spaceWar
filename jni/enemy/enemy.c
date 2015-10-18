@@ -46,12 +46,20 @@ void freeEnemyShip(EnemyShip * enemyShip)
    
 }
 
-EnemyShip * initialisationEnemyShip(int width,int height,int countEnemy)
+EnemyShip * initialisationEnemyShip(int width,int height,int side,int typeShip,int typeMovement,int side)
 {
-   if(countEnemy < 5)
-   {
-       EnemyShip * enemyShip = initialisationLittleEnemyShip(width,height,countEnemy);
-   }
+    EnemyShip * enemyShip
+    switch(int typeShip)
+    {
+        case 0: enemyShip   = initialisationLittleEnemyShip(width,height,typeMovement,side);
+            break;
+            
+        default :
+            break;
+            
+    }
+    
+   
     
    
     
@@ -59,7 +67,26 @@ EnemyShip * initialisationEnemyShip(int width,int height,int countEnemy)
 
 Shoot * EnemyShipShoot(EnemyShip * enemyShip)
 {
-    return ;
+    switch (enemyShip->type) {
+        case 0: LittleEnemyShipShoot(enemyShip);
+            break
+            
+    }
+}
+    
+int canShoot(enemyShip * enemyShip)
+{
+    int canShoot;
+    switch (enemyShip->type) {
+        case 0: canShoot = LittleEnemyShipCanShoot(enemyShip)
+            break;
+            
+        default:
+            break;
+    }
+    
+    return canShoot;
+    
 }
 
 
