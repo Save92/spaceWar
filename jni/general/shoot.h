@@ -27,6 +27,7 @@ struct Shoot
     int direction ;
     int damage ;
     int cmptMoov ;
+    int way;
 
 };
 

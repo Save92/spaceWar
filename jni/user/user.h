@@ -4,6 +4,6 @@
 
 #include "userShip.h"
 #include "../SDL/src/core/android/SDL_android.h"
-#include "shoot.h"
+#include "../general/shoot.h"
 
 #endif /* defined(____user__) */

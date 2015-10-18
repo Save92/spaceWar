@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:main.c">
+      location = "group:general">
    </FileRef>
    <FileRef
-      location = "group:general">
+      location = "group:main.c">
    </FileRef>
    <FileRef
       location = "group:enemy">
