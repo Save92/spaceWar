@@ -14,9 +14,10 @@
 
 
 void drawLittleEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip);
-void moveLittleEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen, double coef)
-Shoot * EnemyShipShoot(EnemyShip * enemyShip);
-EnemyShip * initialisationLittleEnemyShip(int width,int height,int countEnemy);
+void moveLittleEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen)
+Shoot * LittleEnemyShipShoot(EnemyShip * enemyShip);
+EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeMovement,int side);
+Shoot * LittleEnemyShipCanShoot(EnemyShip * enemyShip);
 
 
 

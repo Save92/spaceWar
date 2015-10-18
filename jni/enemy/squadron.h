@@ -15,6 +15,7 @@ typedef struct Squadron
 {
     Enemy * nextEnemy;
     int size;
+    int side;
     
     
 } Squadron

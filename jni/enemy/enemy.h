@@ -24,10 +24,12 @@ typedef struct EnemyShip
     int shotLevel;
     int typeShip;
     int bonus;
-    int cntMovement;
     int cntFootStep;
-    movementScheme * movementScheme;
+    MovementScheme * movementScheme;
     int type;
+    int typeMovement;
+    int cntMovement;
+    int repeatMovement
     int frequencyOfShoot;
     enemyShip * nextEnemyShip;
 } EnemyShip;
@@ -38,6 +40,7 @@ void moveEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen, doub
 void freeEnemyShip(EnemyShip * enemyShip);
 Shoot * EnemyShipShoot(EnemyShip * enemyShip);
 EnemyShip * initialisationEnemyShip(int width,int height,int countEnemy);
+int canShoot(enemyShip * enemyShip);
 
 
 
