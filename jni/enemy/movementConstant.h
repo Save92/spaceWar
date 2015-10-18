@@ -6,11 +6,11 @@
 /*      
         TOP_SCREEN
         $$$ $$$ $$$ $$$ $$$ $$$ $$$
-        $5     3  1      2    4  6$
+        $3   2  1    0   1b  2b 3b$
         $                         $
         $*************************$
         $                         $
-        $7                       8$
+        $4                      4b$
         $                         $
         ***************************
  
@@ -22,10 +22,6 @@
 # define TOP_RIGHT_SCREEN  2;
 # define LEFT_SCREEN  3;
 # define RIGHT_SCREEN  4;
-# define EXTREME_LEFT_SCREEN  5;
-# define EXTREME_RIGHT_SCREEN  6;
-# define TOP_MIDDLE_EXTREME_LEFT_SCREEN  7;
-# define TOP_MIDDLE_EXTREME_RIGHT_SCREEN  8;
 
 
 

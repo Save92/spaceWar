@@ -10,7 +10,7 @@
 #define ____shoot__
 
 #include <stdio.h>
-#include "userShip.h"
+#include "../user/userShip.h"
 
 typedef struct Shoot Shoot;
 struct Shoot
