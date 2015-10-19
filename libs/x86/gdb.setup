@@ -1,0 +1,3 @@
+set solib-search-path ./obj/local/x86
+source /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/prebuilt/common/gdb/common.setup
+directory /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-x86/usr/include jni/SDL/include jni/SDL_ttf jni/SDL_ttf/external/freetype-2.4.12/include jni/src/../SDL/include jni/src/../SDL_ttf /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/sources/cxx-stl/system
