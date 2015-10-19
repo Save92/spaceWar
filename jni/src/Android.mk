@@ -6,14 +6,14 @@ LOCAL_MODULE := main
 SDL_PATH := ../SDL
 MAIN_PATH := ..
 USER_PATH := $(MAIN_PATH)/user
-GENERAL_PATH := $(MAIN_PATH)/general
+
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(SDL_PATH)/include \
 		$(LOCAL_PATH)/../SDL_ttf
 
 # Add your application source files here...
 LOCAL_SRC_FILES := $(SDL_PATH)/src/main/android/SDL_android_main.c \
-	$(GENERAL_PATH)/shoot.c \
+	$(USER_PATH)/shoot.c \
 	$(USER_PATH)/userShip.c \
 	$(MAIN_PATH)/main.c
 

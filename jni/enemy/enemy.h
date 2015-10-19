@@ -31,6 +31,7 @@ typedef struct EnemyShip
     int cntMovement;
     int repeatMovement
     int frequencyOfShoot;
+    int VerticalSide;
     enemyShip * nextEnemyShip;
 } EnemyShip;
 

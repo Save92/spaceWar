@@ -18,10 +18,11 @@
 
 
 /** Start position ***/
-# define TOP_LEFT_SCREEN  1 ;
-# define TOP_RIGHT_SCREEN  2;
-# define LEFT_SCREEN  3;
-# define RIGHT_SCREEN  4;
+# define TOP_SCREEN  0 ;
+# define TOP_SIDE_SCREEN  1 ;
+# define TOP_MIDDLE_SIDE_SCREEN  2;
+# define TOP_EXTREME_SIDE_SCREEN  3;
+# define EXTREME_SIDE_SCREEN  4;
 
 
 

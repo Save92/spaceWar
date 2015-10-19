@@ -21,12 +21,13 @@ void drawLittleEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip)
 }
 
 
-EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart)
+EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int side)
 {
     
     SDL_Rect  * rectangle = malloc( sizeof(SDL_Rect));
     EnemyShip  * enemyShip = malloc( sizeof(EnemyShip));
-    myShip->rectangle = rectangle;
+    enemyShip->rectangle = rectangle;
+    enemyShip->verticalSide = side;
     
     switch (typeStart) {
         case :
@@ -57,18 +58,38 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart)
 
 
 
-EnemyShip * initialisationTypeStart(EnemyShip * enemyShip,int typeStart)
+EnemyShip * initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int typeStart,int side)
 {
     switch(typeStart)
     {
-        case TOP_LEFT_SCREEN :
+        case TOP_SCREEN :
+            if(side = 1)
+            {
+                enemyShip->rectangle->x = width/2 - width/8;
+                enemyShip->rectangle->y = 0;
+                enemyShip->verticalSide = 1;
+            }
+            else
+            {
+                if(side == -1)
+                {
+                    enemyShip->rectangle->x = width/2 + width/8;
+                    enemyShip->rectangle->y = 0;
+                }
+            }
             break;
             
-        case TOP_RIGHT_SCREEN :
+        case TOP_SIDE_SCREEN :
             break;
             
-        case LEFT_SCREEN :
+        case TOP_MIDDLE_SIDE_SCREEN :
+            break;
             
+        case TOP_EXTREME_SIDE_SCREEN:
+            break;
+            
+        case EXTREME_SIDE_SCREEN:
+            break;
    
         
     }
