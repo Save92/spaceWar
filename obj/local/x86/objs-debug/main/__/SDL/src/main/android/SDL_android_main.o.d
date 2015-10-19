@@ -1,14 +1,16 @@
-obj/local/x86/objs-debug/main/__/SDL/src/main/android/SDL_android_main.o: \
- jni/src/../SDL/src/main/android/SDL_android_main.c \
- jni/src/../SDL/src/main/android/../../SDL_internal.h \
- jni/src/../SDL/src/main/android/../../dynapi/SDL_dynapi.h \
- jni/src/../SDL/src/main/android/../../dynapi/SDL_dynapi_overrides.h \
- jni/src/../SDL/include/SDL_config.h \
- jni/src/../SDL/include/SDL_platform.h \
- jni/src/../SDL/include/begin_code.h jni/src/../SDL/include/close_code.h \
- jni/src/../SDL/include/SDL_config_android.h \
- jni/src/../SDL/include/SDL_main.h jni/src/../SDL/include/SDL_stdinc.h \
- jni/src/../SDL/include/SDL_config.h \
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/obj/local/x86/objs-debug/main/__/SDL/src/main/android/SDL_android_main.o: \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/src/main/android/SDL_android_main.c \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/src/main/android/../../SDL_internal.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/src/main/android/../../dynapi/SDL_dynapi.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/src/main/android/../../dynapi/SDL_dynapi_overrides.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_config.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_platform.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/begin_code.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/close_code.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_config_android.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_main.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_stdinc.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_config.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-x86/usr/include/sys/types.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-x86/usr/include/stdint.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-x86/usr/include/sys/_types.h \
@@ -46,27 +48,27 @@ obj/local/x86/objs-debug/main/__/SDL/src/main/android/SDL_android_main.o: \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-x86/usr/include/asm/page_32.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-x86/usr/include/jni.h
 
-jni/src/../SDL/src/main/android/../../SDL_internal.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/src/main/android/../../SDL_internal.h:
 
-jni/src/../SDL/src/main/android/../../dynapi/SDL_dynapi.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/src/main/android/../../dynapi/SDL_dynapi.h:
 
-jni/src/../SDL/src/main/android/../../dynapi/SDL_dynapi_overrides.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/src/main/android/../../dynapi/SDL_dynapi_overrides.h:
 
-jni/src/../SDL/include/SDL_config.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_config.h:
 
-jni/src/../SDL/include/SDL_platform.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_platform.h:
 
-jni/src/../SDL/include/begin_code.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/begin_code.h:
 
-jni/src/../SDL/include/close_code.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/close_code.h:
 
-jni/src/../SDL/include/SDL_config_android.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_config_android.h:
 
-jni/src/../SDL/include/SDL_main.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_main.h:
 
-jni/src/../SDL/include/SDL_stdinc.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_stdinc.h:
 
-jni/src/../SDL/include/SDL_config.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_config.h:
 
 /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-x86/usr/include/sys/types.h:
 

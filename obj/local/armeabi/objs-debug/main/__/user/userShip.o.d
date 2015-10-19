@@ -1,13 +1,14 @@
-obj/local/armeabi/objs-debug/main/__/user/userShip.o: \
- jni/src/../user/userShip.c \
- jni/src/../user/../SDL/src/core/android/SDL_android.h \
- jni/src/../user/../SDL/src/core/android/../../SDL_internal.h \
- jni/src/../user/../SDL/src/core/android/../../dynapi/SDL_dynapi.h \
- jni/src/../user/../SDL/src/core/android/../../dynapi/SDL_dynapi_overrides.h \
- jni/src/../SDL/include/SDL_config.h \
- jni/src/../SDL/include/SDL_platform.h \
- jni/src/../SDL/include/begin_code.h jni/src/../SDL/include/close_code.h \
- jni/src/../SDL/include/SDL_config_android.h \
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/obj/local/armeabi/objs-debug/main/__/user/userShip.o: \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../user/userShip.c \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../user/../SDL/src/core/android/SDL_android.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../user/../SDL/src/core/android/../../SDL_internal.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../user/../SDL/src/core/android/../../dynapi/SDL_dynapi.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../user/../SDL/src/core/android/../../dynapi/SDL_dynapi_overrides.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_config.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_platform.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/begin_code.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/close_code.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_config_android.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/EGL/eglplatform.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/KHR/khrplatform.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/sys/cdefs.h \
@@ -22,8 +23,9 @@ obj/local/armeabi/objs-debug/main/__/user/userShip.o: \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/android/native_window_jni.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/jni.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/inttypes.h \
- jni/src/../SDL/include/SDL_rect.h jni/src/../SDL/include/SDL_stdinc.h \
- jni/src/../SDL/include/SDL_config.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_rect.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_stdinc.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_config.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/sys/types.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/linux/posix_types.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/linux/stddef.h \
@@ -49,10 +51,13 @@ obj/local/armeabi/objs-debug/main/__/user/userShip.o: \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/machine/limits.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/sys/syslimits.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/asm/page.h \
- jni/src/../SDL/include/SDL_error.h jni/src/../SDL/include/SDL_pixels.h \
- jni/src/../SDL/include/SDL_rwops.h jni/src/../SDL/include/SDL_rwops.h \
- jni/src/../SDL/include/SDL.h jni/src/../SDL/include/SDL_main.h \
- jni/src/../SDL/include/SDL_assert.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_error.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_pixels.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_rwops.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_rwops.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_main.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_assert.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/signal.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/asm/signal.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/asm-generic/signal.h \
@@ -61,50 +66,61 @@ obj/local/armeabi/objs-debug/main/__/user/userShip.o: \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/asm-generic/siginfo.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/sys/ucontext.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/sys/user.h \
- jni/src/../SDL/include/SDL_atomic.h jni/src/../SDL/include/SDL_audio.h \
- jni/src/../SDL/include/SDL_endian.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_atomic.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_audio.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_endian.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/endian.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/sys/endian.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/machine/endian.h \
- jni/src/../SDL/include/SDL_mutex.h jni/src/../SDL/include/SDL_thread.h \
- jni/src/../SDL/include/SDL_clipboard.h \
- jni/src/../SDL/include/SDL_cpuinfo.h jni/src/../SDL/include/SDL_events.h \
- jni/src/../SDL/include/SDL_video.h jni/src/../SDL/include/SDL_rect.h \
- jni/src/../SDL/include/SDL_surface.h \
- jni/src/../SDL/include/SDL_blendmode.h \
- jni/src/../SDL/include/SDL_keyboard.h \
- jni/src/../SDL/include/SDL_keycode.h \
- jni/src/../SDL/include/SDL_scancode.h jni/src/../SDL/include/SDL_mouse.h \
- jni/src/../SDL/include/SDL_joystick.h \
- jni/src/../SDL/include/SDL_gamecontroller.h \
- jni/src/../SDL/include/SDL_quit.h jni/src/../SDL/include/SDL_gesture.h \
- jni/src/../SDL/include/SDL_touch.h \
- jni/src/../SDL/include/SDL_filesystem.h \
- jni/src/../SDL/include/SDL_haptic.h jni/src/../SDL/include/SDL_hints.h \
- jni/src/../SDL/include/SDL_loadso.h jni/src/../SDL/include/SDL_log.h \
- jni/src/../SDL/include/SDL_messagebox.h \
- jni/src/../SDL/include/SDL_power.h jni/src/../SDL/include/SDL_render.h \
- jni/src/../SDL/include/SDL_system.h jni/src/../SDL/include/SDL_timer.h \
- jni/src/../SDL/include/SDL_version.h jni/src/../user/userShip.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_mutex.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_thread.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_clipboard.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_cpuinfo.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_events.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_video.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_rect.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_surface.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_blendmode.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_keyboard.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_keycode.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_scancode.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_mouse.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_joystick.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_gamecontroller.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_quit.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_gesture.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_touch.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_filesystem.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_haptic.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_hints.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_loadso.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_log.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_messagebox.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_power.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_render.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_system.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_timer.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_version.h \
+ /Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../user/userShip.h \
  /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/android/log.h
 
-jni/src/../user/../SDL/src/core/android/SDL_android.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../user/../SDL/src/core/android/SDL_android.h:
 
-jni/src/../user/../SDL/src/core/android/../../SDL_internal.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../user/../SDL/src/core/android/../../SDL_internal.h:
 
-jni/src/../user/../SDL/src/core/android/../../dynapi/SDL_dynapi.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../user/../SDL/src/core/android/../../dynapi/SDL_dynapi.h:
 
-jni/src/../user/../SDL/src/core/android/../../dynapi/SDL_dynapi_overrides.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../user/../SDL/src/core/android/../../dynapi/SDL_dynapi_overrides.h:
 
-jni/src/../SDL/include/SDL_config.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_config.h:
 
-jni/src/../SDL/include/SDL_platform.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_platform.h:
 
-jni/src/../SDL/include/begin_code.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/begin_code.h:
 
-jni/src/../SDL/include/close_code.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/close_code.h:
 
-jni/src/../SDL/include/SDL_config_android.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_config_android.h:
 
 /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/EGL/eglplatform.h:
 
@@ -134,11 +150,11 @@ jni/src/../SDL/include/SDL_config_android.h:
 
 /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/inttypes.h:
 
-jni/src/../SDL/include/SDL_rect.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_rect.h:
 
-jni/src/../SDL/include/SDL_stdinc.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_stdinc.h:
 
-jni/src/../SDL/include/SDL_config.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_config.h:
 
 /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/sys/types.h:
 
@@ -190,19 +206,19 @@ jni/src/../SDL/include/SDL_config.h:
 
 /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/asm/page.h:
 
-jni/src/../SDL/include/SDL_error.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_error.h:
 
-jni/src/../SDL/include/SDL_pixels.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_pixels.h:
 
-jni/src/../SDL/include/SDL_rwops.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_rwops.h:
 
-jni/src/../SDL/include/SDL_rwops.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_rwops.h:
 
-jni/src/../SDL/include/SDL.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL.h:
 
-jni/src/../SDL/include/SDL_main.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_main.h:
 
-jni/src/../SDL/include/SDL_assert.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_assert.h:
 
 /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/signal.h:
 
@@ -220,11 +236,11 @@ jni/src/../SDL/include/SDL_assert.h:
 
 /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/sys/user.h:
 
-jni/src/../SDL/include/SDL_atomic.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_atomic.h:
 
-jni/src/../SDL/include/SDL_audio.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_audio.h:
 
-jni/src/../SDL/include/SDL_endian.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_endian.h:
 
 /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/endian.h:
 
@@ -232,64 +248,64 @@ jni/src/../SDL/include/SDL_endian.h:
 
 /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/machine/endian.h:
 
-jni/src/../SDL/include/SDL_mutex.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_mutex.h:
 
-jni/src/../SDL/include/SDL_thread.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_thread.h:
 
-jni/src/../SDL/include/SDL_clipboard.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_clipboard.h:
 
-jni/src/../SDL/include/SDL_cpuinfo.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_cpuinfo.h:
 
-jni/src/../SDL/include/SDL_events.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_events.h:
 
-jni/src/../SDL/include/SDL_video.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_video.h:
 
-jni/src/../SDL/include/SDL_rect.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_rect.h:
 
-jni/src/../SDL/include/SDL_surface.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_surface.h:
 
-jni/src/../SDL/include/SDL_blendmode.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_blendmode.h:
 
-jni/src/../SDL/include/SDL_keyboard.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_keyboard.h:
 
-jni/src/../SDL/include/SDL_keycode.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_keycode.h:
 
-jni/src/../SDL/include/SDL_scancode.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_scancode.h:
 
-jni/src/../SDL/include/SDL_mouse.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_mouse.h:
 
-jni/src/../SDL/include/SDL_joystick.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_joystick.h:
 
-jni/src/../SDL/include/SDL_gamecontroller.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_gamecontroller.h:
 
-jni/src/../SDL/include/SDL_quit.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_quit.h:
 
-jni/src/../SDL/include/SDL_gesture.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_gesture.h:
 
-jni/src/../SDL/include/SDL_touch.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_touch.h:
 
-jni/src/../SDL/include/SDL_filesystem.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_filesystem.h:
 
-jni/src/../SDL/include/SDL_haptic.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_haptic.h:
 
-jni/src/../SDL/include/SDL_hints.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_hints.h:
 
-jni/src/../SDL/include/SDL_loadso.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_loadso.h:
 
-jni/src/../SDL/include/SDL_log.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_log.h:
 
-jni/src/../SDL/include/SDL_messagebox.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_messagebox.h:
 
-jni/src/../SDL/include/SDL_power.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_power.h:
 
-jni/src/../SDL/include/SDL_render.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_render.h:
 
-jni/src/../SDL/include/SDL_system.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_system.h:
 
-jni/src/../SDL/include/SDL_timer.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_timer.h:
 
-jni/src/../SDL/include/SDL_version.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../SDL/include/SDL_version.h:
 
-jni/src/../user/userShip.h:
+/Users/thierryallardsaintalbin/Developpement/inge3/NDK/projet/jni/src/../user/userShip.h:
 
 /Users/thierryallardsaintalbin/MyLibrary/android-ndk-r10d/platforms/android-17/arch-arm/usr/include/android/log.h:
