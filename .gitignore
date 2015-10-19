@@ -6,5 +6,3 @@ bin/spaceWar*
 bin/classes*
 gen/R.java.d
 project.properties
-.idea/*
-jni/spaceShip.xcworkspace/xcuserdata/*

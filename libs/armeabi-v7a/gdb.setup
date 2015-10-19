@@ -1,3 +1,0 @@
-set solib-search-path ./obj/local/armeabi-v7a
-source /Users/Save92/Documents/ndk/android-ndk-r10e/prebuilt/common/gdb/common.setup
-directory /Users/Save92/Documents/ndk/android-ndk-r10e/platforms/android-16/arch-arm/usr/include jni/SDL/include jni/SDL_ttf jni/SDL_ttf/external/freetype-2.4.12/include jni/src/../SDL/include jni/src/../SDL_ttf /Users/Save92/Documents/ndk/android-ndk-r10e/sources/cxx-stl/system

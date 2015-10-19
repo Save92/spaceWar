@@ -5,6 +5,9 @@
       location = "group:main.c">
    </FileRef>
    <FileRef
+      location = "group:general">
+   </FileRef>
+   <FileRef
       location = "group:enemy">
    </FileRef>
    <FileRef
