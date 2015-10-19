@@ -10,14 +10,15 @@
 #define squadron_h
 
 #include <stdio.h>
+#include "./enemy.h"
 
 typedef struct Squadron
 {
-    Enemy * nextEnemy;
+    EnemyShip * nextEnemy;
     int size;
     int side;
     
     
-} Squadron
+} Squadron;
 
 #endif /* squadron_h */

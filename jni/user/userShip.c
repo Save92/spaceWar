@@ -8,7 +8,6 @@
 
 
 #include "../SDL/src/core/android/SDL_android.h"
-#include "SDL.h"
 #include "userShip.h"
 #include <android/log.h>
 #include <jni.h>

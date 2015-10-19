@@ -7,7 +7,7 @@
 //
 
 #include "movementScheme.h"
-
+#include <stdlib.h>
 
 
 
@@ -21,4 +21,5 @@ MovementScheme * initializeMovementScheme(int startX,int startY,int distanceHori
     movementScheme->startY = startY;
     movementScheme->distanceFromHorizonalLimit = distanceHorizontalLimit;
     movementScheme->distanceFromVerticalLimit = distanceFromVerticalLimit;
+    return movementScheme;
 }
