@@ -6,8 +6,11 @@
 #include <android/log.h>
 #include <jni.h>
 #include "./user/user.h"
+#include "./enemy/generalEnemy.h"
+#include "./general/general.h"
 #include <math.h>
 #include <stdlib.h>
+
 
 
 float accelValues[3];
@@ -118,6 +121,7 @@ int main(int argc, char *argv[])
     drawMyShip(renderer , myShip);
     //= malloc (sizeof(Shoot)) ;
     ListShoot * listShoot = malloc(sizeof(ListShoot)) ;
+    EnemyShip * enemy = initialisationEnemyShip(*widthScreen,*heightScreen,0,1,200,(*widthScreen)/2,0,0);
     if(listShoot == NULL)
         return;
     
@@ -162,6 +166,7 @@ int main(int argc, char *argv[])
         __android_log_print(ANDROID_LOG_DEBUG, "moveMyShipGeneral",  "Vaisseau posX : %d posY :%d",  myShip->posX ,myShip->posY);
 
         drawMyShip(renderer , myShip);
+        drawEnemyShip(renderer,enemy);
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderPresent(renderer);
         filterMyShoots(listShoot);

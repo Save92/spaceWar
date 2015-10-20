@@ -7,6 +7,7 @@ SDL_PATH := ../SDL
 MAIN_PATH := ..
 USER_PATH := $(MAIN_PATH)/user
 GENERAL_PATH := $(MAIN_PATH)/general
+ENEMY_PATH := $(MAIN_PATH)/enemy
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(SDL_PATH)/include \
 		$(LOCAL_PATH)/../SDL_ttf
@@ -15,6 +16,10 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(SDL_PATH)/include \
 LOCAL_SRC_FILES := $(SDL_PATH)/src/main/android/SDL_android_main.c \
 	$(GENERAL_PATH)/shoot.c \
 	$(USER_PATH)/userShip.c \
+	$(ENEMY_PATH)/littleEnemyShip.c \
+	$(ENEMY_PATH)/enemy.c \
+	$(ENEMY_PATH)/movementScheme.c \
+	$(ENEMY_PATH)/squadron.c \
 	$(MAIN_PATH)/main.c
 
 LOCAL_SHARED_LIBRARIES :=  SDL2_ttf \

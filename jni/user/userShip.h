@@ -10,6 +10,7 @@
 #define ____userShip__
 
 #include "../SDL/src/core/android/SDL_android.h"
+#include "SDL.h"
 typedef struct UserShip
 {
     int posX;

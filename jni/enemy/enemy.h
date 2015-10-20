@@ -10,10 +10,11 @@
 #define enemy_h
 
 #include <stdio.h>
-#include "./user/shoot.h"
-#include "./movementScheme.h";
-
-typedef struct EnemyShip
+#include "../general/shoot.h"
+#include "./movementScheme.h"
+#include "SDL.h"
+typedef struct EnemyShip EnemyShip;
+struct EnemyShip
 {
     int posX;
     int posY;
@@ -28,20 +29,19 @@ typedef struct EnemyShip
     MovementScheme * movementScheme;
     int type;
     int typeMovement;
-    int cntMovement;
-    int repeatMovement
+    int repeatMovement;
     int frequencyOfShoot;
-    int VerticalSide;
-    enemyShip * nextEnemyShip;
-} EnemyShip;
+    int verticalSide;
+    EnemyShip * nextEnemyShip;
+};
 
 
 void drawEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip);
 void moveEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen, double coef);
 void freeEnemyShip(EnemyShip * enemyShip);
 Shoot * EnemyShipShoot(EnemyShip * enemyShip);
-EnemyShip * initialisationEnemyShip(int width,int height,int countEnemy);
-int canShoot(enemyShip * enemyShip);
+EnemyShip * initialisationEnemyShip(int width,int height,int typeStart,int side,int distance,int verticalLine,int typeShip,int typeMovement);
+int canShoot(EnemyShip * enemyShip);
 
 
 
