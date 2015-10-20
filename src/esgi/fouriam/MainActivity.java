@@ -34,8 +34,6 @@ public class MainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        settings = getSharedPreferences(PREFS_NAME, 0);
-        playerName = settings.getString("playerName", "");
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         gameIntent = new Intent(this, SDLActivity.class);
         configIntent = new Intent(this, ConfigurationActivity.class);
@@ -52,7 +50,9 @@ public class MainActivity extends Activity
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (playerName.equals("")) {
+                if (playerName == null || playerName.equals("")) {
+                settings = getSharedPreferences(PREFS_NAME, 0);
+                playerName = settings.getString("playerName", "");
                     DisplayNamePopup();
                 } else { 
                     startActivity(gameIntent); 
@@ -77,7 +77,9 @@ public class MainActivity extends Activity
      alertDialog.setPositiveButton("YES",
          new DialogInterface.OnClickListener() {
              public void onClick(DialogInterface dialog, int which) {
+
                 SharedPreferences.Editor prefsEditor = settings.edit();
+
                  prefsEditor.putString("playerName", input.getText().toString());
                  prefsEditor.apply();
                  toast.setText(getResources().getString(R.string.saved));
