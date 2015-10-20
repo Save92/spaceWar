@@ -51,8 +51,7 @@ public class MainActivity extends Activity
             @Override
             public void onClick(View v) {
                 if (playerName == null || playerName.equals("")) {
-                settings = getSharedPreferences(PREFS_NAME, 0);
-                playerName = settings.getString("playerName", "");
+                
                     DisplayNamePopup();
                 } else { 
                     startActivity(gameIntent); 
@@ -61,6 +60,12 @@ public class MainActivity extends Activity
         });
 
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        settings = getSharedPreferences(PREFS_NAME, 0);
+        playerName = settings.getString("playerName", "");
     }
     private void DisplayNamePopup() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
@@ -82,6 +87,7 @@ public class MainActivity extends Activity
 
                  prefsEditor.putString("playerName", input.getText().toString());
                  prefsEditor.apply();
+                 playerName = input.getText().toString();
                  toast.setText(getResources().getString(R.string.saved));
                  toast.show();
                  dialog.cancel();
