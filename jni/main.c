@@ -122,6 +122,7 @@ int main(int argc, char *argv[])
     //= malloc (sizeof(Shoot)) ;
     ListShoot * listShoot = malloc(sizeof(ListShoot)) ;
     EnemyShip * enemy = initialisationEnemyShip(*widthScreen,*heightScreen,0,1,200,(*widthScreen)/2,0,0);
+     __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Initialisation enemy");
     if(listShoot == NULL)
         return;
     
@@ -166,6 +167,7 @@ int main(int argc, char *argv[])
         __android_log_print(ANDROID_LOG_DEBUG, "moveMyShipGeneral",  "Vaisseau posX : %d posY :%d",  myShip->posX ,myShip->posY);
 
         drawMyShip(renderer , myShip);
+         __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "draw enemy");
         drawEnemyShip(renderer,enemy);
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderPresent(renderer);
