@@ -60,7 +60,7 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
     enemyShip->type = 0;
     enemyShip->typeMovement = typeMovement;
     enemyShip->cntFootStep = 0;
-    enemyShip->movementScheme = initializeMovementScheme(enemyShip->posX,enemyShip->posY,0,distance,typeMovement);
+    enemyShip->movementScheme = initializeMovementScheme(enemyShip->posX,enemyShip->posY,0,0,distance,verticalLine,typeMovement);
 
     enemyShip->repeatMovement = 0;
     enemyShip->frequencyOfShoot = 15;
@@ -181,7 +181,16 @@ void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int type
 
 void moveLittleEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen)
 {
-    return;
+    enemyShip->posY++;
+    if(enemyShip->cntFootStep %4 == 0)
+    {
+        enemyShip->posX = enemyShip->posX + (enemyShip->speed * enemyShip->verticalSide);
+    }
+    enemyShip->cntFootStep++;
+    
+    
+    
+    setVisibilityEnemy(enemyShip,widthScreen,heightScreen);
 }
     
 int  LittleEnemyShipCanShoot(EnemyShip * enemyShip)

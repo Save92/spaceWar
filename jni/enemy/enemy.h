@@ -30,6 +30,7 @@ struct EnemyShip
     int type;
     int typeMovement;
     int repeatMovement;
+    int visible;
     int frequencyOfShoot;
     int verticalSide;
     EnemyShip * nextEnemyShip;
@@ -37,12 +38,15 @@ struct EnemyShip
 
 
 void drawEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip);
-void moveEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen, double coef);
+void moveEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen);
 void freeEnemyShip(EnemyShip * enemyShip);
 Shoot * EnemyShipShoot(EnemyShip * enemyShip);
 EnemyShip * initialisationEnemyShip(int width,int height,int typeStart,int side,int distance,int verticalLine,int typeShip,int typeMovement);
 int canShoot(EnemyShip * enemyShip);
-
+void setVisibilityEnemy(EnemyShip * enemyShip,int widthScreen,int heightScreen);
+void moveEnemyShipVertically(EnemyShip * enemyShip,int widthScreen,int heightScreen);
+void moveEnemyShipZigZag(EnemyShip * enemyShip,int widthScreen,int heightScreen);
+void verifySideFromVerticalLine(EnemyShip * enemyShip);
 
 
 

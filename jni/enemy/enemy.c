@@ -28,14 +28,17 @@ void drawEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip)
     }
 }
 
-void moveEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen, double coef)
+void moveEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen)
 {
-    switch (enemyShip->type) {
-        case 0:
-            moveLittleEnemyShip(enemyShip,widthScreen,heightScreen);
+    switch (enemyShip->movementScheme->type) {
+        case 1:
+            moveEnemyShipVertically(enemyShip,widthScreen,heightScreen);
+            break;
+        case 2 :moveEnemyShipZigZag(enemyShip,widthScreen,heightScreen);
             break;
             
         default:
+            moveEnemyShipVertically(enemyShip,widthScreen,heightScreen);
             break;
     }
 }
@@ -94,6 +97,55 @@ int canShoot(EnemyShip * enemyShip)
     return canShoot;
     
 }
+
+void setVisibilityEnemy(EnemyShip * enemyShip,int widthScreen,int heightScreen)
+{
+    if(enemyShip != NULL)
+    {
+        
+        if(enemyShip->posY < 0 || enemyShip->posY > heightScreen || enemyShip->posX < 0 || enemyShip->posX > widthScreen)
+        {
+            enemyShip->visible = 0;
+        }
+    }
+}
+
+void moveEnemyShipVertically(EnemyShip * enemyShip,int widthScreen,int heightScreen)
+{
+    enemyShip->posY = enemyShip->posY + (1* enemyShip->speed);
+    setVisibilityEnemy(enemyShip,widthScreen,heightScreen);
+    
+}
+
+
+void moveEnemyShipZigZag(EnemyShip * enemyShip,int widthScreen,int heightScreen)
+{
+    verifySideFromVerticalLine(enemyShip);
+    enemyShip->posY = enemyShip->posY + (1 * enemyShip->speed);
+    if(enemyShip->cntFootStep % 4)
+    {
+        enemyShip->posX = enemyShip->posX + ( enemyShip->speed * enemyShip->verticalSide);
+    }
+    setVisibilityEnemy(enemyShip,widthScreen,heightScreen);
+    
+}
+
+void verifySideFromVerticalLine(EnemyShip * enemyShip)
+{
+    
+    int distance =  enemyShip->movementScheme->distanceFromVerticalLimit;
+    int verticalLine = enemyShip->movementScheme->verticalLimit;
+    
+
+    int actualDistance = (int)fabs(enemyShip->posX - verticalLine);
+    
+    int maxDistance = distance + enemyShip->speed;
+    int minDistance = distance - enemyShip->speed;
+    
+    if( maxDistance > actualDistance && actualDistance > minDistance)
+        enemyShip->verticalSide = (-1) * enemyShip->verticalSide;
+}
+
 
 
 

@@ -14,12 +14,14 @@
 
  
  
-MovementScheme * initializeMovementScheme(int startX,int startY,int distanceHorizontalLimit,int distanceFromVerticalLimit,int typeMovementScheme)
+MovementScheme * initializeMovementScheme(int startX,int startY,int distanceHorizontalLimit,int horizontalLimit,int distanceFromVerticalLimit,int verticalLimit,int typeMovementScheme)
 {
     MovementScheme * movementScheme = malloc(sizeof(MovementScheme));
     movementScheme->startX = startX;
     movementScheme->startY = startY;
     movementScheme->distanceFromHorizonalLimit = distanceHorizontalLimit;
     movementScheme->distanceFromVerticalLimit = distanceFromVerticalLimit;
+    movementScheme->horizontalLimit = horizontalLimit;
+    movementScheme->verticalLimit = verticalLimit;
     return movementScheme;
 }

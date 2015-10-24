@@ -21,11 +21,13 @@ typedef struct MovementScheme
     int startX;
     int startY;
     int distanceFromHorizonalLimit ;
+    int horizontalLimit;
     int distanceFromVerticalLimit ;
+    int verticalLimit;
     int type;
     
 } MovementScheme;
 
 
-MovementScheme * initializeMovementScheme(int startX,int startY,int distanceHorizontalLimit,int distanceFromVerticalLimit,int typeMovementScheme);
+MovementScheme * initializeMovementScheme(int startX,int startY,int distanceHorizontalLimit,int horizontalLimit,int distanceFromVerticalLimit,int verticalLimit,int typeMovementScheme);
 #endif /* movementScheme_h */
