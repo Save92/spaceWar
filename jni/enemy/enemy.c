@@ -14,6 +14,7 @@
 
 #include "enemy.h"
 #include "littleEnemyShip.h"
+#include "../general/constant.h"
 
 
 void drawEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip)
@@ -57,6 +58,7 @@ void freeEnemyShip(EnemyShip * enemyShip)
 
 EnemyShip * initialisationEnemyShip(int width,int height,int typeStart,int side,int distance,int verticalLine,int typeShip,int typeMovement)
 {
+    __android_log_print(ANDROID_LOG_DEBUG, "EnemyShip",   "initialisationEnemyShip"  );
 
     EnemyShip * enemyShip;
     switch(typeShip)
@@ -73,6 +75,7 @@ EnemyShip * initialisationEnemyShip(int width,int height,int typeStart,int side,
 
 Shoot * EnemyShipShoot(EnemyShip * enemyShip)
 {
+    __android_log_print(ANDROID_LOG_DEBUG, "EnemyShip",   "EnemyShipShoot"  );
     switch (enemyShip->type) {
         case 0: LittleEnemyShipShoot(enemyShip);
             break;
@@ -105,28 +108,33 @@ void setVisibilityEnemy(EnemyShip * enemyShip,int widthScreen,int heightScreen)
         
         if(enemyShip->posY < 0 || enemyShip->posY > heightScreen || enemyShip->posX < 0 || enemyShip->posX > widthScreen)
         {
-            enemyShip->visible = 0;
+            enemyShip->visible = INVISIBLE;
         }
     }
 }
 
 void moveEnemyShipVertically(EnemyShip * enemyShip,int widthScreen,int heightScreen)
 {
+    __android_log_print(ANDROID_LOG_DEBUG, "Enemy", "move vertically");
     enemyShip->posY = enemyShip->posY + (1* enemyShip->speed);
     setVisibilityEnemy(enemyShip,widthScreen,heightScreen);
+     enemyShip->cntFootStep++;
     
 }
 
 
 void moveEnemyShipZigZag(EnemyShip * enemyShip,int widthScreen,int heightScreen)
 {
+    __android_log_print(ANDROID_LOG_DEBUG, "Enemy", "move zig-zag");
     verifySideFromVerticalLine(enemyShip);
     enemyShip->posY = enemyShip->posY + (1 * enemyShip->speed);
-    if(enemyShip->cntFootStep % 4)
+    if(enemyShip->cntFootStep % 8 == 0)
     {
         enemyShip->posX = enemyShip->posX + ( enemyShip->speed * enemyShip->verticalSide);
     }
+    enemyShip->cntFootStep++;
     setVisibilityEnemy(enemyShip,widthScreen,heightScreen);
+    __android_log_print(ANDROID_LOG_DEBUG, "Enemy", "enemyShip Positon X : %d , Position Y : %d",enemyShip->posX,enemyShip->posY);
     
 }
 
@@ -135,15 +143,29 @@ void verifySideFromVerticalLine(EnemyShip * enemyShip)
     
     int distance =  enemyShip->movementScheme->distanceFromVerticalLimit;
     int verticalLine = enemyShip->movementScheme->verticalLimit;
+    int actualDistance = 0;
+    actualDistance = (int)fabs(enemyShip->posX - verticalLine);
+    
     
 
-    int actualDistance = (int)fabs(enemyShip->posX - verticalLine);
     
-    int maxDistance = distance + enemyShip->speed;
-    int minDistance = distance - enemyShip->speed;
     
-    if( maxDistance > actualDistance && actualDistance > minDistance)
-        enemyShip->verticalSide = (-1) * enemyShip->verticalSide;
+    int maxDistance = verticalLine + distance;
+    int minDistance =verticalLine - distance;
+    __android_log_print(ANDROID_LOG_DEBUG, "sideFromVerticalLine", "move zig-zag %d %d %d %d",actualDistance,distance,enemyShip->verticalSide,verticalLine);
+    if(enemyShip->posX < minDistance)
+    {
+        enemyShip->verticalSide = 1;
+    }
+    
+    if(enemyShip->posX >maxDistance)
+    {
+        enemyShip->verticalSide = -1;
+    }
+  
+    
+
+
 }
 
 

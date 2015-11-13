@@ -14,7 +14,7 @@
 #include <jni.h>
 #include <android/log.h>
 #include <stdlib.h>
-
+#include "constant.h"
 
 //DIRECTION SHOOT
 #define DIRECTION_VERTICAL 0
@@ -214,7 +214,7 @@ void setVisibility(Shoot * shoot,int widthScreen,int heightScreen)
     {
         if(shoot->posY < 0 || shoot->posY > heightScreen || shoot->posX < 0 || shoot->posX > widthScreen)
         {
-            shoot->visible = 0;
+            shoot->visible = INVISIBLE;
         }
     }
 }
@@ -264,7 +264,7 @@ void filterMyShoots(ListShoot * listShoot)
         if(previous->nextShoot == NULL)
         {
             __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG3"  );
-            if(previous->visible == 0)
+            if(previous->visible == INVISIBLE)
             {
                 __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG4"  );
                 FreeMyShoot(listShoot->start);
@@ -280,7 +280,7 @@ void filterMyShoots(ListShoot * listShoot)
             while(tmp != NULL)
             {
                 __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG6"  );
-                if(tmp->visible == 0)
+                if(tmp->visible == INVISIBLE)
                 {
                     __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG7"  );
                     Shoot * deletedShoot = tmp;

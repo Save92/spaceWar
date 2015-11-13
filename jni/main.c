@@ -10,7 +10,8 @@
 #include "./general/general.h"
 #include <math.h>
 #include <stdlib.h>
-
+#include "./enemy/squadron.h"
+#include "./general/game.h"
 
 
 float accelValues[3];
@@ -115,20 +116,22 @@ int main(int argc, char *argv[])
     int *widthScreen = malloc (sizeof(int));
     int *heightScreen = malloc (sizeof(int));
     SDL_GetWindowSize(window,widthScreen,heightScreen);
-    __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "02");
+
     UserShip * myShip = initialisationUserShip(*widthScreen,*heightScreen);
-    __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "01");
+
     drawMyShip(renderer , myShip);
     //= malloc (sizeof(Shoot)) ;
     ListShoot * listShoot = malloc(sizeof(ListShoot)) ;
-    EnemyShip * enemy = initialisationEnemyShip(*widthScreen,*heightScreen,0,1,200,(*widthScreen)/2,0,1);
-     __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Initialisation enemy");
+    
+    Game * game = initialisationOfTheGame( *widthScreen,*heightScreen);
+    
+
     if(listShoot == NULL)
         return;
     
     
     listShoot->size = 0;
-    __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "03");
+
     listShoot->start = NULL;
     /*listShoot->start = malloc(sizeof(listShoot));
     if(listShoot->start == NULL)
@@ -140,6 +143,7 @@ int main(int argc, char *argv[])
     Uint8 done = 0;
     SDL_Event event;
     SDL_PumpEvents();
+    
     
     while(!done)
     {
@@ -164,7 +168,7 @@ int main(int argc, char *argv[])
         moveAllMyShoots(listShoot,*widthScreen,*heightScreen);
      
         drawAllMyShoots(renderer,listShoot);
-        moveEnemyShip(enemy, *widthScreen, *heightScreen);
+        moveAllGame(game);
         moveMyShipGeneral(accelValues,SIZEACCELVALUES,myShip,*widthScreen,*heightScreen);
         
         __android_log_print(ANDROID_LOG_DEBUG, "moveMyShipGeneral",  "Vaisseau posX : %d posY :%d",  myShip->posX ,myShip->posY);
@@ -173,11 +177,11 @@ int main(int argc, char *argv[])
         
         __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "draw enemy");
         
-        drawEnemyShip(renderer,enemy);
+        drawGame(renderer,game);
         
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderPresent(renderer);
-        
+        removeNotVisibleSquadronFromGame(game);
         filterMyShoots(listShoot);
         
         __android_log_print(ANDROID_LOG_DEBUG, "stopFilter",  "Shots filtered");

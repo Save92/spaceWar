@@ -11,14 +11,30 @@
 
 #include <stdio.h>
 #include "./enemy.h"
-
-typedef struct Squadron
+#include "../SDL/src/core/android/SDL_android.h"
+#include "SDL.h"
+typedef struct Squadron Squadron;
+struct Squadron
 {
-    EnemyShip * nextEnemy;
+    EnemyShip * nextEnemyShip;
     int size;
-    int side;
+    int maxSize;
+    int visible;
+    int appearNext;
+    Squadron * nextSquadron;
     
-    
-} Squadron;
+};
+
+
+Squadron * initialisationSquadron(int maxSize);
+void addEnemyToSquadron(EnemyShip * enemy,Squadron * squadron);
+void removeNotVisibleEnemy(Squadron * squadron);
+void moveSquadron(Squadron * squadron,int width,int height);
+void drawMySquadron(SDL_Renderer* renderer , Squadron * squadron);
+int allVisible(Squadron * squadron);
+int sendNextSquadron(Squadron * squadron,int width,int height);
+void freeSquadron(Squadron * squadron);
+EnemyShip * getlastEnemyShip(Squadron * squadron);
+
 
 #endif /* squadron_h */

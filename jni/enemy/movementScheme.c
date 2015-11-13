@@ -23,5 +23,6 @@ MovementScheme * initializeMovementScheme(int startX,int startY,int distanceHori
     movementScheme->distanceFromVerticalLimit = distanceFromVerticalLimit;
     movementScheme->horizontalLimit = horizontalLimit;
     movementScheme->verticalLimit = verticalLimit;
+    movementScheme->type = typeMovementScheme;
     return movementScheme;
 }

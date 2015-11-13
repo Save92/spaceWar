@@ -12,7 +12,8 @@
 #include <jni.h>
 #include <stdlib.h>
 #include <math.h>
-
+#include <android/log.h>
+#include "../general/constant.h"
 
 
 
@@ -39,7 +40,7 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
 
     enemyShip->posX = rectangle->x;
     enemyShip->posY = rectangle->y;
-    enemyShip->speed = 10;
+    enemyShip->speed = 2;
     enemyShip->color[0] = 106;
     enemyShip->color[1] = 98;
     enemyShip->color[2] = 81;
@@ -65,6 +66,10 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
     enemyShip->repeatMovement = 0;
     enemyShip->frequencyOfShoot = 15;
     enemyShip->verticalSide = side;
+    enemyShip->nextEnemyShip = NULL;
+    enemyShip->visible = VISIBLE;
+
+
     
 
 }
@@ -75,11 +80,12 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
 void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int typeStart,int side)
 {
     int gap = 0;
+    __android_log_print(ANDROID_LOG_DEBUG, "Start", "typeStart : %d , side : %d",typeStart,side);
     switch(typeStart)
     {
         case TOP_SCREEN :
             gap = width/8;
-            if(side = 1)
+            if(side == 1)
             {
                 
                 enemyShip->rectangle->x = width/2 - gap;
@@ -99,7 +105,7 @@ void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int type
             
         case TOP_SIDE_SCREEN :
             gap = width/6;
-            if(side = 1)
+            if(side == 1)
             {
                 
                 enemyShip->rectangle->x = width/2 - gap;
@@ -118,7 +124,8 @@ void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int type
             break;
             
         case TOP_MIDDLE_SIDE_SCREEN :
-            if(side = 1)
+            gap = width/4;
+            if(side == 1)
             {
                 
                 enemyShip->rectangle->x = width/2 - gap;
@@ -138,7 +145,7 @@ void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int type
             
         case TOP_EXTREME_SIDE_SCREEN:
             gap = width/2 - 30;
-            if(side = 1)
+            if(side == 1)
             {
                 
                 enemyShip->rectangle->x = width/2 - gap;
@@ -158,7 +165,7 @@ void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int type
             
         case EXTREME_SIDE_SCREEN:
             gap = 30;
-            if(side = 1)
+            if(side == 1)
             {
                 
                 enemyShip->rectangle->x = 0;
