@@ -13,7 +13,7 @@
 
 void addHistory(History * history,StackHistory * stackHistory)
 {
-    __android_log_print(ANDROID_LOG_DEBUG, "StackHistory",   "addHistory"  );
+   // __android_log_print(ANDROID_LOG_DEBUG, "StackHistory",   "addHistory"  );
     if(stackHistory->size == 0)
     {
         stackHistory->head = history;
@@ -24,13 +24,13 @@ void addHistory(History * history,StackHistory * stackHistory)
         stackHistory->head = history;
     }
     stackHistory->size++;
-    __android_log_print(ANDROID_LOG_DEBUG, "StackHistory",   "End addHistory"  );
+   // __android_log_print(ANDROID_LOG_DEBUG, "StackHistory",   "End addHistory"  );
 }
 
 
  StackHistory  * getHeads(StackHistory * stackHistory,int n)
 {
-     __android_log_print(ANDROID_LOG_DEBUG, "StackHistory",   "getHeads"  );
+    // __android_log_print(ANDROID_LOG_DEBUG, "StackHistory",   "getHeads"  );
     int i = 0 ;
     StackHistory * stackCopy = initializeStackHistory();
     stackCopy->size = 0;
@@ -39,10 +39,10 @@ void addHistory(History * history,StackHistory * stackHistory)
     History * indexNewStack;
     History * previousIndexNewStack;
    
-    __android_log_print(ANDROID_LOG_DEBUG, "StackHistory",   "size %d",  stackHistory->size );
+  //  __android_log_print(ANDROID_LOG_DEBUG, "StackHistory",   "size %d",  stackHistory->size );
     if(stackHistory->size > 0)
     {
-        __android_log_print(ANDROID_LOG_DEBUG, "StackHistory",   "Empty stack");
+   //     __android_log_print(ANDROID_LOG_DEBUG, "StackHistory",   "Empty stack");
         return stackCopy;
     }
     else
@@ -63,32 +63,32 @@ void addHistory(History * history,StackHistory * stackHistory)
         if(previousIndexNewStack)
             previousIndexNewStack->nextHistory = NULL;
     }
-    __android_log_print(ANDROID_LOG_DEBUG, "StackHistory",   "END getHeads"  );
+   // __android_log_print(ANDROID_LOG_DEBUG, "StackHistory",   "END getHeads"  );
         return stackCopy;
 }
 
 History * copyHistory(History history)
 {
-     __android_log_print(ANDROID_LOG_DEBUG, "History",   "copyHistory"  );
+   //  __android_log_print(ANDROID_LOG_DEBUG, "History",   "copyHistory"  );
     History * copyHistory = initializeHistory(history.LastPosStart,history.LastSide,history.LastDistance,history.LastverticalLine,history.LastypeShip,history.LastTypeMovement);
-    __android_log_print(ANDROID_LOG_DEBUG, "History",   "END copyHistory"  );
+  //  __android_log_print(ANDROID_LOG_DEBUG, "History",   "END copyHistory"  );
     return copyHistory;
 }
 
 StackHistory * initializeStackHistory()
 {
-    __android_log_print(ANDROID_LOG_DEBUG, "StackHistory",   "InitializeStackHistory"  );
+  //  __android_log_print(ANDROID_LOG_DEBUG, "StackHistory",   "InitializeStackHistory"  );
     StackHistory * stack = malloc(sizeof(StackHistory));
     stack->size = 0;
     stack->head = NULL;
-    __android_log_print(ANDROID_LOG_DEBUG, "StackHistory",   "END InitializeStackHistory"  );
+   // __android_log_print(ANDROID_LOG_DEBUG, "StackHistory",   "END InitializeStackHistory"  );
     return stack;
 }
 
 
 History * initializeHistory(int LastPosStart,int  LastSide,int  LastDistance,int  LastverticalLine,int  LastypeShip,int  LastTypeMovement)
 {
-     __android_log_print(ANDROID_LOG_DEBUG, "History",   "initializeHistory"  );
+  //   __android_log_print(ANDROID_LOG_DEBUG, "History",   "initializeHistory"  );
     History * newHistory = malloc(sizeof(History));
     newHistory->LastPosStart = LastPosStart;
     newHistory->LastSide = LastSide;
@@ -97,7 +97,7 @@ History * initializeHistory(int LastPosStart,int  LastSide,int  LastDistance,int
     newHistory->LastypeShip = LastypeShip;
     newHistory->LastTypeMovement = LastTypeMovement;
     newHistory->nextHistory = NULL;
-      __android_log_print(ANDROID_LOG_DEBUG, "History",   "END initializeHistory"  );
+   //   __android_log_print(ANDROID_LOG_DEBUG, "History",   "END initializeHistory"  );
     return newHistory;
     
 }

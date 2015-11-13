@@ -161,10 +161,8 @@ int allVisible(Squadron * squadron)
     {
         
         EnemyShip * enemy;
-          __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "AllVisible FL1"   );
-
         enemy = squadron->nextEnemyShip;
-        __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "AllVisible FL2"   );
+
 
         while(enemy)
         {
@@ -186,7 +184,9 @@ int allVisible(Squadron * squadron)
 int sendNextSquadron(Squadron * squadron,int width,int height)
 {
      __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "sendNextSquadron"  );
-    if(allVisible(squadron) == TRUE && squadron->appearNext == FALSE)
+    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "appearNext %d", squadron->appearNext);
+    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "allVisible %d", allVisible(squadron));
+    if(squadron->appearNext == FALSE && allVisible(squadron) == TRUE )
     {
         EnemyShip * enemy;
         enemy = (*squadron).nextEnemyShip;

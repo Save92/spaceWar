@@ -133,11 +133,7 @@ int main(int argc, char *argv[])
     listShoot->size = 0;
 
     listShoot->start = NULL;
-    /*listShoot->start = malloc(sizeof(listShoot));
-    if(listShoot->start == NULL)
-        return;
-     */
-
+ 
 
     /* Main render loop */
     Uint8 done = 0;
@@ -163,7 +159,7 @@ int main(int argc, char *argv[])
                 done = 1;
             }
         }
-        __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Android_JNI_GetAccelerometerValues");
+     //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Android_JNI_GetAccelerometerValues");
         Android_JNI_GetAccelerometerValues(accelValues);
         moveAllMyShoots(listShoot,*widthScreen,*heightScreen);
      
@@ -171,20 +167,20 @@ int main(int argc, char *argv[])
         moveAllGame(game);
         moveMyShipGeneral(accelValues,SIZEACCELVALUES,myShip,*widthScreen,*heightScreen);
         
-        __android_log_print(ANDROID_LOG_DEBUG, "moveMyShipGeneral",  "Vaisseau posX : %d posY :%d",  myShip->posX ,myShip->posY);
+     //   __android_log_print(ANDROID_LOG_DEBUG, "moveMyShipGeneral",  "Vaisseau posX : %d posY :%d",  myShip->posX ,myShip->posY);
 
         drawMyShip(renderer , myShip);
         
-        __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "draw enemy");
+     //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "draw enemy");
         
         drawGame(renderer,game);
         
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderPresent(renderer);
-        removeNotVisibleSquadronFromGame(game);
+       // removeNotVisibleSquadronFromGame(game);
         filterMyShoots(listShoot);
         
-        __android_log_print(ANDROID_LOG_DEBUG, "stopFilter",  "Shots filtered");
+      //  __android_log_print(ANDROID_LOG_DEBUG, "stopFilter",  "Shots filtered");
     }
     freeShip(myShip);
     exit(0);
