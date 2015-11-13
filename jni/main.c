@@ -86,7 +86,50 @@ Sprite LoadSprite(const char* file, SDL_Renderer* renderer)
     return result;
 }
 
+int checkCollisions(SDL_Rect a, SDL_Rect b) {
+    //The sides of the rectangles
+    int leftA, leftB;
+    int rightA, rightB;
+    int topA, topB;
+    int bottomA, bottomB;
 
+    //Calculate the sides of rect A
+    leftA = a.x;
+    rightA = a.x + a.w;
+    topA = a.y;
+    bottomA = a.y + a.h;
+
+    //Calculate the sides of rect B
+    leftB = b.x;
+    rightB = b.x + b.w;
+    topB = b.y;
+    bottomB = b.y + b.h;
+
+
+    //If any of the sides from A are outside of B
+    if( bottomA <= topB )
+    {
+        return 0;
+    }
+
+    if( topA >= bottomB )
+    {
+        return 0;
+    }
+
+    if( rightA <= leftB )
+    {
+        return 0;
+    }
+
+    if( leftA >= rightB )
+    {
+        return 0;
+    }
+
+    //If none of the sides from A are outside B
+    return 1;
+}
 
 
 
@@ -159,6 +202,15 @@ int main(int argc, char *argv[])
                 done = 1;
             }
         }
+        /*int i = listShoot->size;
+
+        for(i > 0; i -= 1) {
+            if(checkCollisions(enemy->rectangle, listShoot->start->rectangle) == 1) {
+                __android_log_print(ANDROID_LOG_DEBUG, "EnemyShip", "BOOOOOOMMMMM COLISIONN!");
+            }
+        }*/
+        
+
         __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Android_JNI_GetAccelerometerValues");
         Android_JNI_GetAccelerometerValues(accelValues);
         moveAllMyShoots(listShoot,*widthScreen,*heightScreen);
