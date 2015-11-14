@@ -46,7 +46,7 @@ Game *  initialisationOfTheGame(int width,int height)
 
 void eventCheckCollisionUserShipEnnemyShoot(Game * game) {
 
-    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "CHECK eventCheckCollisionUserShipEnnemyShoot!!!_______________________________");
+   // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "CHECK eventCheckCollisionUserShipEnnemyShoot!!!_______________________________");
     Shoot * indexList = game->listShootEnnemy->start;
 
     Shoot *tmp = indexList;
@@ -55,7 +55,8 @@ void eventCheckCollisionUserShipEnnemyShoot(Game * game) {
         indexList = tmp;
 
         if (checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE) {
-            __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR ENNEMIE !!! BOOOOOOOMMMMMM!!!!!"  );
+            //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR ENNEMIE !!! BOOOOOOOMMMMMM!!!!!"  );
+            game->myShip->life -= 1;
             indexList->visible = INVISIBLE;
         }
         tmp = tmp->nextShoot;
@@ -63,7 +64,7 @@ void eventCheckCollisionUserShipEnnemyShoot(Game * game) {
 }
 
 void eventCheckCollisionUserShipEnnemyShip(Game * game) {
-     __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "CHECK eventCheckCollisionUserShipEnnemyShip!!!_______________________________");
+    // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "CHECK eventCheckCollisionUserShipEnnemyShip!!!_______________________________");
    
     Squadron * indexSquadron = game->nextSquadron;
 
@@ -79,8 +80,15 @@ void eventCheckCollisionUserShipEnnemyShip(Game * game) {
             indexList = tmp;
 
             if (checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE) {
-                __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "VAISSEAUX SE RENTRE DEDANS! BOOOOOOOMMMMMM!!!!!"  );
-                indexList->visible = INVISIBLE;
+                //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "VAISSEAUX SE RENTRE DEDANS! BOOOOOOOMMMMMM!!!!!"  );
+                indexList->life -= 1;
+                if (indexList->life == 0) {
+                    indexList->visible = INVISIBLE;
+                } 
+                game->myShip->life -= 1;
+
+                // game->myShip->visible = INVISIBLE;
+                // indexList->visible = INVISIBLE;
             }
             tmp = tmp->nextEnemyShip;
         }
@@ -113,10 +121,13 @@ void eventCheckCollisionUserShipShootEnnemy(Game * game) {
             {
                 indexListShoot = tmpShoot;
 
-                __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR ENNEMIE !!! Pas touche"  );
+                __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR  !!! Pas touche"  );
                 if (checkCollision(*(indexList->rectangle), *(indexListShoot->rectangle), indexListShoot->speed) == TRUE) {
-                    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR ENNEMIE !!! BOOOOOOOMMMMMM!!!!!"  );
-                    indexList->visible = INVISIBLE;
+                    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR !!! BOOOOOOOMMMMMM!!!!!"  );
+                    indexList->life -= 1;
+                    if (indexList->life == 0) {
+                        indexList->visible = INVISIBLE;
+                    }
                     indexListShoot->visible = INVISIBLE;
                 }
                 tmpShoot = tmpShoot->nextShoot;
@@ -239,39 +250,39 @@ void removeNotVisibleSquadronFromGame(Game * game)
  //   __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "removeNotVisibleSquadronFromGame"  );
     Squadron  *tmp;
     Squadron  *previous;
-    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG1"  );
+    //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG1"  );
     if(game != NULL && game->nextSquadron != NULL)
     {
-        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG2"  );
+       // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG2"  );
         previous = game->nextSquadron;
         if(previous->nextSquadron == NULL)
         {
-            __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG3"  );
+           // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG3"  );
             if(previous->visible == 0)
             {
-                __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG4"  );
+             //   __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG4"  );
                 freeSquadron(game->nextSquadron);
                 game->nextSquadron = NULL;
             }
         }
         else
         {
-            __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG5"  );
+           // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG5"  );
             tmp = previous;
             previous = NULL;
             
             while(tmp != NULL)
             {
-                __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG6"  );
+              //  __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG6"  );
                 if(tmp->visible == 0)
                 {
-                    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG7"  );
+                  //  __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG7"  );
                     Squadron * deletedSquadron = tmp;
                     
                     tmp = tmp->nextSquadron;
                     if(previous == NULL)
                     {
-                        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG8"  );
+                    //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG8"  );
                         game->nextSquadron = tmp;
                     }
                     else
@@ -284,7 +295,7 @@ void removeNotVisibleSquadronFromGame(Game * game)
                 }
                 else
                 {
-                    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG9"  );
+                    //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG9"  );
                     previous = tmp;
                     tmp= tmp->nextSquadron;
                 }
@@ -331,7 +342,7 @@ void  createNextSquadron(Game * game)
     }
     else
     {
-        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "IMPAIRE"  );
+       // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "IMPAIRE"  );
 
       //  addEnemyFromHistory(game);
         
@@ -467,29 +478,29 @@ int checkCollision(SDL_Rect a, SDL_Rect b, int speed )
  //If any of the sides from A are outside of B
     if( bottomA <= topB+speed)
     {
-        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "botA : %d <= topB : %d", bottomA,  topB);
+       // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "botA : %d <= topB : %d", bottomA,  topB);
         return FALSE;
     }
 
     if( topA + speed>= bottomB )
     {
 
-        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "totA : %d <= bptB : %d", topA,  bottomB);
+        //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "totA : %d <= bptB : %d", topA,  bottomB);
         return FALSE;
     }
 
     if( rightA <= leftB )
     {
 
-        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "rightA : %d <= leftB : %d", rightA,  leftB);
+        //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "rightA : %d <= leftB : %d", rightA,  leftB);
         return FALSE;
     }
 
     if( leftA >= rightB )
     {
-        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "leftA >= rightB"  );
+        //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "leftA >= rightB"  );
 
-        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "leftA : %d <= rightB : %d", leftA,  rightB);
+        //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "leftA : %d <= rightB : %d", leftA,  rightB);
         return FALSE;
     }
 
