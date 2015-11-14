@@ -56,7 +56,6 @@ void eventCheckCollisionUserShipEnnemyShoot(Game * game) {
 
         if (checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE) {
             __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR ENNEMIE !!! BOOOOOOOMMMMMM!!!!!"  );
-            game->myShip->visible = INVISIBLE;
             indexList->visible = INVISIBLE;
         }
         tmp = tmp->nextShoot;
@@ -81,7 +80,6 @@ void eventCheckCollisionUserShipEnnemyShip(Game * game) {
 
             if (checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE) {
                 __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "VAISSEAUX SE RENTRE DEDANS! BOOOOOOOMMMMMM!!!!!"  );
-                game->myShip->visible = INVISIBLE;
                 indexList->visible = INVISIBLE;
             }
             tmp = tmp->nextEnemyShip;
