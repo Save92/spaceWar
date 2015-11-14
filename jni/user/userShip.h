@@ -21,6 +21,7 @@ typedef struct UserShip
     SDL_Rect *rectangle;
     int shotLevel;
 
+
     
 } UserShip;
 
