@@ -103,7 +103,7 @@ int canShoot(EnemyShip * enemyShip)
 
 void setVisibilityEnemy(EnemyShip * enemyShip,int widthScreen,int heightScreen)
 {
-    if(enemyShip != NULL)
+    if(enemyShip != NULL )
     {
         
         if(enemyShip->posY < 0 || enemyShip->posY > heightScreen || enemyShip->posX < 0 || enemyShip->posX > widthScreen)

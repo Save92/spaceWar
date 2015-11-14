@@ -20,6 +20,8 @@ typedef struct UserShip
     int color[4];
     SDL_Rect *rectangle;
     int shotLevel;
+
+    
 } UserShip;
 
 
@@ -29,6 +31,8 @@ void moveMyShipGeneral(float * accelValues,int SIZEACCELVALUES,UserShip * myShip
 
 void freeShip(UserShip * myShip);
 UserShip * initialisationUserShip();
+void moveMyShipGeneral(float * accelValues,int SIZEACCELVALUES,UserShip * myShip,int widthScreen,int heightScreen);
+int userShipIsAlive(UserShip * userShip);
 
 
 #endif /* defined(____userShip__) */

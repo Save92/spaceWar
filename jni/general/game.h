@@ -52,6 +52,7 @@ void addNewEnemy(Game * game,Squadron * squadron);
 void addEnemyFromHistory(Game * game);
 
 Squadron * getLastSquadron(Game * game);
+int my_rand();
 
 int checkCollision(SDL_Rect a, SDL_Rect b,int speed );
 void eventCheckCollisionUserShipEnnemyShoot(Game * game);

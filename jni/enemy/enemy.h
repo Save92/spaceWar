@@ -33,6 +33,7 @@ struct EnemyShip
     int visible;
     int frequencyOfShoot;
     int verticalSide;
+    
     EnemyShip * nextEnemyShip;
 };
 
