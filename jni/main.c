@@ -117,22 +117,22 @@ int main(int argc, char *argv[])
     int *heightScreen = malloc (sizeof(int));
     SDL_GetWindowSize(window,widthScreen,heightScreen);
 
-    UserShip * myShip = initialisationUserShip(*widthScreen,*heightScreen);
+    //UserShip * myShip = initialisationUserShip(*widthScreen,*heightScreen);
 
-    drawMyShip(renderer , myShip);
+    //drawMyShip(renderer , myShip);
     //= malloc (sizeof(Shoot)) ;
-    ListShoot * listShoot = malloc(sizeof(ListShoot)) ;
+    //ListShoot * listShoot = malloc(sizeof(ListShoot)) ;
     
     Game * game = initialisationOfTheGame( *widthScreen,*heightScreen);
-    
+    drawMyShip(renderer , game->myShip);
 
-    if(listShoot == NULL)
-        return;
+    // if(listShoot == NULL)
+    //     return;
     
     
-    listShoot->size = 0;
+    // listShoot->size = 0;
 
-    listShoot->start = NULL;
+    // listShoot->start = NULL;
  
 
     /* Main render loop */
@@ -151,8 +151,8 @@ int main(int argc, char *argv[])
         {
             if(event.type == SDL_FINGERDOWN){
                 __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "SLD_FINGERDOWN");
-                UserShipShoot(*myShip,listShoot);
-                  __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Ship position PosX : %d , PosY : %d",(*listShoot->start).posX,(*listShoot->start).posY);
+                UserShipShoot(*(game->myShip),game->listShootUser);
+                 // __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Ship position PosX : %d , PosY : %d",(*listShoot->start).posX,(*listShoot->start).posY);
                 
                 
             } else if (event.type == SDL_KEYDOWN) {
@@ -161,15 +161,13 @@ int main(int argc, char *argv[])
         }
      //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Android_JNI_GetAccelerometerValues");
         Android_JNI_GetAccelerometerValues(accelValues);
-        moveAllMyShoots(listShoot,*widthScreen,*heightScreen);
      
-        drawAllMyShoots(renderer,listShoot);
         moveAllGame(game);
-        moveMyShipGeneral(accelValues,SIZEACCELVALUES,myShip,*widthScreen,*heightScreen);
+        moveMyShipGeneral(accelValues,SIZEACCELVALUES,game->myShip,*widthScreen,*heightScreen);
         
      //   __android_log_print(ANDROID_LOG_DEBUG, "moveMyShipGeneral",  "Vaisseau posX : %d posY :%d",  myShip->posX ,myShip->posY);
 
-        drawMyShip(renderer , myShip);
+        
         
      //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "draw enemy");
         
@@ -178,10 +176,10 @@ int main(int argc, char *argv[])
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderPresent(renderer);
        // removeNotVisibleSquadronFromGame(game);
-        filterMyShoots(listShoot);
+        filterMyShoots(game->listShootUser);
         
       //  __android_log_print(ANDROID_LOG_DEBUG, "stopFilter",  "Shots filtered");
     }
-    freeShip(myShip);
+    freeShip(game->myShip);
     exit(0);
 }

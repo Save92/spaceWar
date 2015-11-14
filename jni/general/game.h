@@ -13,6 +13,8 @@
 
 #include "../enemy/squadron.h"
 #include "../enemy/positionHistory.h"
+#include "../user/UserShip.h"
+#include "./shoot.h"
 
 typedef struct Game Game;
 struct Game
@@ -27,7 +29,9 @@ struct Game
     int history;
     int tempsActuel;
     int tempsPrecedent;
-    
+    UserShip * myShip;
+    ListShoot * listShootUser;
+    ListShoot * listShootEnnemy;
     
     
     int cntInLastSquadron;
@@ -47,6 +51,8 @@ void addNewEnemy(Game * game,Squadron * squadron);
 void addEnemyFromHistory(Game * game);
 
 Squadron * getLastSquadron(Game * game);
+
+int checkCollision(SDL_Rect a, SDL_Rect b);
 
 
 #endif /* game_h */

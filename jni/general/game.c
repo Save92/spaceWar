@@ -31,13 +31,51 @@ Game *  initialisationOfTheGame(int width,int height)
     game->stack = initializeStackHistory();
     game->tempsActuel = SDL_GetTicks();
     game->tempsPrecedent = 0;
+    game->myShip = initialisationUserShip(width,height); 
+    game->listShootUser = malloc(sizeof(ListShoot));
+    game->listShootUser->size = 0;
+    game->listShootUser->start = NULL;
+    game->listShootEnnemy = malloc(sizeof(ListShoot));
+    game->listShootEnnemy->size = 0;
+    game->listShootEnnemy->start = NULL;
+    
     return game;
 
 }
 
+void eventCheckCollisionUserShipEnnemy(Game * game) {
+    Shoot * indexList = game->listShootEnnemy->start;
+
+    Shoot *tmp = indexList;
+    while(tmp)
+    {
+        indexList = tmp;
+
+        if (checkCollision(*(game->myShip->rectangle), *(indexList->rectangle)) == TRUE) {
+            __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "BOOOOOOOMMMMMM!!!!!"  );
+        }
+        tmp = tmp->nextShoot;
+    }
+}
+
+void eventCheckCollision(Game * game) {
+    // Test pour les collisions
+    if (game->size > 0) {
+        // if (game->myShip->alive() == 1)
+        // {
+            
+            eventCheckCollisionUserShipEnnemy(game)
+        //}
+    }
+}
 
 void  moveAllGame(Game * game)
 {
+
+    moveAllMyShoots(game->listShootUser,game->width,game->height);
+    
+
+
     game->tempsActuel = SDL_GetTicks();
    // __android_log_print(ANDROID_LOG_DEBUG, "GAME", "moveAllGame ");
     if(game->size == 0)
@@ -76,6 +114,8 @@ void  moveAllGame(Game * game)
 
 void  drawGame(SDL_Renderer* renderer ,Game * game)
 {
+    drawAllMyShoots(renderer,game->listShootUser);
+    drawMyShip(renderer , game->myShip);
    //  __android_log_print(ANDROID_LOG_DEBUG, "GAME", "drawGame ");
     if(game->size > 0)
     {
@@ -317,6 +357,50 @@ void addEnemyFromHistory(Game * game)
     
     game->history++;
   //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "END addEnemyFromHistory"  );
+}
+
+int checkCollision(SDL_Rect a, SDL_Rect b )
+{
+    //The sides of the rectangles
+    int leftA, leftB;
+    int rightA, rightB;
+    int topA, topB;
+    int bottomA, bottomB;
+
+    //Calculate the sides of rect A
+    leftA = a.x;
+    rightA = a.x + a.w;
+    topA = a.y;
+    bottomA = a.y + a.h;
+
+    //Calculate the sides of rect B
+    leftB = b.x;
+    rightB = b.x + b.w;
+    topB = b.y;
+    bottomB = b.y + b.h;
+ //If any of the sides from A are outside of B
+    if( bottomA <= topB )
+    {
+        return FALSE;
+    }
+
+    if( topA >= bottomB )
+    {
+        return FALSE;
+    }
+
+    if( rightA <= leftB )
+    {
+        return FALSE;
+    }
+
+    if( leftA >= rightB )
+    {
+        return FALSE;
+    }
+
+    //If none of the sides from A are outside B
+    return TRUE;
 }
 
 Squadron * getLastSquadron(Game * game)
