@@ -32,10 +32,10 @@ void drawEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip)
 void moveEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen)
 {
     switch (enemyShip->movementScheme->type) {
-        case 1:
+        case 0:
             moveEnemyShipVertically(enemyShip,widthScreen,heightScreen);
             break;
-        case 2 :moveEnemyShipZigZag(enemyShip,widthScreen,heightScreen);
+        case 1 :moveEnemyShipZigZag(enemyShip,widthScreen,heightScreen);
             break;
             
         default:

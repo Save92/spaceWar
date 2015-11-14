@@ -174,7 +174,7 @@ eventCheckCollision(game);
         int index = 0;
         while(tmp && index < size)
         {
-            if(game->tempsActuel - game->tempsPrecedent > 300)
+            if(game->tempsActuel - game->tempsPrecedent > 600)
             {
                 createNextSquadron(game);
                 game->tempsPrecedent = game->tempsActuel;
@@ -373,7 +373,7 @@ void addNewEnemy(Game * game,Squadron * squadron)
 {
     // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "addNewEnemy"  );
     int side = 0;
-    int posStart = my_rand()% MaxEnemy; //A modifier pour mettre probabilité par lot (Loto)
+    int posStart = 1; //A modifier pour mettre probabilité par lot (Loto)
     
     int tempDividendeDistance = my_rand() % MaxEnemy ;
     if(tempDividendeDistance == 0)
@@ -383,7 +383,7 @@ void addNewEnemy(Game * game,Squadron * squadron)
     int dividende = my_rand() % 8;
     if(dividende == 0)
         dividende++;
-    int verticalLine = game->width/dividende;
+    int verticalLine = game->width/2;
     if(my_rand()%2 == 0)
     {
         side = 1;
