@@ -146,10 +146,6 @@ void verifySideFromVerticalLine(EnemyShip * enemyShip)
     int actualDistance = 0;
     actualDistance = (int)fabs(enemyShip->posX - verticalLine);
     
-    
-
-    
-    
     int maxDistance = verticalLine + distance;
     int minDistance =verticalLine - distance;
   //  __android_log_print(ANDROID_LOG_DEBUG, "sideFromVerticalLine", "move zig-zag %d %d %d %d",actualDistance,distance,enemyShip->verticalSide,verticalLine);
@@ -163,9 +159,14 @@ void verifySideFromVerticalLine(EnemyShip * enemyShip)
         enemyShip->verticalSide = -1;
     }
   
-    
+}
 
-
+int enemyShipIsAlive(EnemyShip * enemyShip)
+{
+    if(enemyShip->life == 0)
+        return TRUE;
+    else
+        return FALSE;
 }
 
 

@@ -40,7 +40,7 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
 
     enemyShip->posX = rectangle->x;
     enemyShip->posY = rectangle->y;
-    enemyShip->speed = 2;
+    enemyShip->speed = 1;
     enemyShip->color[0] = 106;
     enemyShip->color[1] = 98;
     enemyShip->color[2] = 81;

@@ -178,7 +178,7 @@ void  createNextSquadron(Game * game)
     {
         __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "PAIRE"  );
         int nombre_aleatoire = 0;
-        nombre_aleatoire = rand();
+        nombre_aleatoire = rand()*1000;
         int nbrEnnemy =nombre_aleatoire % MaxEnemy;
         if(nbrEnnemy == 0)
             nbrEnnemy++;
@@ -211,9 +211,9 @@ void  createNextSquadron(Game * game)
       //  addEnemyFromHistory(game);
         
         
-       /*
+       
         int nombre_aleatoire = 0;
-        nombre_aleatoire = rand();
+        nombre_aleatoire = rand() * 1000;
         int nbrEnnemy =nombre_aleatoire % MaxEnemy;
         if(nbrEnnemy == 0)
             nbrEnnemy++;
@@ -239,7 +239,7 @@ void  createNextSquadron(Game * game)
         }
         
         game->cntInLastSquadron = nbrEnnemy;
-        */
+        
     }
     game->size++;
 }
