@@ -37,6 +37,8 @@ struct EnemyShip
 };
 
 
+
+
 void drawEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip);
 void moveEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen);
 void freeEnemyShip(EnemyShip * enemyShip);
@@ -47,6 +49,9 @@ void setVisibilityEnemy(EnemyShip * enemyShip,int widthScreen,int heightScreen);
 void moveEnemyShipVertically(EnemyShip * enemyShip,int widthScreen,int heightScreen);
 void moveEnemyShipZigZag(EnemyShip * enemyShip,int widthScreen,int heightScreen);
 void verifySideFromVerticalLine(EnemyShip * enemyShip);
+int enemyShipIsAlive(EnemyShip * enemyShip);
+
+
 
 
 
