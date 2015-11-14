@@ -13,15 +13,19 @@
 #include <jni.h>
 #include <stdlib.h>
 #include <math.h>
+#include "../general/constant.h"
 
 void drawMyShip(SDL_Renderer* renderer , UserShip * myShip)
 {
-    myShip->rectangle->x = myShip->posX;
-    myShip->rectangle->y = myShip->posY;
-    myShip->rectangle->w = 50;
-    myShip->rectangle->h = 50;
-    SDL_SetRenderDrawColor(renderer, myShip->color[0], myShip->color[1], myShip->color[2], myShip->color[3]);
-    SDL_RenderFillRect(renderer, (myShip->rectangle));
+    if(myShip->life > 0)
+    {
+        myShip->rectangle->x = myShip->posX;
+        myShip->rectangle->y = myShip->posY;
+        myShip->rectangle->w = 50;
+        myShip->rectangle->h = 50;
+        SDL_SetRenderDrawColor(renderer, myShip->color[0], myShip->color[1], myShip->color[2], myShip->color[3]);
+        SDL_RenderFillRect(renderer, (myShip->rectangle));
+    }
 }
 
 void moveMyShip(UserShip * myShip,int TypeMove,int widthScreen, int heightScreen, double coef)
@@ -140,5 +144,14 @@ UserShip * initialisationUserShip(int width,int height)
     return myShip;
 
 }
+
+int userShipIsAlive(UserShip * userShip)
+{
+    if(userShip->life == 0)
+        return FALSE;
+    return TRUE;
+}
+
+
 
 

@@ -47,6 +47,7 @@ void addNewEnemy(Game * game,Squadron * squadron);
 void addEnemyFromHistory(Game * game);
 
 Squadron * getLastSquadron(Game * game);
+int my_rand();
 
 
 #endif /* game_h */

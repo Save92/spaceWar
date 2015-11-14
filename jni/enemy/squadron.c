@@ -58,39 +58,39 @@ void removeNotVisibleEnemy(Squadron * squadron)
     {
         EnemyShip  *tmp;
         EnemyShip  *previous;
-        __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG1"  );
+        __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG1"  );
         if(squadron != NULL && squadron->nextEnemyShip != NULL)
         {
-            __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG2"  );
+            __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG2"  );
             previous = squadron->nextEnemyShip;
             if(previous->nextEnemyShip == NULL)
             {
-                __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG3"  );
+                __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG3"  );
                 if(previous->visible == INVISIBLE)
                 {
-                    __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG4"  );
+                    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG4"  );
                     freeEnemyShip(squadron->nextEnemyShip);
                     squadron->nextEnemyShip = NULL;
                 }
             }
             else
             {
-                __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG5"  );
+                __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG5"  );
                 tmp = previous;
                 previous = NULL;
                 
                 while(tmp != NULL)
                 {
-                    __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG6"  );
+                    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG6"  );
                     if(tmp->visible == INVISIBLE)
                     {
-                        __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG7"  );
+                        __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG7"  );
                         EnemyShip * deletedEnemy = tmp;
                         
                         tmp = tmp->nextEnemyShip;
                         if(previous == NULL)
                         {
-                            __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG8"  );
+                            __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG8"  );
                             squadron->nextEnemyShip = tmp;
                         }
                         else
@@ -103,7 +103,7 @@ void removeNotVisibleEnemy(Squadron * squadron)
                     }
                     else
                     {
-                        __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG9"  );
+                        __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG9"  );
                         previous = tmp;
                         tmp= tmp->nextEnemyShip;
                     }

@@ -12,7 +12,7 @@
 #include "../SDL/src/core/android/SDL_android.h"
 #include <android/log.h>
 #include "constant.h"
-
+#include <time.h>
 # define SizeName  128
 # define MaxEnemy 4
 
@@ -178,7 +178,7 @@ void  createNextSquadron(Game * game)
     {
         __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "PAIRE"  );
         int nombre_aleatoire = 0;
-        nombre_aleatoire = rand()*1000;
+        nombre_aleatoire = my_rand()*1000;
         int nbrEnnemy =nombre_aleatoire % MaxEnemy;
         if(nbrEnnemy == 0)
             nbrEnnemy++;
@@ -208,37 +208,9 @@ void  createNextSquadron(Game * game)
     else
     {
         __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "IMPAIRE"  );
-      //  addEnemyFromHistory(game);
+        addEnemyFromHistory(game);
         
-        
-       
-        int nombre_aleatoire = 0;
-        nombre_aleatoire = rand() * 1000;
-        int nbrEnnemy =nombre_aleatoire % MaxEnemy;
-        if(nbrEnnemy == 0)
-            nbrEnnemy++;
-        
-        int n = 0;
-        int side = 1;
-        Squadron * squad;
-        if(game->size != 0)
-        {
-            Squadron * tmpSquad = getLastSquadron(game);
-            tmpSquad->nextSquadron = initialisationSquadron(nbrEnnemy);
-            squad = tmpSquad->nextSquadron;
-        }
-        else
-        {
-            game->nextSquadron = initialisationSquadron(nbrEnnemy);
-            squad = game->nextSquadron;
-        }
-        game->history++;
-        for(n = 0 ; n < nbrEnnemy ; n++)
-        {
-            addNewEnemy(game,squad);
-        }
-        
-        game->cntInLastSquadron = nbrEnnemy;
+
         
     }
     game->size++;
@@ -248,18 +220,18 @@ void addNewEnemy(Game * game,Squadron * squadron)
 {
     // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "addNewEnemy"  );
     int side = 0;
-    int posStart = rand()% MaxEnemy; //A modifier pour mettre probabilité par lot (Loto)
+    int posStart = my_rand()% MaxEnemy; //A modifier pour mettre probabilité par lot (Loto)
     
-    int tempDividendeDistance = rand() % MaxEnemy ;
+    int tempDividendeDistance = my_rand() % MaxEnemy ;
     if(tempDividendeDistance == 0)
         tempDividendeDistance++;
     
     int distance = game->width/tempDividendeDistance ;
-    int dividende = rand() % 8;
+    int dividende = my_rand() % 8;
     if(dividende == 0)
         dividende++;
     int verticalLine = game->width/dividende;
-    if(rand()%2 == 0)
+    if(my_rand()%2 == 0)
     {
         side = 1;
         int verticalLine = game->width - verticalLine;
@@ -270,7 +242,7 @@ void addNewEnemy(Game * game,Squadron * squadron)
     }
     
     int typeShip = 0;
-    int typeMovement = rand()%2;
+    int typeMovement = my_rand()%2;
 
     EnemyShip * enemy = initialisationEnemyShip(game->width,game->height,posStart, side,distance,verticalLine,typeShip,typeMovement);
     History *history =  initializeHistory(posStart,side,distance ,verticalLine,typeShip,typeMovement);
@@ -341,7 +313,13 @@ Squadron * getLastSquadron(Game * game)
     return indexSquadron;
 }
 
-
+int my_rand()
+{
+    time_t t;
+    int tick = SDL_GetTicks();
+    srand((unsigned) time(&t));
+    return rand() * tick * 7;
+}
 
 
 
