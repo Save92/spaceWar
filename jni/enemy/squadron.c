@@ -16,27 +16,28 @@
 
 Squadron * initialisationSquadron(int maxSize)
 {
-    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "initialisationSquadron"  );
+ //   __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "initialisationSquadron"  );
     Squadron * squadron = malloc(sizeof(Squadron));
     squadron->size = 0;
     squadron->maxSize = maxSize;
-    squadron->appearNext = 0;
+    squadron->appearNext = FALSE;
     squadron->visible = VISIBLE;
-     __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "END initialisationSquadron"  );
+  //   __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "END initialisationSquadron"  );
     squadron->nextEnemyShip = NULL;
     squadron->nextSquadron = NULL;
+    squadron->checkForNext = FALSE;
     return squadron;
 }
 
 
 void addEnemyToSquadron(EnemyShip * enemy,Squadron * squadron)
 {
-    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "AddEnemy "  );
+ //   __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "AddEnemy "  );
     if(squadron->size < squadron->maxSize)
     {
         if(squadron->size == 0)
         {
-            __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "add in empty squadron"  );
+    //        __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "add in empty squadron"  );
             squadron->nextEnemyShip = enemy;
             
         }
@@ -48,7 +49,7 @@ void addEnemyToSquadron(EnemyShip * enemy,Squadron * squadron)
         }
         squadron->size++;
     }
-    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "END AddEnemy "  );
+ //   __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "END AddEnemy "  );
 }
 
 void removeNotVisibleEnemy(Squadron * squadron)
@@ -124,12 +125,12 @@ void moveSquadron(Squadron * squadron,int width,int height)
         enemy = (*squadron).nextEnemyShip;
         while(enemy)
         {
-            __android_log_print(ANDROID_LOG_DEBUG, "Squadron",  "Shoot enemy :%d",  enemy);
-            moveEnemyShip(enemy,width, height);
-            
+      //      __android_log_print(ANDROID_LOG_DEBUG, "Squadron",  "Shoot enemy :%d",  enemy);
+            moveEnemyShip(enemy,width, height);      
             enemy = enemy->nextEnemyShip;
         }
     }
+    changeAppearNext(squadron,height);
     
 }
 
@@ -143,12 +144,14 @@ void drawMySquadron(SDL_Renderer* renderer , Squadron * squadron)
         enemy = (*squadron).nextEnemyShip;
         while(enemy)
         {
-            __android_log_print(ANDROID_LOG_DEBUG, "Squadron",  " draw enemy adress :%d",  enemy);
+      //      __android_log_print(ANDROID_LOG_DEBUG, "Squadron",  " draw enemy adress :%d",  enemy);
             drawEnemyShip(renderer , enemy);
             
             enemy = enemy->nextEnemyShip;
         }
     }
+    
+    
     
 }
 
@@ -180,37 +183,49 @@ int allVisible(Squadron * squadron)
     return FALSE;
 }
 
+void changeAppearNext(Squadron * squadron,int height)
+{
+    if(squadron->appearNext == FALSE)
+    {
+        if(squadron->size > 0)
+        {
+            EnemyShip * enemy;
+            enemy = squadron->nextEnemyShip;
+            while(enemy)
+            {
+                if(enemy->posY > height/2)
+                {
+                    squadron->appearNext = TRUE;
+                }
+                enemy = enemy->nextEnemyShip;
+            }
+        }
+        else
+        {
+            squadron->appearNext = TRUE;
+        }
+    }
+}
 
 int sendNextSquadron(Squadron * squadron,int width,int height)
 {
      __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "sendNextSquadron"  );
-    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "appearNext %d", squadron->appearNext);
-    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "allVisible %d", allVisible(squadron));
-    if(squadron->appearNext == FALSE && allVisible(squadron) == TRUE )
+     __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "squadron->appearNext %d" ,squadron->appearNext );
+    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "squadron->checkForNext %d" ,squadron->checkForNext );
+    if(squadron->appearNext == TRUE && squadron->checkForNext == FALSE )
     {
-        EnemyShip * enemy;
-        enemy = (*squadron).nextEnemyShip;
-        while(enemy)
-        {
-            if(enemy->posY > height/2)
-            {
-                 __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "Send Squadron"  );
-                squadron->appearNext = 1;
-                return TRUE;
-                
-            }
-            enemy = enemy->nextEnemyShip;
-        }
-        return FALSE;
+        squadron->checkForNext == TRUE;
+        __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "sendNextSquadron Return True"  );
+        return TRUE;
     }
-    squadron->appearNext = 1;
-     __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "END Send next Squadron"  );
-    return TRUE;
+    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "sendNextSquadron Return FALSE"  );
+    return FALSE;
+
 }
 
 EnemyShip * getlastEnemyShip(Squadron * squadron)
 {
-    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "getlastEnemyShip"  );
+  //  __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "getlastEnemyShip"  );
     EnemyShip * indexShip = squadron->nextEnemyShip;
     EnemyShip * tempShip = indexShip;
     if(squadron->size > 0)
@@ -221,7 +236,7 @@ EnemyShip * getlastEnemyShip(Squadron * squadron)
             tempShip = tempShip->nextEnemyShip;
         }
     }
-    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "END getlastEnemyShip"  );
+  //  __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "END getlastEnemyShip"  );
     return indexShip;
 }
 

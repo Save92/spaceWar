@@ -29,12 +29,16 @@ Game *  initialisationOfTheGame(int width,int height)
     game->history = 0;
     game->cntInLastSquadron = 0;
     game->stack = initializeStackHistory();
+    game->tempsActuel = SDL_GetTicks();
+    game->tempsPrecedent = 0;
     return game;
+
 }
 
 
 void  moveAllGame(Game * game)
 {
+    game->tempsActuel = SDL_GetTicks();
    // __android_log_print(ANDROID_LOG_DEBUG, "GAME", "moveAllGame ");
     if(game->size == 0)
     {
@@ -48,9 +52,10 @@ void  moveAllGame(Game * game)
         int index = 0;
         while(tmp && index < size)
         {
-            if(sendNextSquadron(tmp,game->width,game->height) == 1 && tmp->appearNext == FALSE)
+            if(game->tempsActuel - game->tempsPrecedent > 300)
             {
                 createNextSquadron(game);
+                game->tempsPrecedent = game->tempsActuel;
             }
             tmp= tmp->nextSquadron;
             index++;
@@ -171,7 +176,7 @@ void  createNextSquadron(Game * game)
     
     if(game->history == 0 || game->history %2 == 0)
     {
-      //  __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "PAIRE"  );
+        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "PAIRE"  );
         int nombre_aleatoire = 0;
         nombre_aleatoire = rand();
         int nbrEnnemy =nombre_aleatoire % MaxEnemy;
@@ -202,8 +207,39 @@ void  createNextSquadron(Game * game)
     }
     else
     {
-      //  __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "IMPAIRE"  );
-        addEnemyFromHistory(game);
+        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "IMPAIRE"  );
+      //  addEnemyFromHistory(game);
+        
+        
+       /*
+        int nombre_aleatoire = 0;
+        nombre_aleatoire = rand();
+        int nbrEnnemy =nombre_aleatoire % MaxEnemy;
+        if(nbrEnnemy == 0)
+            nbrEnnemy++;
+        
+        int n = 0;
+        int side = 1;
+        Squadron * squad;
+        if(game->size != 0)
+        {
+            Squadron * tmpSquad = getLastSquadron(game);
+            tmpSquad->nextSquadron = initialisationSquadron(nbrEnnemy);
+            squad = tmpSquad->nextSquadron;
+        }
+        else
+        {
+            game->nextSquadron = initialisationSquadron(nbrEnnemy);
+            squad = game->nextSquadron;
+        }
+        game->history++;
+        for(n = 0 ; n < nbrEnnemy ; n++)
+        {
+            addNewEnemy(game,squad);
+        }
+        
+        game->cntInLastSquadron = nbrEnnemy;
+        */
     }
     game->size++;
 }

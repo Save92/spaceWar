@@ -25,6 +25,8 @@ struct Game
     int height;
     int width;
     int history;
+    int tempsActuel;
+    int tempsPrecedent;
     
     
     

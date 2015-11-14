@@ -21,6 +21,7 @@ struct Squadron
     int maxSize;
     int visible;
     int appearNext;
+    int checkForNext;
     Squadron * nextSquadron;
     
 };
@@ -35,6 +36,7 @@ int allVisible(Squadron * squadron);
 int sendNextSquadron(Squadron * squadron,int width,int height);
 void freeSquadron(Squadron * squadron);
 EnemyShip * getlastEnemyShip(Squadron * squadron);
+void changeAppearNext(Squadron * squadron,int height);
 
 
 #endif /* squadron_h */
