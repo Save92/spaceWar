@@ -29,7 +29,7 @@
 #define MEDIUM DAMAGE 1
 
 //SPEED SHOOT
-#define SPEED_SHOOT 20
+#define SPEED_SHOOT 6
 
 //SIZE SHOOT
 #define WIDTH 5

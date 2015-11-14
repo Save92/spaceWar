@@ -13,6 +13,7 @@
 
 #include "../enemy/squadron.h"
 #include "../enemy/positionHistory.h"
+#include "../enemy/enemy.h"
 #include "../user/UserShip.h"
 #include "./shoot.h"
 
@@ -52,7 +53,8 @@ void addEnemyFromHistory(Game * game);
 
 Squadron * getLastSquadron(Game * game);
 
-int checkCollision(SDL_Rect a, SDL_Rect b);
-
+int checkCollision(SDL_Rect a, SDL_Rect b,int speed );
+void eventCheckCollisionUserShipEnnemyShoot(Game * game);
+void eventCheckCollisionUserShipEnnemyShip(Game * game);
 
 #endif /* game_h */

@@ -21,8 +21,8 @@ void drawLittleEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip)
 {
     enemyShip->rectangle->x = enemyShip->posX;
     enemyShip->rectangle->y = enemyShip->posY;
-    enemyShip->rectangle->w = 30;
-    enemyShip->rectangle->h = 30;
+    enemyShip->rectangle->w = 50;
+    enemyShip->rectangle->h = 50;
     SDL_SetRenderDrawColor(renderer, enemyShip->color[0], enemyShip->color[1], enemyShip->color[2], enemyShip->color[3]);
     SDL_RenderFillRect(renderer, (enemyShip->rectangle));
 }
