@@ -33,6 +33,9 @@ struct EnemyShip
     int visible;
     int frequencyOfShoot;
     int verticalSide;
+    int width;
+    int height;
+    int changeDirection;
     
     EnemyShip * nextEnemyShip;
 };

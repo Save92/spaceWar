@@ -179,6 +179,7 @@ int main(int argc, char *argv[])
         filterMyShoots(game->listShootUser);
         
       //  __android_log_print(ANDROID_LOG_DEBUG, "stopFilter",  "Shots filtered");
+        SDL_Delay(10);
     }
     freeShip(game->myShip);
     exit(0);

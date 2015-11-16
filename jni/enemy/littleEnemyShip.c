@@ -15,14 +15,14 @@
 #include <android/log.h>
 #include "../general/constant.h"
 
-
-
+#define RATIO_SIZE 50
+#define RATIO_SPEED 10
 void drawLittleEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip)
 {
     enemyShip->rectangle->x = enemyShip->posX;
     enemyShip->rectangle->y = enemyShip->posY;
-    enemyShip->rectangle->w = 50;
-    enemyShip->rectangle->h = 50;
+    enemyShip->rectangle->w = enemyShip->width;
+    enemyShip->rectangle->h = enemyShip->height;
     SDL_SetRenderDrawColor(renderer, enemyShip->color[0], enemyShip->color[1], enemyShip->color[2], enemyShip->color[3]);
     SDL_RenderFillRect(renderer, (enemyShip->rectangle));
 }
@@ -35,12 +35,9 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
     EnemyShip  * enemyShip = malloc( sizeof(EnemyShip));
     enemyShip->rectangle = rectangle;
     enemyShip->verticalSide = side;
-    
-    initialisationTypeStart(width,height,enemyShip,typeStart,side);
-
-    enemyShip->posX = rectangle->x;
-    enemyShip->posY = rectangle->y;
-    enemyShip->speed = 1;
+    enemyShip->width = (height/width) * 100;
+    enemyShip->height = ((height/width) * 100)/2;
+    enemyShip->speed = (height/width) * RATIO_SPEED;
     enemyShip->color[0] = 106;
     enemyShip->color[1] = 98;
     enemyShip->color[2] = 81;
@@ -48,6 +45,14 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
     enemyShip->life = 1;
     enemyShip->shotLevel = 1;
     enemyShip->typeShip = typeShip;
+    int defaultGap = enemyShip->width ;
+    initialisationTypeStart(width,height,enemyShip,typeStart,side,defaultGap);
+
+    enemyShip->posX = rectangle->x;
+    enemyShip->posY = rectangle->y;
+    
+    
+ 
     
     time_t t;
     
@@ -63,6 +68,8 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
     enemyShip->cntFootStep = 0;
     enemyShip->movementScheme = initializeMovementScheme(enemyShip->posX,enemyShip->posY,0,0,distance,verticalLine,typeMovement);
 
+    enemyShip->changeDirection = t%3;
+    
     enemyShip->repeatMovement = 0;
     enemyShip->frequencyOfShoot = 15;
     enemyShip->verticalSide = side;
@@ -77,7 +84,7 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
 
 
 
-void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int typeStart,int side)
+void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int typeStart,int side,int defaultGap)
 {
     int gap = 0;
     __android_log_print(ANDROID_LOG_DEBUG, "Start", "typeStart : %d , side : %d",typeStart,side);
@@ -144,7 +151,51 @@ void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int type
             break;
             
         case TOP_EXTREME_SIDE_SCREEN:
-            gap = width/2 - 30;
+            gap = defaultGap;
+            if(side == 1)
+            {
+                __android_log_print(ANDROID_LOG_DEBUG, "littleEnemyShip", "TOP_EXTREME_SIDE_SCREEN____LEFT");
+                
+               
+                enemyShip->rectangle->x = 0 ;
+                enemyShip->rectangle->y = 0;
+                enemyShip->verticalSide = 1;
+            }
+            else
+            {
+                if(side == -1)
+                {
+                    __android_log_print(ANDROID_LOG_DEBUG, "littleEnemyShip", "TOP_EXTREME_SIDE_SCREEN____RIGHT");
+                    __android_log_print(ANDROID_LOG_DEBUG, "littleEnemyShip", "TOP_EXTREME_SIDE_SCREEN____RIGHT_GAP %d",gap);
+                    enemyShip->rectangle->x = width - gap ;
+                    enemyShip->rectangle->y = 0;
+                    enemyShip->verticalSide = -1;
+                }
+            }
+            break;
+            
+        case EXTREME_SIDE_SCREEN:
+            gap = defaultGap;
+            if(side == 1)
+            {
+                
+                enemyShip->rectangle->x = 0-(gap/2);
+                enemyShip->rectangle->y = height/8 + gap ;
+                enemyShip->verticalSide = 1;
+            }
+            else
+            {
+                if(side == -1)
+                {
+                    enemyShip->rectangle->x = width -(gap/2);
+                    enemyShip->rectangle->y = height/8 + gap;
+                    enemyShip->verticalSide = -1;
+                }
+            }
+            break;
+            
+        default :
+            gap = width/8;
             if(side == 1)
             {
                 
@@ -162,26 +213,6 @@ void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int type
                 }
             }
             break;
-            
-        case EXTREME_SIDE_SCREEN:
-            gap = 30;
-            if(side == 1)
-            {
-                
-                enemyShip->rectangle->x = 0;
-                enemyShip->rectangle->y = height/8 + gap ;
-                enemyShip->verticalSide = 1;
-            }
-            else
-            {
-                if(side == -1)
-                {
-                    enemyShip->rectangle->x = width - gap;
-                    enemyShip->rectangle->y = height/8 + gap;
-                    enemyShip->verticalSide = -1;
-                }
-            }
-            break;
     }
 }
 
@@ -189,7 +220,7 @@ void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int type
 void moveLittleEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen)
 {
     enemyShip->posY++;
-    if(enemyShip->cntFootStep %4 == 0)
+    if(enemyShip->cntFootStep % enemyShip->changeDirection == 0)
     {
         enemyShip->posX = enemyShip->posX + (enemyShip->speed * enemyShip->verticalSide);
     }
