@@ -17,6 +17,7 @@
 #include "../user/UserShip.h"
 #include "./shoot.h"
 
+
 typedef struct Game Game;
 struct Game
 {
@@ -39,10 +40,40 @@ struct Game
     StackHistory * stack ;
 };
 
+typedef struct Rgb
+{
+    int r;
+    int g;
+    int b;
+} Rgb;
+
+typedef struct SpriteExplosion
+{
+    // x y w h sont la position de l'image sur la feuille de sprite
+    // axe horizontal
+   int x; 
+   // axe vertical
+   int y; 
+   // width
+   int w; 
+   // height
+   int h; 
+   // angle du sprite 
+   double angle;
+   // Couleur du background du sprite
+   Rgb background; 
+   // LOAD_BMP du sprite
+   SDL_Surface *surface; 
+   // SDL_CreateTextureFromSurface(_renderer, surface);
+   SDL_Texture *texture;
+//
+    SDL_Rect *image_location;
+} SpriteExplosion;
+
 
 
 Game *  initialisationOfTheGame(int width,int height);
-void  moveAllGame(Game * game);
+void  moveAllGame(Game * game, SDL_Renderer *renderer);
 void  drawGame(SDL_Renderer* renderer ,Game * game);
 void  createNextSquadron(Game * game);
 void  removeNotVisibleEnemyFromGame(Game * game);
@@ -55,7 +86,9 @@ Squadron * getLastSquadron(Game * game);
 int my_rand();
 
 int checkCollision(SDL_Rect a, SDL_Rect b,int speed );
-void eventCheckCollisionUserShipEnnemyShoot(Game * game);
-void eventCheckCollisionUserShipEnnemyShip(Game * game);
+void eventCheckCollisionUserShipEnnemyShoot(Game * game, SDL_Renderer *renderer);
+void eventCheckCollisionUserShipEnnemyShip(Game * game, SDL_Renderer *renderer);
+void onDestroy(int posx, int posy, SDL_Renderer *renderer);
+SpriteExplosion LoadSpriteForExplostion(int image, SDL_Renderer *renderer);
 
 #endif /* game_h */

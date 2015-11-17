@@ -14,8 +14,11 @@
 #include "constant.h"
 #include "../enemy/enemy.h"
 
+
 # define SizeName  128
 # define MaxEnemy 4
+
+
 
 Game *  initialisationOfTheGame(int width,int height)
 {
@@ -44,7 +47,7 @@ Game *  initialisationOfTheGame(int width,int height)
 
 }
 
-void eventCheckCollisionUserShipEnnemyShoot(Game * game) {
+void eventCheckCollisionUserShipEnnemyShoot(Game * game,SDL_Renderer *renderer) {
 
    // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "CHECK eventCheckCollisionUserShipEnnemyShoot!!!_______________________________");
     Shoot * indexList = game->listShootEnnemy->start;
@@ -57,13 +60,16 @@ void eventCheckCollisionUserShipEnnemyShoot(Game * game) {
         if (checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE) {
             //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR ENNEMIE !!! BOOOOOOOMMMMMM!!!!!"  );
             game->myShip->life -= 1;
+            if(game->myShip->life == 0) {
+                onDestroy(game->myShip->posX, game->myShip->posY, renderer);
+            }
             indexList->visible = INVISIBLE;
         }
         tmp = tmp->nextShoot;
     }
 }
 
-void eventCheckCollisionUserShipEnnemyShip(Game * game) {
+void eventCheckCollisionUserShipEnnemyShip(Game * game,SDL_Renderer *renderer) {
     // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "CHECK eventCheckCollisionUserShipEnnemyShip!!!_______________________________");
    
     Squadron * indexSquadron = game->nextSquadron;
@@ -83,8 +89,9 @@ void eventCheckCollisionUserShipEnnemyShip(Game * game) {
                 //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "VAISSEAUX SE RENTRE DEDANS! BOOOOOOOMMMMMM!!!!!"  );
                 indexList->life -= 1;
                 if (indexList->life == 0) {
+                    onDestroy(indexList->posX, indexList->posY, renderer);
                     indexList->visible = INVISIBLE;
-                } 
+                }
                 game->myShip->life -= 1;
 
                 // game->myShip->visible = INVISIBLE;
@@ -100,7 +107,7 @@ void eventCheckCollisionUserShipEnnemyShip(Game * game) {
     
 }
 
-void eventCheckCollisionUserShipShootEnnemy(Game * game) {
+void eventCheckCollisionUserShipShootEnnemy(Game * game,SDL_Renderer *renderer) {
 
     Squadron * indexSquadron = game->nextSquadron;
 
@@ -121,11 +128,12 @@ void eventCheckCollisionUserShipShootEnnemy(Game * game) {
             {
                 indexListShoot = tmpShoot;
 
-                __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR  !!! Pas touche"  );
+                //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR  !!! Pas touche"  );
                 if (checkCollision(*(indexList->rectangle), *(indexListShoot->rectangle), indexListShoot->speed) == TRUE) {
                     __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR !!! BOOOOOOOMMMMMM!!!!!"  );
                     indexList->life -= 1;
                     if (indexList->life == 0) {
+                        onDestroy(indexList->posX, indexList->posY, renderer);
                         indexList->visible = INVISIBLE;
                     }
                     indexListShoot->visible = INVISIBLE;
@@ -146,25 +154,25 @@ void eventCheckCollisionUserShipShootEnnemy(Game * game) {
     
 }
 
-void eventCheckCollision(Game * game) {
+void eventCheckCollision(Game * game, SDL_Renderer *renderer) {
     // Test pour les collisions
     if (game->size > 0) {
         // if (game->myShip->alive() == 1)
         // {
            
    
-            eventCheckCollisionUserShipEnnemyShoot(game);
-            eventCheckCollisionUserShipEnnemyShip(game);
-            eventCheckCollisionUserShipShootEnnemy(game);
+            eventCheckCollisionUserShipEnnemyShoot(game, renderer);
+            eventCheckCollisionUserShipEnnemyShip(game, renderer);
+            eventCheckCollisionUserShipShootEnnemy(game, renderer);
         //}
 
     }
 }
 
-void  moveAllGame(Game * game)
+void  moveAllGame(Game * game, SDL_Renderer *renderer)
 {
 
-eventCheckCollision(game);
+eventCheckCollision(game, renderer);
 
 
     moveAllMyShoots(game->listShootUser,game->width,game->height);
@@ -216,7 +224,7 @@ void  drawGame(SDL_Renderer* renderer ,Game * game)
     {
         Squadron * squadron;
         squadron = game->nextSquadron;
-        while(squadron)
+        while(squadron && game->myShip->life > 0)
         {
             drawMySquadron(renderer,squadron);
             squadron = squadron->nextSquadron;
@@ -537,6 +545,57 @@ int my_rand()
     return rand() * tick * 7;
 }
 
+void onDestroy(int posx, int posy, SDL_Renderer *renderer) {
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "onDestroy avant sprite"  ); 
+    SpriteExplosion explosion = LoadSpriteForExplostion(2, renderer);
+    SDL_Rect test = {  posx, posy, 100 , 100  };
 
+        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "onDestroy avant renderer"  ); 
+    SDL_RenderCopyEx(renderer, explosion.texture, &(explosion.image_location), &test, explosion.angle, NULL, SDL_FLIP_NONE);
+}
+
+// Fonction d'affichage du sprite pour l'explosion (Pas au point...)
+SpriteExplosion LoadSpriteForExplostion(int image, SDL_Renderer *renderer)
+{
+
+    SpriteExplosion result;
+    result.background.r = 255;
+    result.background.g = 255;
+    result.background.b = 255;
+    result.image_location->x = 0;
+    result.image_location->y = 200;
+    result.image_location->h = 100;
+    result.image_location->w = 100;
+    result.texture = NULL;
+    if (image == 2) {
+        result.x = 0;
+        result.y = 200;
+    }
+    result.w = 100;
+    result.h = 100;
+    result.angle = 0.0;
+
+    /* Load the sprite image */
+    result.surface = SDL_LoadBMP("../assets/explosion.bmp");
+    if (result.surface == NULL)
+    {
+        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion surface = null"  );   
+        return result;
+    }
+__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion surface OK"  ); 
+    /* Create texture from the image */
+    result.texture = SDL_CreateTextureFromSurface(renderer, result.surface);
+    if (!result.texture) {
+
+        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion texture = null"  ); 
+        SDL_FreeSurface(result.surface);
+        return result;
+    }
+
+        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion texture OK"  ); 
+    SDL_FreeSurface(result.surface);
+
+    return result;
+}
 
 

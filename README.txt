@@ -17,7 +17,7 @@ SPACE WAR
 		- gestion collisions (A finir reste disparition, life a tester, sprite a voir avec fonction Destroy() par N)
 		- gestion vie (Affichage)T + on Destroy() N
 		- sprites T
-		-récupération params T + N
+		- récupération params T + N
 		- Touch : Cf point précédent T
 		- Score T
 

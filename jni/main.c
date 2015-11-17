@@ -151,7 +151,11 @@ int main(int argc, char *argv[])
         {
             if(event.type == SDL_FINGERDOWN){
                 __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "SLD_FINGERDOWN");
-                UserShipShoot(*(game->myShip),game->listShootUser);
+                // Test si on est encore en vie pour tirer
+                if(game->myShip->life > 0) {
+                    UserShipShoot(*(game->myShip),game->listShootUser);    
+                }
+                
                  // __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Ship position PosX : %d , PosY : %d",(*listShoot->start).posX,(*listShoot->start).posY);
                 
                 
@@ -162,7 +166,7 @@ int main(int argc, char *argv[])
      //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Android_JNI_GetAccelerometerValues");
         Android_JNI_GetAccelerometerValues(accelValues);
      
-        moveAllGame(game);
+        moveAllGame(game, renderer);
         moveMyShipGeneral(accelValues,SIZEACCELVALUES,game->myShip,*widthScreen,*heightScreen);
         
      //   __android_log_print(ANDROID_LOG_DEBUG, "moveMyShipGeneral",  "Vaisseau posX : %d posY :%d",  myShip->posX ,myShip->posY);
