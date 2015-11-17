@@ -39,8 +39,12 @@ void moveEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen)
         case 1 :moveEnemyShipZigZag(enemyShip,widthScreen,heightScreen);
             break;
             
+        case 2 : moveEnemyShipZigZag(enemyShip,widthScreen,heightScreen);
+            break;
+
+            
         default:
-            moveEnemyShipVertically(enemyShip,widthScreen,heightScreen);
+            moveEnemyShipZigZag(enemyShip,widthScreen,heightScreen);
             break;
     }
 }

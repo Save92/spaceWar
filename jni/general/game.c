@@ -405,7 +405,7 @@ void addNewEnemy(Game * game,Squadron * squadron)
         side = -1;
     }
     int typeShip = 0;
-    int typeMovement = 1;
+    int typeMovement = my_rand() % 3;
 
     EnemyShip * enemy = initialisationEnemyShip(game->width,game->height,posStart, side,distance,verticalLine,typeShip,typeMovement);
     History *history =  initializeHistory(posStart,side,distance ,verticalLine,typeShip,typeMovement);

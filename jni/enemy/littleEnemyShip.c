@@ -66,6 +66,7 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
     enemyShip->type = 0;
     enemyShip->typeMovement = typeMovement;
     enemyShip->cntFootStep = 0;
+    __android_log_print(ANDROID_LOG_DEBUG, "littleEnemyShip", "__initialisationLittleEnemyShip__ distance : %d",distance);
     enemyShip->movementScheme = initializeMovementScheme(enemyShip->posX,enemyShip->posY,0,0,distance,verticalLine,typeMovement);
 
     enemyShip->changeDirection = t%3;
