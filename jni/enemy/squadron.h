@@ -37,6 +37,7 @@ int sendNextSquadron(Squadron * squadron,int width,int height);
 void freeSquadron(Squadron * squadron);
 EnemyShip * getlastEnemyShip(Squadron * squadron);
 void changeAppearNext(Squadron * squadron,int height);
+void setVisibilitySquadron(Squadron * squadron);
 
 
 #endif /* squadron_h */

@@ -256,7 +256,7 @@ void filterMyShoots(ListShoot * listShoot)
 {
     Shoot  *tmp;
     Shoot  *previous;
-    __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG1"  );
+    //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG1"  );
     if(listShoot != NULL && listShoot->start != NULL)
     {
          __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG2"  );

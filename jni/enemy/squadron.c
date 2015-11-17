@@ -131,6 +131,8 @@ void moveSquadron(Squadron * squadron,int width,int height)
         }
     }
     changeAppearNext(squadron,height);
+    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "before setVisibilitySquadron"   );
+    setVisibilitySquadron(squadron);
     
 }
 
@@ -206,6 +208,37 @@ void changeAppearNext(Squadron * squadron,int height)
         }
     }
 }
+
+void setVisibilitySquadron(Squadron * squadron)
+{
+    if(squadron->nextEnemyShip)
+    {
+        EnemyShip * tempShip = squadron->nextEnemyShip;
+        int allVisible = VISIBLE;
+        if(squadron->size > 0)
+        {
+            while(tempShip)
+            {
+                if(tempShip->visible == INVISIBLE )
+                {
+                    allVisible = INVISIBLE;
+                }
+                tempShip = tempShip->nextEnemyShip;
+            }
+            
+            if(allVisible == INVISIBLE)
+            {
+
+                squadron->visible = INVISIBLE;
+            }
+        }
+        else
+        {
+            squadron->visible = INVISIBLE;
+        }
+    }
+}
+
 
 int sendNextSquadron(Squadron * squadron,int width,int height)
 {

@@ -313,7 +313,7 @@ void  createNextSquadron(Game * game)
     {
         __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "PAIRE"  );
         int nombre_aleatoire = 0;
-        nombre_aleatoire = my_rand()*1000;
+        nombre_aleatoire = my_rand();
         int nbrEnnemy =nombre_aleatoire % MaxEnemy;
         if(nbrEnnemy == 0)
             nbrEnnemy++;
@@ -384,7 +384,7 @@ void addNewEnemy(Game * game,Squadron * squadron)
 {
     // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "addNewEnemy"  );
     int side = 0;
-    int posStart = 1; //A modifier pour mettre probabilité par lot (Loto)
+    int posStart = my_rand()%4; //A modifier pour mettre probabilité par lot (Loto)
     
     int tempDividendeDistance = my_rand() % MaxEnemy ;
     if(tempDividendeDistance == 0)
@@ -404,9 +404,8 @@ void addNewEnemy(Game * game,Squadron * squadron)
     {
         side = -1;
     }
-    
     int typeShip = 0;
-    int typeMovement = my_rand()%2;
+    int typeMovement = my_rand() % 3;
 
     EnemyShip * enemy = initialisationEnemyShip(game->width,game->height,posStart, side,distance,verticalLine,typeShip,typeMovement);
     History *history =  initializeHistory(posStart,side,distance ,verticalLine,typeShip,typeMovement);

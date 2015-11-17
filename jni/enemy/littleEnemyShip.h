@@ -21,7 +21,7 @@ void moveLittleEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen
 Shoot * LittleEnemyShipShoot(EnemyShip * enemyShip);
 EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int side,int distance,int verticalLine,int typeShip,int typeMovement);
 int  LittleEnemyShipCanShoot(EnemyShip * enemyShip);
-void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int typeStart,int side);
+void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int typeStart,int side,int defaultGap);
 
 
 
