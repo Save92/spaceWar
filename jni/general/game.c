@@ -16,9 +16,12 @@
 
 
 
-# define SizeName  128
-# define MaxEnemy 4
-# define ApparitionTime 500
+#define SizeName  128
+#define MaxEnemy 4
+#define ApparitionTime 500
+
+#define quotientTemps 150
+#define quotientForce 0.25
 
 
 Game *  initialisationOfTheGame(int width,int height)
@@ -57,6 +60,17 @@ Game *  initialisationOfTheGame(int width,int height)
         if(game->police == NULL)
              game->initText = -1;
     }
+    
+    //Get initialize rumble
+    if( SDL_HapticRumbleInit( game->gControllerHaptic ) < 0 )
+    {
+        game->initRumble = -1;
+       __android_log_print(ANDROID_LOG_DEBUG, "GAME",  "Warning: Unable to initialize rumble! SDL Error: %s\n", SDL_GetError() );
+    }
+    else
+    {
+        game->initRumble = 1;
+    }
     return game;
 
 }
@@ -74,7 +88,15 @@ void eventCheckCollisionUserShipEnnemyShoot(Game * game,SDL_Renderer *renderer) 
         if (checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE) {
             //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR ENNEMIE !!! BOOOOOOOMMMMMM!!!!!"  );
             decreaseLife( game->myShip );
+            enum RumbleForce force = MEDIUM_FORCE;
+            enum RumbleLength length = MEDIUM_LENGTH;
+            playRumble(game,force,length);
+            
+            
             if(game->myShip->life == 0) {
+                force = FORT;
+                length = LONG;
+                playRumble(game,force,length);
                 onDestroy(game->myShip->posX, game->myShip->posY, renderer);
             }
             indexList->visible = INVISIBLE;
@@ -112,6 +134,9 @@ void eventCheckCollisionUserShipEnnemyShip(Game * game,SDL_Renderer *renderer) {
                 // game->myShip->visible = INVISIBLE;
                 // indexList->visible = INVISIBLE;
                 decreaseLife( game->myShip );
+                enum RumbleForce force = MEDIUM_FORCE;
+                enum RumbleLength length = MEDIUM_LENGTH;
+                playRumble(game,force,length);
             }
             tmp = tmp->nextEnemyShip;
         }
@@ -623,6 +648,15 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y){
 }
 
 
-
+void playRumble(Game * game,enum RumbleForce force,enum RumbleLength length)
+{
+    float frc = (float)(quotientForce * force);
+    float lgth = (float)(quotientTemps * length);
+    
+    if( SDL_HapticRumblePlay( game->gControllerHaptic, frc, lgth ) != 0 )
+    {
+        __android_log_print(ANDROID_LOG_DEBUG, "GAME", "Warning: Unable to play rumble! %s\n", SDL_GetError() );
+    }
+}
 
 

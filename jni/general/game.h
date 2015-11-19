@@ -38,6 +38,8 @@ struct Game
     ListShoot * listShootEnnemy;
     TTF_Font *police;
     int initText;
+    SDL_Haptic* gControllerHaptic;
+    int initRumble;
     
     
     int cntInLastSquadron;
@@ -77,7 +79,8 @@ typedef struct SpriteExplosion
     SDL_Rect *image_location;
 } SpriteExplosion;
 
-
+enum RumbleForce {AUCUN,FAIBLE, MEDIUM_FORCE, FORT,MAXIMUM};
+enum RumbleLength {INEXISTANT,COURT, MEDIUM_LENGTH, LONG};
 
 Game *  initialisationOfTheGame(int width,int height);
 void  moveAllGame(Game * game, SDL_Renderer *renderer);
@@ -97,6 +100,9 @@ void eventCheckCollisionUserShipEnnemyShip(Game * game, SDL_Renderer *renderer);
 void onDestroy(int posx, int posy, SDL_Renderer *renderer);
 SpriteExplosion LoadSpriteForExplostion(int image, SDL_Renderer *renderer);
 void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y);
+void playRumble(Game * game,enum RumbleForce force,enum RumbleLength length);
+
+
 
 
 #endif /* game_h */

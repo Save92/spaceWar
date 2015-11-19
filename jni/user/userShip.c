@@ -156,7 +156,9 @@ int userShipIsAlive(UserShip * userShip)
 void decreaseLife( UserShip * myShip )
 {
     if(myShip->life >0)
-        (myShip->life)--;
+    {
+        (myShip->life)--; 
+    }
     if(myShip->life == 0)
     {
         myShip->visible = INVISIBLE;
