@@ -534,14 +534,14 @@ int my_rand()
 }
 
 void onDestroy(int posx, int posy, SDL_Renderer *renderer) {
-  /*
+  
     __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "onDestroy avant sprite"  );
     SpriteExplosion explosion = LoadSpriteForExplostion(2, renderer);
     SDL_Rect test = {  posx, posy, 100 , 100  };
 
         __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "onDestroy avant renderer"  ); 
     SDL_RenderCopyEx(renderer, explosion.texture, &(explosion.image_location), &test, explosion.angle, NULL, SDL_FLIP_NONE);
-   */
+   
    
 }
 
