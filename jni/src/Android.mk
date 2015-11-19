@@ -14,14 +14,16 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(SDL_PATH)/include \
 
 # Add your application source files here...
 LOCAL_SRC_FILES := $(SDL_PATH)/src/main/android/SDL_android_main.c \
+        $(ENEMY_PATH)/littleEnemyShip.c \
+	$(ENEMY_PATH)/enemy.c \
 	$(GENERAL_PATH)/shoot.c \
 	$(USER_PATH)/userShip.c \
-	$(ENEMY_PATH)/littleEnemyShip.c \
-	$(ENEMY_PATH)/enemy.c \
 	$(ENEMY_PATH)/movementScheme.c \
 	$(ENEMY_PATH)/squadron.c \
         $(ENEMY_PATH)/positionHistory.c \
 	$(GENERAL_PATH)/game.c \
+        $(GENERAL_PATH)/score.c \
+	$(GENERAL_PATH)/life.c \
 	$(MAIN_PATH)/main.c
 
 LOCAL_SHARED_LIBRARIES :=  SDL2_ttf \

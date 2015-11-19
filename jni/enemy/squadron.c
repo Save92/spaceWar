@@ -115,7 +115,7 @@ void removeNotVisibleEnemy(Squadron * squadron)
 }
 
 
-void moveSquadron(Squadron * squadron,int width,int height)
+void moveSquadron(Squadron * squadron,int width,int height, ListShoot * listShootEnnemy)
 {
     
     if((*squadron).size > 0 && (*squadron).nextEnemyShip)
@@ -126,7 +126,11 @@ void moveSquadron(Squadron * squadron,int width,int height)
         while(enemy)
         {
       //      __android_log_print(ANDROID_LOG_DEBUG, "Squadron",  "Shoot enemy :%d",  enemy);
-            moveEnemyShip(enemy,width, height);      
+            moveEnemyShip(enemy,width, height);
+            if(canShoot(enemy))
+            {
+                EnemyShipShoot(*enemy,listShootEnnemy);
+            }
             enemy = enemy->nextEnemyShip;
         }
     }

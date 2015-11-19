@@ -18,7 +18,7 @@
 
 # define SizeName  128
 # define MaxEnemy 4
-
+# define ApparitionTime 500
 
 
 Game *  initialisationOfTheGame(int width,int height)
@@ -189,18 +189,14 @@ void eventCheckCollision(Game * game, SDL_Renderer *renderer) {
 void  moveAllGame(Game * game, SDL_Renderer *renderer)
 {
 
-eventCheckCollision(game, renderer);
-
-
+    eventCheckCollision(game, renderer);
     moveAllMyShoots(game->listShootUser,game->width,game->height);
-    
+    moveAllMyShoots(game->listShootEnnemy,game->width,game->height);
 
 
     game->tempsActuel = SDL_GetTicks();
-   // __android_log_print(ANDROID_LOG_DEBUG, "GAME", "moveAllGame ");
     if(game->size == 0)
     {
-  //      __android_log_print(ANDROID_LOG_DEBUG, "GAME", "emptyGame ");
         createNextSquadron(game);
     }
     else
@@ -210,7 +206,7 @@ eventCheckCollision(game, renderer);
         int index = 0;
         while(tmp && index < size)
         {
-            if(game->tempsActuel - game->tempsPrecedent > 200)
+            if(game->tempsActuel - game->tempsPrecedent > ApparitionTime)
             {
                 createNextSquadron(game);
                 game->tempsPrecedent = game->tempsActuel;
@@ -223,7 +219,7 @@ eventCheckCollision(game, renderer);
     Squadron *tmp =  game->nextSquadron;
     while(tmp)
     {
-        moveSquadron(tmp,game->width,game->height);
+        moveSquadron(tmp,game->width,game->height,game->listShootEnnemy);
         tmp= tmp->nextSquadron;
     }
 
@@ -235,6 +231,7 @@ eventCheckCollision(game, renderer);
 void  drawGame(SDL_Renderer* renderer ,Game * game)
 {
     drawAllMyShoots(renderer,game->listShootUser);
+    drawAllMyShoots(renderer,game->listShootEnnemy);
     drawMyShip(renderer , game->myShip);
    //  __android_log_print(ANDROID_LOG_DEBUG, "GAME", "drawGame ");
     if(game->size > 0)

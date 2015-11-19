@@ -43,7 +43,7 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
     enemyShip->color[2] = 81;
     enemyShip->color[3] = 255;
     enemyShip->life = 1;
-    enemyShip->shotLevel = 1;
+    
     enemyShip->typeShip = typeShip;
     int defaultGap = enemyShip->width ;
     initialisationTypeStart(width,height,enemyShip,typeStart,side,defaultGap);
@@ -62,6 +62,7 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
     srand((unsigned) time(&t));
     
     enemyShip->bonus = t%17;
+    enemyShip->shotLevel = t%5;
     enemyShip->cntFootStep = 0;
     enemyShip->type = 0;
     enemyShip->typeMovement = typeMovement;
@@ -72,7 +73,7 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
     enemyShip->changeDirection = t%3;
     
     enemyShip->repeatMovement = 0;
-    enemyShip->frequencyOfShoot = 15;
+    enemyShip->frequencyOfShoot = 50;
     enemyShip->verticalSide = side;
     enemyShip->nextEnemyShip = NULL;
     enemyShip->visible = VISIBLE;
@@ -236,17 +237,13 @@ int  LittleEnemyShipCanShoot(EnemyShip * enemyShip)
 {
     
     if(enemyShip->cntFootStep % enemyShip->frequencyOfShoot == 0)
-        return 1;
+        return TRUE;
     else
-        return 0;
+        return FALSE;
         
 }
 
-Shoot * LittleEnemyShipShoot(EnemyShip * enemyShip)
-{
-    Shoot * shoot;
-    return shoot;
-}
+
 
 
 

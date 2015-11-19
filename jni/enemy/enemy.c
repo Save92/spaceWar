@@ -77,18 +77,7 @@ EnemyShip * initialisationEnemyShip(int width,int height,int typeStart,int side,
     return enemyShip;
 }
 
-Shoot * EnemyShipShoot(EnemyShip * enemyShip)
-{
-   // __android_log_print(ANDROID_LOG_DEBUG, "EnemyShip",   "EnemyShipShoot"  );
-    switch (enemyShip->type) {
-        case 0: LittleEnemyShipShoot(enemyShip);
-            break;
-            
-        default:
-            break;
-            
-    }
-}
+
     
 int canShoot(EnemyShip * enemyShip)
 {

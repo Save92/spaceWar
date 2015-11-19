@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "../user/userShip.h"
+#include "../enemy/enemy.h"
 
 typedef struct Shoot Shoot;
 struct Shoot
@@ -27,7 +28,7 @@ struct Shoot
     int direction ;
     int damage ;
     int cmptMoov ;
-    int way;
+    signed int way;
 
 };
 
@@ -69,8 +70,13 @@ void setVisibility(Shoot * shoot,int widthScreen,int heightScreen);
 void filterMyShoots(ListShoot * listShoot);
 void FreeMyShoot(Shoot * shoot);
 void myShipShoot(UserShip myShip,ListShoot * listShoot,int direction,int damage);
+void EnemyShoot(EnemyShip enemy,ListShoot * listShoot,int direction,int damage);
 
 void UserShipShoot(UserShip myShip,ListShoot * listShoot);
+void EnemyShipShoot(EnemyShip myShip,ListShoot * listShoot);
+void addShoot(int posX,int posY , int width , int height , ListShoot * listShoot, int direction, int damage,int way,int color1,int color2,int color3, int transparence );
+
+
 
 
 

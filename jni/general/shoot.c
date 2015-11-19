@@ -1,6 +1,6 @@
 //
 //  shoot.c
-//  
+//
 //
 //  Created by thierry allard saint albin on 27/09/2015.
 //
@@ -15,6 +15,7 @@
 #include <android/log.h>
 #include <stdlib.h>
 #include "constant.h"
+#include "../enemy/enemy.h"
 
 //DIRECTION SHOOT
 #define DIRECTION_VERTICAL 0
@@ -49,7 +50,7 @@ void drawMyShoot(SDL_Renderer* renderer , Shoot * shoot)
 
 void moveMyShoot(Shoot * shoot ,int widthScreen , int heightScreen)
 {
-
+    
     if(shoot != NULL)
     {
         
@@ -95,6 +96,7 @@ void moveVerticaly(Shoot * shoot,int widthScreen,int heightScreen)
         __android_log_print(ANDROID_LOG_DEBUG, "moveVerticaly",  "Shoot posX : %d posY :%d",  shoot->posX ,shoot->posY);
         if (shoot->way == -1) {
             shoot->posY = shoot->posY  + ( shoot->way * shoot->speed);
+
         } else if (shoot->way == 1) {
             shoot->posY = shoot->posY  + ( shoot->way * shoot->speed);
         }
@@ -147,8 +149,8 @@ void moveDiagonaleRight(Shoot * shoot,int widthScreen,int heightScreen)
             }
             //shoot->posX = shoot->posX  + ( 1 * shoot->speed/2);
         }
-            
-            
+        
+        
         setVisibility(shoot,widthScreen,heightScreen);
     }
     shoot->cmptMoov++;
@@ -172,7 +174,7 @@ void moveDiagonaleSubRight(Shoot * shoot,int widthScreen,int heightScreen)
             } else if (shoot->way == 1) {
                 shoot->posX = shoot->posX  + ( shoot->way * shoot->speed/2);
             }
-        
+            
             //shoot->posX = shoot->posX  + ( 1 * shoot->speed/2);
         }
         setVisibility(shoot,widthScreen,heightScreen);
@@ -198,7 +200,7 @@ void moveDiagonaleSubLeft(Shoot * shoot,int widthScreen,int heightScreen)
             } else if (shoot->way == 1) {
                 shoot->posX = shoot->posX  + ( shoot->way * shoot->speed);
             }
-        
+            
             //shoot->posX = shoot->posX  - ( 1 * shoot->speed/2);
         }
         setVisibility(shoot,widthScreen,heightScreen);
@@ -230,8 +232,8 @@ void moveAllMyShoots(ListShoot * listShoot ,int widthScreen , int heightScreen)
         while(nextShoot)
         {
             __android_log_print(ANDROID_LOG_DEBUG, "moveVerticaly",  "Shoot adress :%d",  nextShoot);
-                moveMyShoot(nextShoot,widthScreen,heightScreen);
-                nextShoot = nextShoot->nextShoot;
+            moveMyShoot(nextShoot,widthScreen,heightScreen);
+            nextShoot = nextShoot->nextShoot;
             
         }
     }
@@ -259,7 +261,7 @@ void filterMyShoots(ListShoot * listShoot)
     //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG1"  );
     if(listShoot != NULL && listShoot->start != NULL)
     {
-         __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG2"  );
+        __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG2"  );
         previous = listShoot->start;
         if(previous->nextShoot == NULL)
         {
@@ -312,25 +314,40 @@ void filterMyShoots(ListShoot * listShoot)
 
 void myShipShoot(UserShip myShip,ListShoot * listShoot,int direction,int damage)
 {
-    __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "myShipShoot");
+    addShoot(myShip.posX,myShip.posY,myShip.rectangle->w,myShip.rectangle->h,listShoot,direction,damage,-1,255,255,255, 255);
+}
+
+void EnemyShoot(EnemyShip enemy,ListShoot * listShoot,int direction,int damage)
+{
+    addShoot(enemy.posX,enemy.posY,enemy.rectangle->w,enemy.rectangle->h,listShoot,direction,damage,1,2,130,171, 255);
+}
+
+
+void addShoot(int posX,int posY , int width , int height , ListShoot * listShoot, int direction, int damage,signed int way,int color1,int color2,int color3, int transparence )
+{
+    __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "EnemeyShipShoot");
     int cnt = 0;
     Shoot * nextShoot = malloc(sizeof(Shoot));
-    (*nextShoot).posX = myShip.posX + ( myShip.rectangle->w/2);
-    (*nextShoot).posY = myShip.posY;
+    (*nextShoot).posX = posX + (width/2);
+    //TIR ENEMIE
+    if(way == -1 )
+        (*nextShoot).posY = posY + height ;
+    else
+        (*nextShoot).posY = posY;
     (*nextShoot).speed = SPEED_SHOOT;
-    (*nextShoot).color[0] = 255;
-    (*nextShoot).color[1] = 255;
-    (*nextShoot).color[2] = 255;
-    (*nextShoot).color[3] = 255;
+    
+    (*nextShoot).color[0] = color1%256;
+    (*nextShoot).color[1] = color2%256;
+    (*nextShoot).color[2] = color3%256;
+    (*nextShoot).color[3] = transparence%256;
     (*nextShoot).rectangle = malloc( sizeof(SDL_Rect));
     (*nextShoot).visible = 1;
     (*nextShoot).direction = direction;
     (*nextShoot).damage = damage;
     (*nextShoot).cmptMoov = 0;
-    (*nextShoot).way = -1;
+    (*nextShoot).way = way;
     
     
-   
     __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "Shoot posX : %d posY :%d",  (*nextShoot).posX ,(*nextShoot).posY);
     if(listShoot->size > 0 && (*listShoot).start != NULL)
     {
@@ -354,6 +371,9 @@ void myShipShoot(UserShip myShip,ListShoot * listShoot,int direction,int damage)
 }
 
 
+
+
+
 void FreeMyShoot(Shoot * shoot)
 {
     free(shoot->rectangle);
@@ -370,13 +390,13 @@ void UserShipShoot(UserShip myShip,ListShoot * listShoot)
         case 1: myShipShoot(myShip,listShoot,DIRECTION_VERTICAL,LOW_DAMAGE);
             break;
         case 2: myShipShoot(myShip,listShoot,DIRECTION_DIAGONALE_LEFT,LOW_DAMAGE);
-                myShipShoot(myShip,listShoot,DIRECTION_DIAGONALE_RIGHT,LOW_DAMAGE);
+            myShipShoot(myShip,listShoot,DIRECTION_DIAGONALE_RIGHT,LOW_DAMAGE);
             break;
             
         case 3: myShipShoot(myShip,listShoot,DIRECTION_DIAGONALE_LEFT,LOW_DAMAGE);
-                myShipShoot(myShip,listShoot,DIRECTION_DIAGONALE_RIGHT,LOW_DAMAGE);
-                myShipShoot(myShip,listShoot,DIRECTION_VERTICAL,LOW_DAMAGE);
-                
+            myShipShoot(myShip,listShoot,DIRECTION_DIAGONALE_RIGHT,LOW_DAMAGE);
+            myShipShoot(myShip,listShoot,DIRECTION_VERTICAL,LOW_DAMAGE);
+            
             break;
             
         case 4 :
@@ -392,11 +412,48 @@ void UserShipShoot(UserShip myShip,ListShoot * listShoot)
             myShipShoot(myShip,listShoot,DIRECTION_DIAGONALE_SUB_LEFT,LOW_DAMAGE);
             myShipShoot(myShip,listShoot,DIRECTION_DIAGONALE_SUB_RIGHT,LOW_DAMAGE);
             myShipShoot(myShip,listShoot,DIRECTION_VERTICAL,LOW_DAMAGE);
-        
-        default:
+            
+        default: myShipShoot(myShip,listShoot,DIRECTION_VERTICAL,LOW_DAMAGE);
             break;
     }
 }
+
+
+void EnemyShipShoot(EnemyShip myShip,ListShoot * listShoot)
+{
+    switch (myShip.shotLevel)
+    {
+        case 1: EnemyShoot(myShip,listShoot,DIRECTION_VERTICAL,LOW_DAMAGE);
+            break;
+        case 2: EnemyShoot(myShip,listShoot,DIRECTION_DIAGONALE_LEFT,LOW_DAMAGE);
+            EnemyShoot(myShip,listShoot,DIRECTION_DIAGONALE_RIGHT,LOW_DAMAGE);
+            break;
+            
+        case 3: EnemyShoot(myShip,listShoot,DIRECTION_DIAGONALE_LEFT,LOW_DAMAGE);
+            EnemyShoot(myShip,listShoot,DIRECTION_DIAGONALE_RIGHT,LOW_DAMAGE);
+            EnemyShoot(myShip,listShoot,DIRECTION_VERTICAL,LOW_DAMAGE);
+            
+            break;
+            
+        case 4 :
+            EnemyShoot(myShip,listShoot,DIRECTION_DIAGONALE_LEFT,LOW_DAMAGE);
+            EnemyShoot(myShip,listShoot,DIRECTION_DIAGONALE_RIGHT,LOW_DAMAGE);
+            EnemyShoot(myShip,listShoot,DIRECTION_DIAGONALE_SUB_LEFT,LOW_DAMAGE);
+            EnemyShoot(myShip,listShoot,DIRECTION_DIAGONALE_SUB_RIGHT,LOW_DAMAGE);
+            break;
+            
+        case 5 :
+            EnemyShoot(myShip,listShoot,DIRECTION_DIAGONALE_LEFT,LOW_DAMAGE);
+            EnemyShoot(myShip,listShoot,DIRECTION_DIAGONALE_RIGHT,LOW_DAMAGE);
+            EnemyShoot(myShip,listShoot,DIRECTION_DIAGONALE_SUB_LEFT,LOW_DAMAGE);
+            EnemyShoot(myShip,listShoot,DIRECTION_DIAGONALE_SUB_RIGHT,LOW_DAMAGE);
+            EnemyShoot(myShip,listShoot,DIRECTION_VERTICAL,LOW_DAMAGE);
+            
+        default: EnemyShoot(myShip,listShoot,DIRECTION_VERTICAL,LOW_DAMAGE);
+            break;
+    }
+}
+
 
 
 
