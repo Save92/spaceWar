@@ -76,7 +76,6 @@ Game *  initialisationOfTheGame(int width,int height);
 void  moveAllGame(Game * game, SDL_Renderer *renderer);
 void  drawGame(SDL_Renderer* renderer ,Game * game);
 void  createNextSquadron(Game * game);
-void  removeNotVisibleEnemyFromGame(Game * game);
 void  removeNotVisibleSquadronFromGame(Game * game);
 
 void addNewEnemy(Game * game,Squadron * squadron);

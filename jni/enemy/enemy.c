@@ -56,7 +56,6 @@ void freeEnemyShip(EnemyShip * enemyShip)
 {
     free(enemyShip->rectangle);
     free(enemyShip->movementScheme);
-    free(enemyShip->nextEnemyShip);
     free(enemyShip);
    
 }

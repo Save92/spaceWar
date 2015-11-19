@@ -29,7 +29,6 @@ struct Squadron
 
 Squadron * initialisationSquadron(int maxSize);
 void addEnemyToSquadron(EnemyShip * enemy,Squadron * squadron);
-void removeNotVisibleEnemy(Squadron * squadron);
 void moveSquadron(Squadron * squadron,int width,int height);
 void drawMySquadron(SDL_Renderer* renderer , Squadron * squadron);
 int allVisible(Squadron * squadron);

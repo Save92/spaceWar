@@ -234,82 +234,70 @@ void  drawGame(SDL_Renderer* renderer ,Game * game)
 }
 
 
-void  removeNotVisibleEnemyFromGame(Game * game)
-{
-    if(game->size > 0)
-    {
-        Squadron * squadron;
-        squadron = game->nextSquadron;
-        while(squadron)
-        {
-            removeNotVisibleEnemy(squadron);
-            if(squadron->size == 0)
-            {
-                squadron->visible = 0;
-            }
-            squadron = squadron->nextSquadron;
-        }
-    }
-}
-
 
 void removeNotVisibleSquadronFromGame(Game * game)
 {
- //   __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "removeNotVisibleSquadronFromGame"  );
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "removeNotVisibleSquadronFromGame"  );
     Squadron  *tmp;
     Squadron  *previous;
-    //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG1"  );
+    Squadron  *next;
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG1"  );
     if(game != NULL && game->nextSquadron != NULL)
     {
-       // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG2"  );
-        previous = game->nextSquadron;
-        if(previous->nextSquadron == NULL)
+
+        if(game->nextSquadron->nextSquadron == NULL)
         {
-           // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG3"  );
-            if(previous->visible == 0)
+            __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG3"  );
+            if(game->nextSquadron == 0)
             {
-             //   __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG4"  );
+                __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG4"  );
                 freeSquadron(game->nextSquadron);
                 game->nextSquadron = NULL;
             }
         }
         else
         {
-           // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG5"  );
-            tmp = previous;
+            __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG5"  );
+            tmp = game->nextSquadron;
             previous = NULL;
-            
+            Squadron  *next;
             while(tmp != NULL)
             {
-              //  __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG6"  );
+                __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG6"  );
                 if(tmp->visible == 0)
                 {
-                  //  __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG7"  );
+                    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG7"  );
                     Squadron * deletedSquadron = tmp;
                     
                     tmp = tmp->nextSquadron;
                     if(previous == NULL)
                     {
-                    //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG8"  );
+                        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG8"  );
                         game->nextSquadron = tmp;
                     }
                     else
                     {
                         previous->nextSquadron = tmp;
                     }
-                    freeSquadron(deletedSquadron);
+                    if(deletedSquadron)
+                    {
+                        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG9"  );
+                        freeSquadron(deletedSquadron);
+                    }
                     deletedSquadron = NULL;
+                    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG10"  );
                     game->size--;
                 }
                 else
                 {
-                    //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG9"  );
+                    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG11"  );
                     previous = tmp;
                     tmp= tmp->nextSquadron;
                 }
             }
         }
     }
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "END removeNotVisibleSquadronFromGame"  );
  //   __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "END removeNotVisibleSquadronFromGame"  );
 }
 
@@ -546,56 +534,63 @@ int my_rand()
 }
 
 void onDestroy(int posx, int posy, SDL_Renderer *renderer) {
-    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "onDestroy avant sprite"  ); 
+  /*
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "onDestroy avant sprite"  );
     SpriteExplosion explosion = LoadSpriteForExplostion(2, renderer);
     SDL_Rect test = {  posx, posy, 100 , 100  };
 
         __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "onDestroy avant renderer"  ); 
     SDL_RenderCopyEx(renderer, explosion.texture, &(explosion.image_location), &test, explosion.angle, NULL, SDL_FLIP_NONE);
+   */
+   
 }
 
 // Fonction d'affichage du sprite pour l'explosion (Pas au point...)
 SpriteExplosion LoadSpriteForExplostion(int image, SDL_Renderer *renderer)
 {
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion_____SpriteExplosion"  );
 
-    SpriteExplosion result;
-    result.background.r = 255;
-    result.background.g = 255;
-    result.background.b = 255;
-    result.image_location->x = 0;
-    result.image_location->y = 200;
-    result.image_location->h = 100;
-    result.image_location->w = 100;
-    result.texture = NULL;
+    SpriteExplosion * result = malloc(sizeof(SpriteExplosion));
+    result->background.r = 255;
+    result->background.g = 255;
+    result->background.b = 255;
+    result->image_location =  malloc( sizeof(SDL_Rect));
+    result->image_location->x = 0;
+    result->image_location->y = 200;
+    result->image_location->h = 100;
+    result->image_location->w = 100;
+    result->texture = NULL;
     if (image == 2) {
-        result.x = 0;
-        result.y = 200;
+        result->x = 0;
+        result->y = 200;
     }
-    result.w = 100;
-    result.h = 100;
-    result.angle = 0.0;
+    result->w = 100;
+    result->h = 100;
+    result->angle = 0.0;
 
     /* Load the sprite image */
-    result.surface = SDL_LoadBMP("../assets/explosion.bmp");
-    if (result.surface == NULL)
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion_____LOAD_BMP"  );
+    result->surface = SDL_LoadBMP("../assets/explosion.bmp");
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion_____AFTER_LOAD_BMP"  );
+    if (result->surface == NULL)
     {
         __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion surface = null"  );   
-        return result;
+        return (*result);
     }
 __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion surface OK"  ); 
     /* Create texture from the image */
-    result.texture = SDL_CreateTextureFromSurface(renderer, result.surface);
-    if (!result.texture) {
+    result->texture = SDL_CreateTextureFromSurface(renderer, result->surface);
+    if (!result->texture) {
 
         __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion texture = null"  ); 
-        SDL_FreeSurface(result.surface);
-        return result;
+        SDL_FreeSurface(result->surface);
+        return (*result);
     }
 
         __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion texture OK"  ); 
-    SDL_FreeSurface(result.surface);
+    SDL_FreeSurface(result->surface);
 
-    return result;
+    return (*result);
 }
 
 
