@@ -11,6 +11,10 @@
 
 #include "../SDL/src/core/android/SDL_android.h"
 #include "SDL.h"
+
+
+#define MAX_LIFE 99
+
 typedef struct UserShip
 {
     int posX;
@@ -20,6 +24,7 @@ typedef struct UserShip
     int color[4];
     SDL_Rect *rectangle;
     int shotLevel;
+    int visible ;
 
 
     
@@ -34,7 +39,8 @@ void freeShip(UserShip * myShip);
 UserShip * initialisationUserShip();
 void moveMyShipGeneral(float * accelValues,int SIZEACCELVALUES,UserShip * myShip,int widthScreen,int heightScreen);
 int userShipIsAlive(UserShip * userShip);
-
+void decreaseLife( UserShip * myShip);
+void addLife( UserShip * myShip);
 
 #endif /* defined(____userShip__) */
 

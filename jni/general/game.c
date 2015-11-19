@@ -15,6 +15,7 @@
 #include "../enemy/enemy.h"
 
 
+
 # define SizeName  128
 # define MaxEnemy 4
 
@@ -23,6 +24,7 @@
 Game *  initialisationOfTheGame(int width,int height)
 {
     Game * game = malloc(sizeof(Game));
+    game->score = 0;
     game->size = 0;
     game->score = 0;
     game->level = 1;
@@ -42,7 +44,19 @@ Game *  initialisationOfTheGame(int width,int height)
     game->listShootEnnemy = malloc(sizeof(ListShoot));
     game->listShootEnnemy->size = 0;
     game->listShootEnnemy->start = NULL;
-    
+    if(TTF_Init() == -1)
+    {
+        game->initText = -1;
+        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "Erreur d'initialisation de TTF_Init : %s\n",TTF_GetError());
+    }
+    else
+    {
+        game->initText = 0;
+        game->police = NULL;
+        game->police =  TTF_OpenFont("game_over.ttf", 65);
+        if(game->police == NULL)
+             game->initText = -1;
+    }
     return game;
 
 }
@@ -59,7 +73,7 @@ void eventCheckCollisionUserShipEnnemyShoot(Game * game,SDL_Renderer *renderer) 
 
         if (checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE) {
             //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR ENNEMIE !!! BOOOOOOOMMMMMM!!!!!"  );
-            game->myShip->life -= 1;
+            decreaseLife( game->myShip );
             if(game->myShip->life == 0) {
                 onDestroy(game->myShip->posX, game->myShip->posY, renderer);
             }
@@ -71,39 +85,41 @@ void eventCheckCollisionUserShipEnnemyShoot(Game * game,SDL_Renderer *renderer) 
 
 void eventCheckCollisionUserShipEnnemyShip(Game * game,SDL_Renderer *renderer) {
     // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "CHECK eventCheckCollisionUserShipEnnemyShip!!!_______________________________");
-   
+    
     Squadron * indexSquadron = game->nextSquadron;
-
+    
     Squadron *tmpSquadron = indexSquadron;
     while(tmpSquadron)
     {
-
+        
         EnemyShip * indexList = tmpSquadron->nextEnemyShip;
-
+        
         EnemyShip *tmp = indexList;
         while(tmp)
         {
             indexList = tmp;
-
-            if (checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE) {
+            
+            if (checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE)
+            {
                 //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "VAISSEAUX SE RENTRE DEDANS! BOOOOOOOMMMMMM!!!!!"  );
                 indexList->life -= 1;
-                if (indexList->life == 0) {
+                if (indexList->life == 0)
+                {
                     onDestroy(indexList->posX, indexList->posY, renderer);
                     indexList->visible = INVISIBLE;
                 }
-                game->myShip->life -= 1;
-
+                
                 // game->myShip->visible = INVISIBLE;
                 // indexList->visible = INVISIBLE;
+                decreaseLife( game->myShip );
             }
             tmp = tmp->nextEnemyShip;
         }
-
+        
         indexSquadron = tmpSquadron;
         tmpSquadron = tmpSquadron->nextSquadron;
     }
-
+    
     
 }
 
@@ -135,6 +151,7 @@ void eventCheckCollisionUserShipShootEnnemy(Game * game,SDL_Renderer *renderer) 
                     if (indexList->life == 0) {
                         onDestroy(indexList->posX, indexList->posY, renderer);
                         indexList->visible = INVISIBLE;
+                        addScore(*indexList,&(game->score));
                     }
                     indexListShoot->visible = INVISIBLE;
                 }
@@ -193,7 +210,7 @@ eventCheckCollision(game, renderer);
         int index = 0;
         while(tmp && index < size)
         {
-            if(game->tempsActuel - game->tempsPrecedent > 600)
+            if(game->tempsActuel - game->tempsPrecedent > 200)
             {
                 createNextSquadron(game);
                 game->tempsPrecedent = game->tempsActuel;
@@ -230,6 +247,11 @@ void  drawGame(SDL_Renderer* renderer ,Game * game)
             squadron = squadron->nextSquadron;
         }
     }
+    if(game->initText != -1)
+    {
+        renderScore(game,renderer);
+    }
+    renderLife(game,renderer);
  //   __android_log_print(ANDROID_LOG_DEBUG, "GAME", "END drawGame ");
 }
 
@@ -592,5 +614,18 @@ __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion surfac
 
     return (*result);
 }
+
+void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y){
+    //Setup the destination rectangle to be at the position we want
+    SDL_Rect dst;
+    dst.x = x;
+    dst.y = y;
+    //Query the texture to get its width and height to use
+    SDL_QueryTexture(tex, NULL, NULL, &dst.w, &dst.h);
+    SDL_RenderCopy(ren, tex, NULL, &dst);
+}
+
+
+
 
 

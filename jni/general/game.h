@@ -16,6 +16,8 @@
 #include "../enemy/enemy.h"
 #include "../user/UserShip.h"
 #include "./shoot.h"
+#include <SDL_ttf.h>
+
 
 
 typedef struct Game Game;
@@ -34,11 +36,16 @@ struct Game
     UserShip * myShip;
     ListShoot * listShootUser;
     ListShoot * listShootEnnemy;
+    TTF_Font *police;
+    int initText;
     
     
     int cntInLastSquadron;
     StackHistory * stack ;
 };
+
+#include "./score.h"
+#include "./life.h"
 
 typedef struct Rgb
 {
@@ -89,5 +96,7 @@ void eventCheckCollisionUserShipEnnemyShoot(Game * game, SDL_Renderer *renderer)
 void eventCheckCollisionUserShipEnnemyShip(Game * game, SDL_Renderer *renderer);
 void onDestroy(int posx, int posy, SDL_Renderer *renderer);
 SpriteExplosion LoadSpriteForExplostion(int image, SDL_Renderer *renderer);
+void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y);
+
 
 #endif /* game_h */

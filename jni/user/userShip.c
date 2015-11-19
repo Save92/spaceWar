@@ -17,7 +17,7 @@
 
 void drawMyShip(SDL_Renderer* renderer , UserShip * myShip)
 {
-    if(myShip->life > 0)
+    if(myShip->visible == VISIBLE)
     {
         myShip->rectangle->x = myShip->posX;
         myShip->rectangle->y = myShip->posY;
@@ -140,6 +140,7 @@ UserShip * initialisationUserShip(int width,int height)
     myShip->color[3] = 255;
     myShip->life = 99;
     myShip->shotLevel = 1;
+    myShip->visible = VISIBLE;
     
     return myShip;
 
@@ -151,6 +152,22 @@ int userShipIsAlive(UserShip * userShip)
         return FALSE;
     return TRUE;
 }
+
+void decreaseLife( UserShip * myShip )
+{
+    if(myShip->life >0)
+        (myShip->life)--;
+    if(myShip->life == 0)
+    {
+        myShip->visible = INVISIBLE;
+    }
+}
+void addLife( UserShip * myShip )
+{
+    if(myShip->life < MAX_LIFE && myShip->visible == VISIBLE)
+        (myShip->life)++;
+}
+
 
 
 
