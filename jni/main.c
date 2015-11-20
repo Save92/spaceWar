@@ -102,8 +102,10 @@ void draw(SDL_Window* window, SDL_Renderer* renderer, const Sprite sprite)
 
 int main(int argc, char *argv[])
 {
+    SDL_Init(SDL_INIT_EVERYTHING);
     SDL_Window *window;
     SDL_Renderer *renderer;
+
 
     if(SDL_CreateWindowAndRenderer(0, 0, 0, &window, &renderer) < 0)
         exit(2);

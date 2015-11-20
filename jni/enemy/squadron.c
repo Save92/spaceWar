@@ -58,39 +58,39 @@ void removeNotVisibleEnemy(Squadron * squadron)
     {
         EnemyShip  *tmp;
         EnemyShip  *previous;
-        __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG1"  );
+       // __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG1"  );
         if(squadron != NULL && squadron->nextEnemyShip != NULL)
         {
-            __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG2"  );
+           // __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG2"  );
             previous = squadron->nextEnemyShip;
             if(previous->nextEnemyShip == NULL)
             {
-                __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG3"  );
+              //  __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG3"  );
                 if(previous->visible == INVISIBLE)
                 {
-                    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG4"  );
+                 //   __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG4"  );
                     freeEnemyShip(squadron->nextEnemyShip);
                     squadron->nextEnemyShip = NULL;
                 }
             }
             else
             {
-                __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG5"  );
+              //  __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG5"  );
                 tmp = previous;
                 previous = NULL;
                 
                 while(tmp != NULL)
                 {
-                    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG6"  );
+               //     __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG6"  );
                     if(tmp->visible == INVISIBLE)
                     {
-                        __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG7"  );
+              //          __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG7"  );
                         EnemyShip * deletedEnemy = tmp;
                         
                         tmp = tmp->nextEnemyShip;
                         if(previous == NULL)
                         {
-                            __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG8"  );
+             //               __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG8"  );
                             squadron->nextEnemyShip = tmp;
                         }
                         else
@@ -103,7 +103,7 @@ void removeNotVisibleEnemy(Squadron * squadron)
                     }
                     else
                     {
-                        __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG9"  );
+            //            __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "FLAG9"  );
                         previous = tmp;
                         tmp= tmp->nextEnemyShip;
                     }
@@ -135,7 +135,7 @@ void moveSquadron(Squadron * squadron,int width,int height, ListShoot * listShoo
         }
     }
     changeAppearNext(squadron,height);
-    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "before setVisibilitySquadron"   );
+   // __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "before setVisibilitySquadron"   );
     setVisibilitySquadron(squadron);
     
 }
@@ -165,7 +165,7 @@ void drawMySquadron(SDL_Renderer* renderer , Squadron * squadron)
 
 int allVisible(Squadron * squadron)
 {
-     __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "AllVisible"  );
+   //  __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "AllVisible"  );
     if(squadron->size > 0 && squadron->nextEnemyShip)
     {
         
@@ -177,11 +177,11 @@ int allVisible(Squadron * squadron)
         {
             if(enemy->visible == INVISIBLE)
             {
-                 __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "enemy not visible"  );
+         //        __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "enemy not visible"  );
                 return FALSE;
             }
             enemy = enemy->nextEnemyShip;
-            __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "AllVisible FL3"   );
+            //    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "AllVisible FL3"   );
         }
         return TRUE;
     }
@@ -215,38 +215,38 @@ void changeAppearNext(Squadron * squadron,int height)
 
 void setVisibilitySquadron(Squadron * squadron)
 {
-    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL1"   );
+   // __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL1"   );
     if(squadron && squadron->nextEnemyShip)
     {
-         __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL2"   );
+     //    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL2"   );
         EnemyShip * tempShip = squadron->nextEnemyShip;
         int allVisible = VISIBLE;
         if(squadron->size > 0)
         {
-             __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL3"   );
+       //      __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL3"   );
             while(tempShip != NULL)
             {
-                __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL4"   );
+        //        __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL4"   );
                 if(tempShip->visible == INVISIBLE )
                 {
                     allVisible = INVISIBLE;
                 }
                 tempShip = tempShip->nextEnemyShip;
-                __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL5"   );
-                 __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron %d",tempShip);
+       //         __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL5"   );
+        //         __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron %d",tempShip);
             }
             
             if(allVisible == INVISIBLE)
             {
 
                 squadron->visible = INVISIBLE;
-                __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL6"   );
+      //          __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL6"   );
             }
         }
         else
         {
             squadron->visible = INVISIBLE;
-            __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL7"   );
+     //       __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL7"   );
         }
     }
 }
@@ -254,16 +254,16 @@ void setVisibilitySquadron(Squadron * squadron)
 
 int sendNextSquadron(Squadron * squadron,int width,int height)
 {
-     __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "sendNextSquadron"  );
-     __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "squadron->appearNext %d" ,squadron->appearNext );
-    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "squadron->checkForNext %d" ,squadron->checkForNext );
+  //   __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "sendNextSquadron"  );
+  //   __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "squadron->appearNext %d" ,squadron->appearNext );
+  //  __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "squadron->checkForNext %d" ,squadron->checkForNext );
     if(squadron->appearNext == TRUE && squadron->checkForNext == FALSE )
     {
         squadron->checkForNext == TRUE;
-        __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "sendNextSquadron Return True"  );
+       // __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "sendNextSquadron Return True"  );
         return TRUE;
     }
-    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "sendNextSquadron Return FALSE"  );
+   // __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "sendNextSquadron Return FALSE"  );
     return FALSE;
 
 }
@@ -288,7 +288,7 @@ EnemyShip * getlastEnemyShip(Squadron * squadron)
 
 void freeSquadron(Squadron * squadron)
 {
-    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "freeSquadron"  );
+  //  __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "freeSquadron"  );
     
     EnemyShip * indexShip = squadron->nextEnemyShip;
     EnemyShip * nextEnemyShip;

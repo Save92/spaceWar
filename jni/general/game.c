@@ -26,6 +26,7 @@
 
 Game *  initialisationOfTheGame(int width,int height)
 {
+
     Game * game = malloc(sizeof(Game));
     game->score = 0;
     game->size = 0;
@@ -50,7 +51,7 @@ Game *  initialisationOfTheGame(int width,int height)
     if(TTF_Init() == -1)
     {
         game->initText = -1;
-        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "Erreur d'initialisation de TTF_Init : %s\n",TTF_GetError());
+        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "Erreur d'initialisation de TTF_Init : %s",TTF_GetError());
     }
     else
     {
@@ -61,16 +62,25 @@ Game *  initialisationOfTheGame(int width,int height)
              game->initText = -1;
     }
     
-    //Get initialize rumble
-    if( SDL_HapticRumbleInit( game->gControllerHaptic ) < 0 )
+    game->gControllerHaptic = SDL_HapticOpen( 0 );
+    if (game->gControllerHaptic == NULL)
     {
-        game->initRumble = -1;
-       __android_log_print(ANDROID_LOG_DEBUG, "GAME",  "Warning: Unable to initialize rumble! SDL Error: %s\n", SDL_GetError() );
+         game->initRumble = -1;
+        __android_log_print(ANDROID_LOG_DEBUG, "GAME",  "Warning: Unable to initialize rumble! SDL Error: %s", SDL_GetError() );
     }
     else
     {
-        game->initRumble = 1;
+        if (SDL_HapticRumbleInit( game->gControllerHaptic ) != 0)
+        {
+            game->initRumble = -1;
+            
+        }
+        else
+        {
+            game->initRumble = 1;
+        }
     }
+
     return game;
 
 }
@@ -281,42 +291,42 @@ void  drawGame(SDL_Renderer* renderer ,Game * game)
 
 void removeNotVisibleSquadronFromGame(Game * game)
 {
-    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "removeNotVisibleSquadronFromGame"  );
+   // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "removeNotVisibleSquadronFromGame"  );
     Squadron  *tmp;
     Squadron  *previous;
     Squadron  *next;
-    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG1"  );
+   // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG1"  );
     if(game != NULL && game->nextSquadron != NULL)
     {
 
         if(game->nextSquadron->nextSquadron == NULL)
         {
-            __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG3"  );
+        //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG3"  );
             if(game->nextSquadron == 0)
             {
-                __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG4"  );
+            //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG4"  );
                 freeSquadron(game->nextSquadron);
                 game->nextSquadron = NULL;
             }
         }
         else
         {
-            __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG5"  );
+          //  __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG5"  );
             tmp = game->nextSquadron;
             previous = NULL;
             Squadron  *next;
             while(tmp != NULL)
             {
-                __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG6"  );
+               // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG6"  );
                 if(tmp->visible == 0)
                 {
-                    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG7"  );
+                  //  __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG7"  );
                     Squadron * deletedSquadron = tmp;
                     
                     tmp = tmp->nextSquadron;
                     if(previous == NULL)
                     {
-                        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG8"  );
+                     //   __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG8"  );
                         game->nextSquadron = tmp;
                     }
                     else
@@ -325,23 +335,23 @@ void removeNotVisibleSquadronFromGame(Game * game)
                     }
                     if(deletedSquadron)
                     {
-                        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG9"  );
+                       // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG9"  );
                         freeSquadron(deletedSquadron);
                     }
                     deletedSquadron = NULL;
-                    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG10"  );
+                   // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG10"  );
                     game->size--;
                 }
                 else
                 {
-                    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG11"  );
+                   // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG11"  );
                     previous = tmp;
                     tmp= tmp->nextSquadron;
                 }
             }
         }
     }
-    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "END removeNotVisibleSquadronFromGame"  );
+  //  __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "END removeNotVisibleSquadronFromGame"  );
  //   __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "END removeNotVisibleSquadronFromGame"  );
 }
 
@@ -579,11 +589,11 @@ int my_rand()
 
 void onDestroy(int posx, int posy, SDL_Renderer *renderer) {
   
-    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "onDestroy avant sprite"  );
+    //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "onDestroy avant sprite"  );
     SpriteExplosion explosion = LoadSpriteForExplostion(2, renderer);
     SDL_Rect test = {  posx, posy, 100 , 100  };
 
-        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "onDestroy avant renderer"  ); 
+    //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "onDestroy avant renderer"  );
     SDL_RenderCopyEx(renderer, explosion.texture, &(explosion.image_location), &test, explosion.angle, NULL, SDL_FLIP_NONE);
    
    
@@ -592,7 +602,7 @@ void onDestroy(int posx, int posy, SDL_Renderer *renderer) {
 // Fonction d'affichage du sprite pour l'explosion (Pas au point...)
 SpriteExplosion LoadSpriteForExplostion(int image, SDL_Renderer *renderer)
 {
-    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion_____SpriteExplosion"  );
+    
 
     SpriteExplosion * result = malloc(sizeof(SpriteExplosion));
     result->background.r = 255;
@@ -613,25 +623,21 @@ SpriteExplosion LoadSpriteForExplostion(int image, SDL_Renderer *renderer)
     result->angle = 0.0;
 
     /* Load the sprite image */
-    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion_____LOAD_BMP"  );
     result->surface = SDL_LoadBMP("../assets/explosion.bmp");
-    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion_____AFTER_LOAD_BMP"  );
     if (result->surface == NULL)
     {
-        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion surface = null"  );   
         return (*result);
     }
-__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion surface OK"  ); 
     /* Create texture from the image */
     result->texture = SDL_CreateTextureFromSurface(renderer, result->surface);
     if (!result->texture) {
 
-        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion texture = null"  ); 
+     
         SDL_FreeSurface(result->surface);
         return (*result);
     }
 
-        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "LoadSpriteForExplostion texture OK"  ); 
+  
     SDL_FreeSurface(result->surface);
 
     return (*result);
@@ -653,7 +659,7 @@ void playRumble(Game * game,enum RumbleForce force,enum RumbleLength length)
     float frc = (float)(quotientForce * force);
     float lgth = (float)(quotientTemps * length);
     
-    if( SDL_HapticRumblePlay( game->gControllerHaptic, frc, lgth ) != 0 )
+    if( SDL_HapticRumblePlay( game->gControllerHaptic, frc, lgth ) != 0 && game->initRumble == 1)
     {
         __android_log_print(ANDROID_LOG_DEBUG, "GAME", "Warning: Unable to play rumble! %s\n", SDL_GetError() );
     }

@@ -67,7 +67,7 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
     enemyShip->type = 0;
     enemyShip->typeMovement = typeMovement;
     enemyShip->cntFootStep = 0;
-    __android_log_print(ANDROID_LOG_DEBUG, "littleEnemyShip", "__initialisationLittleEnemyShip__ distance : %d",distance);
+   // __android_log_print(ANDROID_LOG_DEBUG, "littleEnemyShip", "__initialisationLittleEnemyShip__ distance : %d",distance);
     enemyShip->movementScheme = initializeMovementScheme(enemyShip->posX,enemyShip->posY,0,0,distance,verticalLine,typeMovement);
 
     enemyShip->changeDirection = t%3;
@@ -89,7 +89,7 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
 void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int typeStart,int side,int defaultGap)
 {
     int gap = 0;
-    __android_log_print(ANDROID_LOG_DEBUG, "Start", "typeStart : %d , side : %d",typeStart,side);
+  //  __android_log_print(ANDROID_LOG_DEBUG, "Start", "typeStart : %d , side : %d",typeStart,side);
     switch(typeStart)
     {
         case TOP_SCREEN :
@@ -156,7 +156,7 @@ void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int type
             gap = defaultGap;
             if(side == 1)
             {
-                __android_log_print(ANDROID_LOG_DEBUG, "littleEnemyShip", "TOP_EXTREME_SIDE_SCREEN____LEFT");
+           //     __android_log_print(ANDROID_LOG_DEBUG, "littleEnemyShip", "TOP_EXTREME_SIDE_SCREEN____LEFT");
                 
                
                 enemyShip->rectangle->x = 0 ;
@@ -167,8 +167,7 @@ void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int type
             {
                 if(side == -1)
                 {
-                    __android_log_print(ANDROID_LOG_DEBUG, "littleEnemyShip", "TOP_EXTREME_SIDE_SCREEN____RIGHT");
-                    __android_log_print(ANDROID_LOG_DEBUG, "littleEnemyShip", "TOP_EXTREME_SIDE_SCREEN____RIGHT_GAP %d",gap);
+              
                     enemyShip->rectangle->x = width - gap ;
                     enemyShip->rectangle->y = 0;
                     enemyShip->verticalSide = -1;
