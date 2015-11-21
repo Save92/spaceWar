@@ -13,6 +13,7 @@
 #include <android/log.h>
 #include "constant.h"
 #include "../enemy/enemy.h"
+#include <math.h>
 
 
 
@@ -361,7 +362,7 @@ void  createNextSquadron(Game * game)
     
     if(game->history == 0 || game->history %2 == 0)
     {
-        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "PAIRE"  );
+       // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "PAIRE"  );
         int nombre_aleatoire = 0;
         nombre_aleatoire = my_rand();
         int nbrEnnemy =nombre_aleatoire % MaxEnemy;
@@ -383,10 +384,12 @@ void  createNextSquadron(Game * game)
             squad = game->nextSquadron;
         }
         game->history++;
+        ListePosition * lps = initializeListePosition();
         for(n = 0 ; n < nbrEnnemy ; n++)
         {
-            addNewEnemy(game,squad);
+            addNewEnemy(game,squad,lps);
         }
+        freeListePosition(lps);
         
          game->cntInLastSquadron = nbrEnnemy;
     }
@@ -419,10 +422,12 @@ void  createNextSquadron(Game * game)
             squad = game->nextSquadron;
         }
         game->history++;
+        ListePosition * lp = initializeListePosition();
         for(n = 0 ; n < nbrEnnemy ; n++)
         {
-            addNewEnemy(game,squad);
+            addNewEnemy(game,squad,lp);
         }
+        freeListePosition(lp);
         
         game->cntInLastSquadron = nbrEnnemy;
         
@@ -430,11 +435,21 @@ void  createNextSquadron(Game * game)
     game->size++;
 }
 
-void addNewEnemy(Game * game,Squadron * squadron)
+void addNewEnemy(Game * game,Squadron * squadron,ListePosition * lp)
 {
     // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "addNewEnemy"  );
     int side = 0;
-    int posStart = my_rand()%4; //A modifier pour mettre probabilité par lot (Loto)
+    int posStart = 0;
+    Position * pos  = NULL;
+    unsigned int randomPosition  = 0;
+    if(lp->size > 1)
+        randomPosition =abs( my_rand()%lp->size);
+    pos = getPositionAtIndex(randomPosition,lp);
+    
+    side = pos->side;
+    posStart = pos->position;
+    removePositionAtIndex(randomPosition, lp);
+    
     
     int tempDividendeDistance = my_rand() % MaxEnemy ;
     if(tempDividendeDistance == 0)

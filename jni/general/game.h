@@ -88,7 +88,7 @@ void  drawGame(SDL_Renderer* renderer ,Game * game);
 void  createNextSquadron(Game * game);
 void  removeNotVisibleSquadronFromGame(Game * game);
 
-void addNewEnemy(Game * game,Squadron * squadron);
+void addNewEnemy(Game * game,Squadron * squadron,ListePosition * lp);
 void addEnemyFromHistory(Game * game);
 
 Squadron * getLastSquadron(Game * game);

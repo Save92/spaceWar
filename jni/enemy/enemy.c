@@ -99,7 +99,7 @@ void setVisibilityEnemy(EnemyShip * enemyShip,int widthScreen,int heightScreen)
     if(enemyShip != NULL )
     {
         
-        if(enemyShip->posY < 0 || enemyShip->posY > heightScreen || enemyShip->posX < 0 || enemyShip->posX > widthScreen)
+        if((enemyShip->posY+enemyShip->height) < 0 || enemyShip->posY > heightScreen || (enemyShip->posX + enemyShip->width) < 0 || enemyShip->posX > widthScreen)
         {
             enemyShip->visible = INVISIBLE;
         }

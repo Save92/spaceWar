@@ -314,18 +314,20 @@ void filterMyShoots(ListShoot * listShoot)
 
 void myShipShoot(UserShip myShip,ListShoot * listShoot,int direction,int damage)
 {
+    //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "myShipShoot");
     addShoot(myShip.posX,myShip.posY,myShip.rectangle->w,myShip.rectangle->h,listShoot,direction,damage,-1,255,255,255, 255);
 }
 
 void EnemyShoot(EnemyShip enemy,ListShoot * listShoot,int direction,int damage)
 {
+    //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "EnemyShoot");
     addShoot(enemy.posX,enemy.posY,enemy.rectangle->w,enemy.rectangle->h,listShoot,direction,damage,1,2,130,171, 255);
 }
 
 
 void addShoot(int posX,int posY , int width , int height , ListShoot * listShoot, int direction, int damage,signed int way,int color1,int color2,int color3, int transparence )
 {
-    __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "EnemeyShipShoot");
+    //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "EnemyShipShoot");
     int cnt = 0;
     Shoot * nextShoot = malloc(sizeof(Shoot));
     (*nextShoot).posX = posX + (width/2);
