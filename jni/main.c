@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
     //ListShoot * listShoot = malloc(sizeof(ListShoot)) ;
     
     Game * game = initialisationOfTheGame( *widthScreen,*heightScreen);
-    drawMyShip(renderer , game->myShip);
+    //drawMyShip(renderer , game->myShip);
 
     // if(listShoot == NULL)
     //     return;

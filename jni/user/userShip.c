@@ -15,16 +15,59 @@
 #include <math.h>
 #include "../general/constant.h"
 
+typedef struct SpriteShip
+{
+    SDL_Texture* texture;
+    Uint16 w;
+    Uint16 h;
+} SpriteShip;
+
+SpriteShip LoadSpriteShip(const char* file, SDL_Renderer* renderer)
+{
+    SpriteShip result;
+    result.texture = NULL;
+    result.w = 0;
+    result.h = 0;
+
+    SDL_Surface* temp;
+
+    /* Load the sprite image */
+    temp = SDL_LoadBMP(file);
+
+    SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 0, 0, 0));
+    if (temp == NULL)
+    {
+        fprintf(stderr, "Couldn't load %s: %s\n", file, SDL_GetError());
+        return result;
+    }
+    result.w = temp->w;
+    result.h = temp->h;
+
+    /* Create texture from the image */
+    result.texture = SDL_CreateTextureFromSurface(renderer, temp);
+    if (!result.texture) {
+        fprintf(stderr, "Couldn't create texture: %s\n", SDL_GetError());
+        SDL_FreeSurface(temp);
+        return result;
+    }
+    SDL_FreeSurface(temp);
+
+    return result;
+}
+
 void drawMyShip(SDL_Renderer* renderer , UserShip * myShip)
 {
-    if(myShip->visible == VISIBLE)
-    {
+     if(myShip->visible == VISIBLE)
+     {
+
         myShip->rectangle->x = myShip->posX;
         myShip->rectangle->y = myShip->posY;
         myShip->rectangle->w = 50;
         myShip->rectangle->h = 50;
-        SDL_SetRenderDrawColor(renderer, myShip->color[0], myShip->color[1], myShip->color[2], myShip->color[3]);
-        SDL_RenderFillRect(renderer, (myShip->rectangle));
+        //SDL_SetRenderDrawColor(renderer, myShip->color[0], myShip->color[1], myShip->color[2], myShip->color[3]);
+        //SDL_RenderFillRect(renderer, (myShip->rectangle));
+        SpriteShip myShipSprite = LoadSpriteShip("myShipGood.bmp", renderer);
+        renderTexture(myShipSprite.texture, renderer, myShip->rectangle->x, myShip->rectangle->y);
     }
 }
 
