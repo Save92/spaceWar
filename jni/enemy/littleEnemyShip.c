@@ -181,7 +181,7 @@ void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int type
             {
                 
                 enemyShip->rectangle->x = 0-(gap/2);
-                enemyShip->rectangle->y = height/8 + gap ;
+                enemyShip->rectangle->y = height/2 + gap ;
                 enemyShip->verticalSide = 1;
             }
             else
@@ -189,7 +189,7 @@ void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int type
                 if(side == -1)
                 {
                     enemyShip->rectangle->x = width -(gap/2);
-                    enemyShip->rectangle->y = height/8 + gap;
+                    enemyShip->rectangle->y = height/2 + gap;
                     enemyShip->verticalSide = -1;
                 }
             }

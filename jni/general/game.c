@@ -19,7 +19,7 @@
 
 #define SizeName  128
 #define MaxEnemy 4
-#define ApparitionTime 500
+#define ApparitionTime 800
 
 #define quotientTemps 150
 #define quotientForce 0.25
@@ -97,7 +97,7 @@ void eventCheckCollisionUserShipEnnemyShoot(Game * game,SDL_Renderer *renderer) 
         indexList = tmp;
 
         if (checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE) {
-            //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR ENNEMIE !!! BOOOOOOOMMMMMM!!!!!"  );
+            __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR ENNEMIE !!! BOOOOOOOMMMMMM!!!!!"  );
             decreaseLife( game->myShip );
             enum RumbleForce force = MEDIUM_FORCE;
             enum RumbleLength length = MEDIUM_LENGTH;
@@ -134,7 +134,7 @@ void eventCheckCollisionUserShipEnnemyShip(Game * game,SDL_Renderer *renderer) {
             
             if (checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE)
             {
-                //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "VAISSEAUX SE RENTRE DEDANS! BOOOOOOOMMMMMM!!!!!"  );
+            __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "VAISSEAUX SE RENTRE DEDANS! BOOOOOOOMMMMMM!!!!!"  );
                 indexList->life -= 1;
                 if (indexList->life == 0)
                 {
@@ -362,7 +362,7 @@ void  createNextSquadron(Game * game)
     
     if(game->history == 0 || game->history %2 == 0)
     {
-       // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "PAIRE"  );
+        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "PAIRE"  );
         int nombre_aleatoire = 0;
         nombre_aleatoire = my_rand();
         int nbrEnnemy =nombre_aleatoire % MaxEnemy;

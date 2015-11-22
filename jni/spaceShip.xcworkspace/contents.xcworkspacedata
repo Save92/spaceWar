@@ -5,6 +5,12 @@
       location = "group:main.c">
    </FileRef>
    <FileRef
+      location = "group:general/drawer.c">
+   </FileRef>
+   <FileRef
+      location = "group:general/drawer.h">
+   </FileRef>
+   <FileRef
       location = "group:enemy/positionList.c">
    </FileRef>
    <FileRef

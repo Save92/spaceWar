@@ -16,6 +16,7 @@
 #include "littleEnemyShip.h"
 #include "../general/constant.h"
 
+
 # define CHGM_DIRECTION  2
 
 void drawEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip)

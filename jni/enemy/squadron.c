@@ -14,6 +14,7 @@
 #include <android/log.h>
 #include "../general/constant.h"
 
+
 Squadron * initialisationSquadron(int maxSize)
 {
  //   __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "initialisationSquadron"  );
