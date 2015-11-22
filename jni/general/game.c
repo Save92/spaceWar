@@ -18,7 +18,7 @@
 
 
 #define SizeName  128
-#define MaxEnemy 4
+#define MaxEnemy 2
 #define ApparitionTime 800
 
 #define quotientTemps 150
@@ -96,7 +96,7 @@ void eventCheckCollisionUserShipEnnemyShoot(Game * game,SDL_Renderer *renderer) 
     {
         indexList = tmp;
 
-        if (checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE) {
+        if (indexList->visible == VISIBLE && checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE) {
             __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR ENNEMIE !!! BOOOOOOOMMMMMM!!!!!"  );
             decreaseLife( game->myShip );
             enum RumbleForce force = MEDIUM_FORCE;
@@ -131,8 +131,8 @@ void eventCheckCollisionUserShipEnnemyShip(Game * game,SDL_Renderer *renderer) {
         while(tmp)
         {
             indexList = tmp;
-            
-            if (checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE)
+           
+            if (indexList->visible == VISIBLE  && checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE)
             {
             __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "VAISSEAUX SE RENTRE DEDANS! BOOOOOOOMMMMMM!!!!!"  );
                 indexList->life -= 1;
@@ -181,7 +181,7 @@ void eventCheckCollisionUserShipShootEnnemy(Game * game,SDL_Renderer *renderer) 
                 indexListShoot = tmpShoot;
 
                 //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR  !!! Pas touche"  );
-                if (checkCollision(*(indexList->rectangle), *(indexListShoot->rectangle), indexListShoot->speed) == TRUE) {
+                if (indexListShoot->visible == VISIBLE && checkCollision(*(indexList->rectangle), *(indexListShoot->rectangle), indexListShoot->speed) == TRUE) {
                     __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR !!! BOOOOOOOMMMMMM!!!!!"  );
                     indexList->life -= 1;
                     if (indexList->life == 0) {
