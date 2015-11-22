@@ -15,6 +15,7 @@
 #include "../enemy/positionHistory.h"
 #include "../enemy/enemy.h"
 #include "../user/UserShip.h"
+#include "./drawer.h"
 #include "./shoot.h"
 #include <SDL_ttf.h>
 

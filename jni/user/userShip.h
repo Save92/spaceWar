@@ -11,7 +11,7 @@
 
 #include "../SDL/src/core/android/SDL_android.h"
 #include "SDL.h"
-
+#include "../general/drawer.h"
 
 #define MAX_LIFE 99
 
@@ -25,6 +25,7 @@ typedef struct UserShip
     SDL_Rect *rectangle;
     int shotLevel;
     int visible ;
+    Sprite myShipSprite;
 
 
     

@@ -11,9 +11,10 @@
 
 #include <stdio.h>
 #include "./enemy.h"
+
+#include "../general/shoot.h"
 #include "../SDL/src/core/android/SDL_android.h"
 #include "SDL.h"
-#include "../general/shoot.h"
 typedef struct Squadron Squadron;
 struct Squadron
 {
