@@ -19,16 +19,12 @@
 
 float accelValues[3];
 #define SIZEACCELVALUES 2
-<<<<<<< HEAD
 // typedef struct Sprite
 // {
 //     SDL_Texture* texture;
 //     Uint16 w;
 //     Uint16 h;
 // } Sprite;
-=======
-
->>>>>>> f76b3076092c4359e831cf06d0833acf0a781fbf
 
 
 
