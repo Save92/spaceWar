@@ -65,11 +65,10 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
     srand((unsigned) time(&t));
     
     enemyShip->bonus = t%17;
-    enemyShip->shotLevel = t%5;
+    enemyShip->shotLevel = t%2;
     enemyShip->cntFootStep = 0;
     enemyShip->type = 0;
     enemyShip->typeMovement = typeMovement;
-    enemyShip->cntFootStep = 0;
    // __android_log_print(ANDROID_LOG_DEBUG, "littleEnemyShip", "__initialisationLittleEnemyShip__ distance : %d",distance);
     enemyShip->movementScheme = initializeMovementScheme(enemyShip->posX,enemyShip->posY,0,0,distance,verticalLine,typeMovement);
 
@@ -184,7 +183,7 @@ void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int type
             {
                 
                 enemyShip->rectangle->x = 0-(gap/2);
-                enemyShip->rectangle->y = height/2 + gap ;
+                enemyShip->rectangle->y = height/4 + gap ;
                 enemyShip->verticalSide = 1;
             }
             else

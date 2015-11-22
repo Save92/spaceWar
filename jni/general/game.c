@@ -18,7 +18,7 @@
 
 
 #define SizeName  128
-#define MaxEnemy 4
+#define MaxEnemy 2
 #define ApparitionTime 800
 
 #define quotientTemps 150
@@ -96,7 +96,7 @@ void eventCheckCollisionUserShipEnnemyShoot(Game * game,SDL_Renderer *renderer) 
     {
         indexList = tmp;
 
-        if (checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE) {
+        if (indexList->visible == VISIBLE && checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE) {
             __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR ENNEMIE !!! BOOOOOOOMMMMMM!!!!!"  );
             decreaseLife( game->myShip );
             enum RumbleForce force = MEDIUM_FORCE;
@@ -131,8 +131,8 @@ void eventCheckCollisionUserShipEnnemyShip(Game * game,SDL_Renderer *renderer) {
         while(tmp)
         {
             indexList = tmp;
-            
-            if (checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE)
+           
+            if (indexList->visible == VISIBLE  && checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE)
             {
             __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "VAISSEAUX SE RENTRE DEDANS! BOOOOOOOMMMMMM!!!!!"  );
                 indexList->life -= 1;
@@ -181,7 +181,7 @@ void eventCheckCollisionUserShipShootEnnemy(Game * game,SDL_Renderer *renderer) 
                 indexListShoot = tmpShoot;
 
                 //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR  !!! Pas touche"  );
-                if (checkCollision(*(indexList->rectangle), *(indexListShoot->rectangle), indexListShoot->speed) == TRUE) {
+                if (indexListShoot->visible == VISIBLE && checkCollision(*(indexList->rectangle), *(indexListShoot->rectangle), indexListShoot->speed) == TRUE) {
                     __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR !!! BOOOOOOOMMMMMM!!!!!"  );
                     indexList->life -= 1;
                     if (indexList->life == 0) {
@@ -674,10 +674,22 @@ void playRumble(Game * game,enum RumbleForce force,enum RumbleLength length)
     float frc = (float)(quotientForce * force);
     float lgth = (float)(quotientTemps * length);
     
-    if( SDL_HapticRumblePlay( game->gControllerHaptic, frc, lgth ) != 0 && game->initRumble == 1)
+  /*  if( SDL_HapticRumblePlay( game->gControllerHaptic, frc, lgth ) != 0 && game->initRumble == 1)
     {
         __android_log_print(ANDROID_LOG_DEBUG, "GAME", "Warning: Unable to play rumble! %s\n", SDL_GetError() );
     }
+   */
+    
+    JNIEnv *jni_env = (JNIEnv*)SDL_AndroidGetJNIEnv();
+     __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "(JNIEnv*)SDL_AndroidGetJNIEnv()");
+    jobject jni_activity = (jobject)SDL_AndroidGetActivity();
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "(jobject)SDL_AndroidGetActivity()");
+    jclass jni_class= (*jni_env)->GetObjectClass(jni_env,jni_activity);
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "(*jni_env)->GetObjectClass(jni_env,jni_activity);");
+    jmethodID methID= (*jni_env)->GetMethodID(jni_env, jni_class , "Rumble","()V");
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "(*jni_env)->GetMethodID(jni_env, jni_class , 'Rumble','(V)V');");
+    (*jni_env)->CallVoidMethod(jni_env,jni_activity,methID);
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "(*jni_env)->CallVoidMethod(jni_env,jni_activity,methID);");
 }
 
 
