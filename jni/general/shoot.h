@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include "../user/userShip.h"
 #include "../enemy/enemy.h"
-
+#include "../general/drawer.h"
 typedef struct Shoot Shoot;
 struct Shoot
 {

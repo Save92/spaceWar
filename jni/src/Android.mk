@@ -14,6 +14,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(SDL_PATH)/include \
 
 # Add your application source files here...
 LOCAL_SRC_FILES := $(SDL_PATH)/src/main/android/SDL_android_main.c \
+        $(GENERAL_PATH)/drawer.c \
         $(ENEMY_PATH)/littleEnemyShip.c \
 	$(ENEMY_PATH)/enemy.c \
 	$(GENERAL_PATH)/shoot.c \

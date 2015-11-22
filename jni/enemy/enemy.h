@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "./movementScheme.h"
 #include "SDL.h"
+#include "../general/drawer.h"
 typedef struct EnemyShip EnemyShip;
 struct EnemyShip
 {

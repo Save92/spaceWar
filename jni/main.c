@@ -5,6 +5,7 @@
 #include "SDL.h"
 #include <android/log.h>
 #include <jni.h>
+#include "./general/drawer.h"
 #include "./user/user.h"
 #include "./enemy/generalEnemy.h"
 #include "./general/general.h"
@@ -14,14 +15,10 @@
 #include "./general/game.h"
 
 
+
 float accelValues[3];
 #define SIZEACCELVALUES 2
-typedef struct Sprite
-{
-    SDL_Texture* texture;
-    Uint16 w;
-    Uint16 h;
-} Sprite;
+
 
 
 
@@ -186,7 +183,7 @@ int main(int argc, char *argv[])
         filterMyShoots(game->listShootUser);
         
       //  __android_log_print(ANDROID_LOG_DEBUG, "stopFilter",  "Shots filtered");
-        SDL_Delay(10);
+        SDL_Delay(20);
     }
     freeShip(game->myShip);
     exit(0);

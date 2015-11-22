@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include "SDL.h"
 #include "./enemy.h"
-
+#include "../general/drawer.h"
 
 
 void drawLittleEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip);

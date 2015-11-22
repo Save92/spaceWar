@@ -11,7 +11,7 @@
 
 #include "../SDL/src/core/android/SDL_android.h"
 #include "SDL.h"
-
+#include "../general/drawer.h"
 
 #define MAX_LIFE 99
 
