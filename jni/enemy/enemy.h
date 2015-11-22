@@ -36,6 +36,7 @@ struct EnemyShip
     int width;
     int height;
     int changeDirection;
+    Sprite enemySprite;
     
     EnemyShip * nextEnemyShip;
 };

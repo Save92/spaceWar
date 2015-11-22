@@ -23,8 +23,11 @@ void drawLittleEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip)
     enemyShip->rectangle->y = enemyShip->posY;
     enemyShip->rectangle->w = enemyShip->width;
     enemyShip->rectangle->h = enemyShip->height;
-    SDL_SetRenderDrawColor(renderer, enemyShip->color[0], enemyShip->color[1], enemyShip->color[2], enemyShip->color[3]);
-    SDL_RenderFillRect(renderer, (enemyShip->rectangle));
+    // SDL_SetRenderDrawColor(renderer, enemyShip->color[0], enemyShip->color[1], enemyShip->color[2], enemyShip->color[3]);
+    // SDL_RenderFillRect(renderer, (enemyShip->rectangle));
+    enemyShip->enemySprite = LoadSprite("littleEnemy.bmp", renderer);
+    renderTexture(enemyShip->enemySprite.texture, renderer, enemyShip->rectangle->x, enemyShip->rectangle->y);
+    
 }
 
 
@@ -35,8 +38,8 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
     EnemyShip  * enemyShip = malloc( sizeof(EnemyShip));
     enemyShip->rectangle = rectangle;
     enemyShip->verticalSide = side;
-    enemyShip->width = (height/width) * 100;
-    enemyShip->height = ((height/width) * 100)/2;
+    enemyShip->width = 110;
+    enemyShip->height = 120;
     enemyShip->speed = (height/width) * RATIO_SPEED;
     enemyShip->color[0] = 106;
     enemyShip->color[1] = 98;

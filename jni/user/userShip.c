@@ -62,8 +62,8 @@ void drawMyShip(SDL_Renderer* renderer , UserShip * myShip)
 
         myShip->rectangle->x = myShip->posX;
         myShip->rectangle->y = myShip->posY;
-        myShip->rectangle->w = 50;
-        myShip->rectangle->h = 50;
+        myShip->rectangle->w = 200;
+        myShip->rectangle->h = 174;
         //SDL_SetRenderDrawColor(renderer, myShip->color[0], myShip->color[1], myShip->color[2], myShip->color[3]);
         //SDL_RenderFillRect(renderer, (myShip->rectangle));
         myShip->myShipSprite = LoadSprite("myShipGood.bmp", renderer);

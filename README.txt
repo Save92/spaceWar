@@ -26,3 +26,21 @@ SPACE WAR
 		- Bonus-malus T + N
 		- vibrations T
 	
+
+Dimension des sprites : 
+myShip : - w : 200
+		 - h : 174
+
+LittleEnemy : - w : 110
+			  - h : 120
+
+LittleBomberEnemy : - w : 110
+			  		- h : 100
+
+
+bigBomberEnemy : - w : 126
+				 - h : 105
+
+
+interceptorEnemy : - w : 110
+			  - h : 105
