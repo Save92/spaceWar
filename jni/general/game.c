@@ -674,10 +674,22 @@ void playRumble(Game * game,enum RumbleForce force,enum RumbleLength length)
     float frc = (float)(quotientForce * force);
     float lgth = (float)(quotientTemps * length);
     
-    if( SDL_HapticRumblePlay( game->gControllerHaptic, frc, lgth ) != 0 && game->initRumble == 1)
+  /*  if( SDL_HapticRumblePlay( game->gControllerHaptic, frc, lgth ) != 0 && game->initRumble == 1)
     {
         __android_log_print(ANDROID_LOG_DEBUG, "GAME", "Warning: Unable to play rumble! %s\n", SDL_GetError() );
     }
+   */
+    
+    JNIEnv *jni_env = (JNIEnv*)SDL_AndroidGetJNIEnv();
+     __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "(JNIEnv*)SDL_AndroidGetJNIEnv()");
+    jobject jni_activity = (jobject)SDL_AndroidGetActivity();
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "(jobject)SDL_AndroidGetActivity()");
+    jclass jni_class= (*jni_env)->GetObjectClass(jni_env,jni_activity);
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "(*jni_env)->GetObjectClass(jni_env,jni_activity);");
+    jmethodID methID= (*jni_env)->GetMethodID(jni_env, jni_class , "Rumble","()V");
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "(*jni_env)->GetMethodID(jni_env, jni_class , 'Rumble','(V)V');");
+    (*jni_env)->CallVoidMethod(jni_env,jni_activity,methID);
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "(*jni_env)->CallVoidMethod(jni_env,jni_activity,methID);");
 }
 
 

@@ -19,6 +19,7 @@ import android.util.Log;
 import android.graphics.*;
 import android.media.*;
 import android.hardware.*;
+import android.os.Vibrator;
 
 
 /**
@@ -96,6 +97,14 @@ public class SDLActivity extends Activity {
 
         setContentView(mLayout);
     }
+
+    public void Rumble()
+    {
+        Vibrator v = (Vibrator)this.getSystemService(VIBRATOR_SERVICE);
+        // Vibrate for 100 milliseconds
+        v.vibrate(100);
+    } 
+
 
     // Events
     @Override
@@ -792,7 +801,9 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
                                       y / SensorManager.GRAVITY_EARTH,
                                       event.values[2] / SensorManager.GRAVITY_EARTH - 1);
         }
-    }    
+    }
+
+   
 }
 
 /* This is a fake invisible editor view that receives the input and defines the
