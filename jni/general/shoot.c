@@ -333,9 +333,9 @@ void addShoot(int posX,int posY , int width , int height , ListShoot * listShoot
     (*nextShoot).posX = posX + (width/2);
     //TIR ENEMIE
     if(way == -1 )
-        (*nextShoot).posY = posY + height ;
+        (*nextShoot).posY = posY  ;
     else
-        (*nextShoot).posY = posY;
+        (*nextShoot).posY = posY + height;
     (*nextShoot).speed = SPEED_SHOOT;
     
     (*nextShoot).color[0] = color1%256;

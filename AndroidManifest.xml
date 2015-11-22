@@ -8,6 +8,7 @@
       android:versionName="1.0"
       android:installLocation="auto">
 
+
     <!-- Create a Java class extending SDLActivity and place it in a
          directory under src matching the package, e.g.
           src/com/gamemaker/game/MyGame.java
@@ -23,6 +24,7 @@
                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
                  android:hardwareAccelerated="true"
      android:debuggable="true" >
+
         <activity android:name="SDLActivity"
                   android:label="@string/app_name"
                   android:configChanges="keyboardHidden|orientation"
@@ -54,5 +56,7 @@
 
     <!-- Allow writing to external storage -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
+    <!-- Allow Vibration -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
 </manifest> 
 
