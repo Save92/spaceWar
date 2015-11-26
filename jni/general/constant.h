@@ -9,4 +9,7 @@
 #define TRUE  1
 #define FALSE 0
 
+#define REPEAT -1
+
+
 #endif /* constant_h */

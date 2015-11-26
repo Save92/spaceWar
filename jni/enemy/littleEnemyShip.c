@@ -16,7 +16,7 @@
 #include "../general/constant.h"
 
 #define RATIO_SIZE 50
-#define RATIO_SPEED 10
+#define RATIO_SPEED 15
 void drawLittleEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip)
 {
     enemyShip->rectangle->x = enemyShip->posX;
@@ -42,7 +42,7 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
     enemyShip->verticalSide = side;
     enemyShip->width = 110;
     enemyShip->height = 120;
-    enemyShip->speed = (height/width) * RATIO_SPEED;
+    enemyShip->speed = (float)(height/width) * RATIO_SPEED;
     enemyShip->color[0] = 106;
     enemyShip->color[1] = 98;
     enemyShip->color[2] = 81;
@@ -227,7 +227,7 @@ void moveLittleEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen
     enemyShip->posY++;
     if(enemyShip->cntFootStep % enemyShip->changeDirection == 0)
     {
-        enemyShip->posX = enemyShip->posX + (enemyShip->speed * enemyShip->verticalSide);
+        enemyShip->posX = (int)(enemyShip->posX + (enemyShip->speed * enemyShip->verticalSide));
     }
     enemyShip->cntFootStep++;
     

@@ -10,11 +10,9 @@
 #include "./enemy/generalEnemy.h"
 #include "./general/general.h"
 #include <math.h>
-#include <stdlib.h>
 #include "./enemy/squadron.h"
 #include "./general/game.h"
 #include "./general/drawer.h"
-
 
 
 float accelValues[3];
@@ -31,6 +29,7 @@ static int music;
 static int vibration;
 static int highScore;
 
+#define IMG_PATH "starbg2.png"
 
 
 void drawCircle(SDL_Renderer* renderer,int x_centre,int y_centre,int rayon)
@@ -62,6 +61,9 @@ void drawCircle(SDL_Renderer* renderer,int x_centre,int y_centre,int rayon)
         SDL_Delay(0);
 
 }
+
+
+
 
 /* Adapted from SDL's testspriteminimal.c */
 // Sprite LoadSprite(const char* file, SDL_Renderer* renderer)
@@ -130,19 +132,18 @@ void draw(SDL_Window* window, SDL_Renderer* renderer, const Sprite sprite)
 
 int main(int argc, char *argv[])
 {
-    SDL_Init(SDL_INIT_EVERYTHING);
+    SDL_Init(SDL_INIT_VIDEO);
     SDL_Window *window;
     SDL_Renderer *renderer;
     Sprite background;
 
+    
 
     if(SDL_CreateWindowAndRenderer(0, 0, 0, &window, &renderer) < 0)
         exit(2);
-/*
-    Sprite sprite = LoadSprite("image.bmp", renderer);
-    if(sprite.texture == NULL)
-        exit(2);
-*/
+
+
+
     
     int *widthScreen = malloc (sizeof(int));
     int *heightScreen = malloc (sizeof(int));
@@ -164,23 +165,23 @@ int main(int argc, char *argv[])
 
 
     Game * game = initialisationOfTheGame( *widthScreen,*heightScreen);
+    
     //drawMyShip(renderer , game->myShip);
 
     // if(listShoot == NULL)
     //     return;
     
-    
     // listShoot->size = 0;
 
     // listShoot->start = NULL;
- 
+    
 
     /* Main render loop */
     Uint8 done = 0;
     SDL_Event event;
     SDL_PumpEvents();
     
-    
+   
     while(!done)
     {
         SDL_RenderClear(renderer);
@@ -191,10 +192,14 @@ renderTexture(background.texture, renderer, 0, 0);
         while(SDL_PollEvent(&event))
         {
             if(event.type == SDL_FINGERDOWN){
-                __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "SLD_FINGERDOWN");
+                //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "SLD_FINGERDOWN");
                 // Test si on est encore en vie pour tirer
                 if(game->myShip->life > 0) {
-                    UserShipShoot(*(game->myShip),game->listShootUser);    
+                    UserShipShoot(*(game->myShip),game->listShootUser);
+                    if(game->initAudio != -1)
+                    {
+                        Mix_PlayChannel(-1,game->Xwing_shoot,0);
+                    }
                 }
                 
                  // __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Ship position PosX : %d , PosY : %d",(*listShoot->start).posX,(*listShoot->start).posY);
@@ -213,17 +218,19 @@ renderTexture(background.texture, renderer, 0, 0);
      //   __android_log_print(ANDROID_LOG_DEBUG, "moveMyShipGeneral",  "Vaisseau posX : %d posY :%d",  myShip->posX ,myShip->posY);
         
      //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "draw enemy");
+        SDL_Delay(10);
         
         drawGame(renderer,game);
         
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        
         SDL_RenderPresent(renderer);
-        if(game->size >0)
-            removeNotVisibleSquadronFromGame(game);
-        filterMyShoots(game->listShootUser);
+        SDL_Delay(10);
+        removeNotVisibleSquadronFromGame(game);
+        filterShootsFromGame( game);
         
       //  __android_log_print(ANDROID_LOG_DEBUG, "stopFilter",  "Shots filtered");
-        SDL_Delay(60);
+        
     }
     freeShip(game->myShip);
     exit(0);

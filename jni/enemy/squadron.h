@@ -15,6 +15,7 @@
 #include "../general/shoot.h"
 #include "../SDL/src/core/android/SDL_android.h"
 #include "SDL.h"
+#include "SDL_mixer.h"
 typedef struct Squadron Squadron;
 struct Squadron
 {
@@ -31,7 +32,7 @@ struct Squadron
 
 Squadron * initialisationSquadron(int maxSize);
 void addEnemyToSquadron(EnemyShip * enemy,Squadron * squadron);
-void moveSquadron(Squadron * squadron,int width,int height,ListShoot * listShootEnnemy);
+void moveSquadron(Squadron * squadron,int width,int height,ListShoot * listShootEnnemy,Mix_Chunk * tie_shoot);
 void drawMySquadron(SDL_Renderer* renderer , Squadron * squadron);
 int allVisible(Squadron * squadron);
 int sendNextSquadron(Squadron * squadron,int width,int height);

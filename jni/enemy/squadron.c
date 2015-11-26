@@ -15,6 +15,7 @@
 #include "../general/constant.h"
 
 
+
 Squadron * initialisationSquadron(int maxSize)
 {
  //   __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "initialisationSquadron"  );
@@ -116,7 +117,7 @@ void removeNotVisibleEnemy(Squadron * squadron)
 }
 
 
-void moveSquadron(Squadron * squadron,int width,int height, ListShoot * listShootEnnemy)
+void moveSquadron(Squadron * squadron,int width,int height, ListShoot * listShootEnnemy , Mix_Chunk * tie_shoot)
 {
     //__android_log_print(ANDROID_LOG_DEBUG, "Squadron",  "moveSquadron");
     
@@ -132,6 +133,7 @@ void moveSquadron(Squadron * squadron,int width,int height, ListShoot * listShoo
             if(canShoot(enemy))
             {
                 EnemyShipShoot(*enemy,listShootEnnemy);
+                Mix_PlayChannel( -1, tie_shoot, 0 );
             }
             enemy = enemy->nextEnemyShip;
         }
