@@ -25,6 +25,11 @@ float accelValues[3];
 //     Uint16 w;
 //     Uint16 h;
 // } Sprite;
+static const char *nativeName;
+static int command;
+static int music;
+static int vibration;
+static int highScore;
 
 
 
@@ -90,7 +95,27 @@ void drawCircle(SDL_Renderer* renderer,int x_centre,int y_centre,int rayon)
 //     return result;
 // }
 
+jint Java_esgi_fouriam_SDLActivity_setPref(JNIEnv * env, jobject thiz, jstring name, jint commandValue, jint musicValue, jint vibrationValue, jint score){
+    
+__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "--------------------------------------------------------------------");
 
+    nativeName = (*env)->GetStringUTFChars(env, name, 0);
+   // use your string
+   (*env)->ReleaseStringUTFChars(env, name, nativeName);
+
+   command = commandValue;
+   music = musicValue;
+   vibration = vibrationValue;
+   highScore = score;
+__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE name : %s", nativeName);
+__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE music : %d", music);
+__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE command : %d", command);
+__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE vibration : %d", vibration);
+__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE music : %d", highScore);
+__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "--------------------------------------------------------------------");
+
+
+ }
 
 
 
@@ -108,6 +133,7 @@ int main(int argc, char *argv[])
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_Window *window;
     SDL_Renderer *renderer;
+    Sprite background;
 
 
     if(SDL_CreateWindowAndRenderer(0, 0, 0, &window, &renderer) < 0)
@@ -121,13 +147,22 @@ int main(int argc, char *argv[])
     int *widthScreen = malloc (sizeof(int));
     int *heightScreen = malloc (sizeof(int));
     SDL_GetWindowSize(window,widthScreen,heightScreen);
-
+// load our image
+     background = loadTexture("background.png", renderer);
+     
+    // SDL_Rect screenRect;
+    // screenRect.x = *widthScreen; screenRect.y = *heightScreen; screenRect.w = *widthScreen; screenRect.h = *heightScreen;
+    // SDL_QueryTexture(background, NULL, NULL, *widthScreen, *heightScreen); // get the width and height of the texture
+    // put the location where we want the texture to be drawn into a rectangle
+    // I'm also scaling the texture 2x simply by setting the width and height 
     //UserShip * myShip = initialisationUserShip(*widthScreen,*heightScreen);
 
     //drawMyShip(renderer , myShip);
     //= malloc (sizeof(Shoot)) ;
     //ListShoot * listShoot = malloc(sizeof(ListShoot)) ;
     
+
+
     Game * game = initialisationOfTheGame( *widthScreen,*heightScreen);
     //drawMyShip(renderer , game->myShip);
 
@@ -150,7 +185,8 @@ int main(int argc, char *argv[])
     {
         SDL_RenderClear(renderer);
        
-
+        //SDL_RenderCopy(renderer, background, NULL, &screenRect);
+renderTexture(background.texture, renderer, 0, 0);
         /* Check for events */
         while(SDL_PollEvent(&event))
         {
@@ -175,8 +211,6 @@ int main(int argc, char *argv[])
         moveMyShipGeneral(accelValues,SIZEACCELVALUES,game->myShip,*widthScreen,*heightScreen);
         
      //   __android_log_print(ANDROID_LOG_DEBUG, "moveMyShipGeneral",  "Vaisseau posX : %d posY :%d",  myShip->posX ,myShip->posY);
-
-        
         
      //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "draw enemy");
         

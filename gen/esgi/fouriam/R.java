@@ -36,13 +36,14 @@ public final class R {
     }
     public static final class id {
         public static final int commandesTitle=0x7f060003;
-        public static final int continuerBtn=0x7f06000c;
         public static final int gyroBtn=0x7f060004;
+        public static final int highScore=0x7f06000d;
         public static final int jouerBtn=0x7f06000b;
         public static final int musicButton=0x7f060007;
         public static final int playerNameText=0x7f060002;
         public static final int playerNameTitle=0x7f060001;
         public static final int saveBtn=0x7f060009;
+        public static final int score=0x7f06000c;
         public static final int settingsButton=0x7f06000a;
         public static final int textView=0x7f060006;
         public static final int title=0x7f060000;
@@ -61,6 +62,7 @@ public final class R {
         public static final int continueBtn=0x7f05000b;
         public static final int extraText=0x7f050003;
         public static final int gyroscopeBtn=0x7f050005;
+        public static final int highScore=0x7f05000d;
         public static final int namePlaceholder=0x7f050007;
         public static final int playBtn=0x7f05000a;
         public static final int playerName=0x7f050008;

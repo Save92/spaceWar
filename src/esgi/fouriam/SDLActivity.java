@@ -27,6 +27,7 @@ import android.os.Vibrator;
 */
 public class SDLActivity extends Activity {
     private static final String TAG = "SDL";
+    public static final String PREFS_NAME = "SpaceWarPreferences";
 
     // Keep track of the paused state
     public static boolean mIsPaused, mIsSurfaceReady, mHasFocus;
@@ -44,6 +45,15 @@ public class SDLActivity extends Activity {
     
     // Audio
     protected static AudioTrack mAudioTrack;
+
+    //SharedPreferences
+    private SharedPreferences settings;
+    private String name;
+    private int commandValue;
+    private int musicValue;
+    private int vibrationValue;
+    private int highScore;
+
 
     // Load the .so
     static {
@@ -72,18 +82,35 @@ public class SDLActivity extends Activity {
         mHasFocus = true;
     }
 
+
+    public native void setPref(String name, int commandValue, int musicValue, int vibrationValue, int highScore);
+
     // Setup
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.v("SDL", "onCreate():" + mSingleton);
         super.onCreate(savedInstanceState);
         
+        // Recuperation des sharedPreferences
+        settings = getSharedPreferences(PREFS_NAME, 0);
+        name = settings.getString("playerName", "");
+        commandValue = settings.getInt("command", 1);
+        musicValue = settings.getInt("ExtraMusic", 1);
+        vibrationValue = settings.getInt("ExtraVibrate", 1);
+        highScore = settings.getInt("highScore", 0);
+
+        
+        setPref(name, commandValue, musicValue, vibrationValue, highScore);
         SDLActivity.initialize();
         // So we can call stuff from static callbacks
         mSingleton = this;
 
         // Set up the surface
         mSurface = new SDLSurface(getApplication());
+
+
+
+
         
         if(Build.VERSION.SDK_INT >= 12) {
             mJoystickHandler = new SDLJoystickHandler_API12();
@@ -97,6 +124,14 @@ public class SDLActivity extends Activity {
 
         setContentView(mLayout);
     }
+
+    public void setHighScore(int score) {
+        settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt("highScore", score);
+        editor.commit();
+    }
+
 
     public void Rumble()
     {

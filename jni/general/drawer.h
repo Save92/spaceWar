@@ -22,6 +22,7 @@ typedef struct Sprite
 } Sprite;
 
 Sprite LoadSprite(const char* file, SDL_Renderer* renderer);
-
+//SDL_Texture* LoadTexture(const char* file, SDL_Renderer* renderer);
+Sprite loadTexture(const char* file, SDL_Renderer* renderer);
 
 #endif /* drawer_h */

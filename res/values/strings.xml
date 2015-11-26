@@ -13,5 +13,6 @@
     <string name="playBtn">Jouer</string>
     <string name="continueBtn">Continuer</string>
     <string name="saved">Données sauvegardées</string>
+    <string name="highScore">High Score</string>
 
 </resources>
