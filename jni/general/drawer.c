@@ -13,7 +13,7 @@ Sprite LoadSprite(const char* file, SDL_Renderer* renderer)
 
     /* Load the sprite image */
     temp = SDL_LoadBMP(file);
-
+    
     SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 0, 0, 0));
     if (temp == NULL)
     {
@@ -34,3 +34,10 @@ Sprite LoadSprite(const char* file, SDL_Renderer* renderer)
 
     return result;
 }
+
+
+
+    
+    
+    
+

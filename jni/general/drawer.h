@@ -13,7 +13,6 @@
 #include "../SDL/src/core/android/SDL_android.h"
 #include <jni.h>
 #include "SDL.h"
-
 typedef struct Sprite
 {
     SDL_Texture* texture;

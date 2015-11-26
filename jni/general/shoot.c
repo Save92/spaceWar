@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include "constant.h"
 #include "../enemy/enemy.h"
+#include "CustomLog.h"
 
 //DIRECTION SHOOT
 #define DIRECTION_VERTICAL 0
@@ -256,6 +257,7 @@ void drawAllMyShoots(SDL_Renderer* renderer , ListShoot * listShoot)
 
 void filterMyShoots(ListShoot * listShoot)
 {
+    customLog(0 , "shoot" ,  __func__);
     Shoot  *tmp;
     Shoot  *previous;
     //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG1"  );
@@ -310,6 +312,10 @@ void filterMyShoots(ListShoot * listShoot)
             }
         }
     }
+    
+    char * str ;
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "GAME" , str);
 }
 
 void myShipShoot(UserShip myShip,ListShoot * listShoot,int direction,int damage)

@@ -114,6 +114,7 @@ SpriteExplosion LoadSpriteForExplostion(int image, SDL_Renderer *renderer);
 void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y);
 void playRumble(Game * game,enum RumbleForce force,enum RumbleLength length);
 void playMusic(Mix_Music *mainMusic,int cntRepeat);
+void filterShootsFromGame(Game * game);
 
 
 

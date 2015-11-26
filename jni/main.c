@@ -10,11 +10,9 @@
 #include "./enemy/generalEnemy.h"
 #include "./general/general.h"
 #include <math.h>
-#include <stdlib.h>
 #include "./enemy/squadron.h"
 #include "./general/game.h"
 #include "./general/drawer.h"
-
 
 
 float accelValues[3];
@@ -58,6 +56,9 @@ void drawCircle(SDL_Renderer* renderer,int x_centre,int y_centre,int rayon)
         SDL_Delay(0);
 
 }
+
+
+
 
 /* Adapted from SDL's testspriteminimal.c */
 // Sprite LoadSprite(const char* file, SDL_Renderer* renderer)
@@ -116,28 +117,15 @@ int main(int argc, char *argv[])
         exit(2);
 
 
-    /*
- 
- 
-    Sprite sprite = LoadSprite("image.bmp", renderer);
-    if(sprite.texture == NULL)
-        exit(2);
-*/
+
     
     int *widthScreen = malloc (sizeof(int));
     int *heightScreen = malloc (sizeof(int));
     SDL_GetWindowSize(window,widthScreen,heightScreen);
-
-    //UserShip * myShip = initialisationUserShip(*widthScreen,*heightScreen);
-
-    //drawMyShip(renderer , myShip);
-    //= malloc (sizeof(Shoot)) ;
-    //ListShoot * listShoot = malloc(sizeof(ListShoot)) ;
+    //Get window surface
     
     Game * game = initialisationOfTheGame( *widthScreen,*heightScreen);
-    initialisationSound(game);
-    if(game->initAudio != -1)
-        playMusic(game->mainMusic,1);
+    
     //drawMyShip(renderer , game->myShip);
 
     // if(listShoot == NULL)
@@ -170,8 +158,6 @@ int main(int argc, char *argv[])
                     if(game->initAudio != -1)
                     {
                         Mix_PlayChannel(-1,game->Xwing_shoot,0);
-
-                        
                     }
                 }
                 
@@ -193,18 +179,19 @@ int main(int argc, char *argv[])
         
         
      //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "draw enemy");
+        SDL_Delay(10);
         
         drawGame(renderer,game);
         
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         
         SDL_RenderPresent(renderer);
-        if(game->size >0)
-            removeNotVisibleSquadronFromGame(game);
-        filterMyShoots(game->listShootUser);
+        SDL_Delay(10);
+        removeNotVisibleSquadronFromGame(game);
+        filterShootsFromGame( game);
         
       //  __android_log_print(ANDROID_LOG_DEBUG, "stopFilter",  "Shots filtered");
-        SDL_Delay(20);
+        
     }
     freeShip(game->myShip);
     exit(0);
