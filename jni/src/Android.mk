@@ -11,7 +11,8 @@ ENEMY_PATH := $(MAIN_PATH)/enemy
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(SDL_PATH)/include \
 		$(LOCAL_PATH)/../SDL_ttf \
-		$(LOCAL_PATH)/../SDL_image
+		$(LOCAL_PATH)/../SDL_image \
+		$(LOCAL_PATH)/../SDL_mixer \
 
 # Add your application source files here...
 LOCAL_SRC_FILES := $(SDL_PATH)/src/main/android/SDL_android_main.c \
@@ -30,9 +31,10 @@ LOCAL_SRC_FILES := $(SDL_PATH)/src/main/android/SDL_android_main.c \
 
 LOCAL_SHARED_LIBRARIES :=  SDL2_ttf \
 SDL2 \
-SDL2_image 
+SDL2_image \
+SDL2_mixer
 
 
-LOCAL_LDLIBS :=  -llog -lGLESv1_CM -lGLESv2 
-
+LOCAL_LDLIBS :=  -llog -lGLESv1_CM -lGLESv2
+ 
 include $(BUILD_SHARED_LIBRARY)

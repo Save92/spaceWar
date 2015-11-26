@@ -122,9 +122,11 @@ void moveEnemyShipZigZag(EnemyShip * enemyShip,int widthScreen,int heightScreen)
  //    __android_log_print(ANDROID_LOG_DEBUG, "Enemy", "move zig-zag");
     verifySideFromVerticalLine(enemyShip);
     enemyShip->posY = enemyShip->posY + (1 * enemyShip->speed);
+    
+    
     if(enemyShip->cntFootStep % CHGM_DIRECTION == 0)
     {
-        enemyShip->posX = enemyShip->posX + ( enemyShip->speed * enemyShip->verticalSide);
+        enemyShip->posX = enemyShip->posX + (int)( (enemyShip->speed * widthScreen/heightScreen/3 ) * enemyShip->verticalSide );
     }
     enemyShip->cntFootStep++;
     setVisibilityEnemy(enemyShip,widthScreen,heightScreen);

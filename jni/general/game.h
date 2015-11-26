@@ -18,7 +18,8 @@
 #include "./drawer.h"
 #include "./shoot.h"
 #include <SDL_ttf.h>
-
+#include "SDL_mixer.h"
+#include "./constant.h"
 
 
 typedef struct Game Game;
@@ -45,6 +46,13 @@ struct Game
     
     int cntInLastSquadron;
     StackHistory * stack ;
+    int initAudio;
+    Mix_Music *mainMusic;
+    Mix_Chunk *tie_arrive;
+    Mix_Chunk *tie_shoot;
+    Mix_Chunk *Xwing_shoot;
+    Mix_Chunk *Immhit;
+
 };
 
 #include "./score.h"
@@ -80,6 +88,9 @@ typedef struct SpriteExplosion
     SDL_Rect *image_location;
 } SpriteExplosion;
 
+
+void initialisationSound( Game * game);
+
 enum RumbleForce {AUCUN,FAIBLE, MEDIUM_FORCE, FORT,MAXIMUM};
 enum RumbleLength {INEXISTANT,COURT, MEDIUM_LENGTH, LONG};
 
@@ -102,7 +113,7 @@ void onDestroy(int posx, int posy, SDL_Renderer *renderer);
 SpriteExplosion LoadSpriteForExplostion(int image, SDL_Renderer *renderer);
 void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y);
 void playRumble(Game * game,enum RumbleForce force,enum RumbleLength length);
-
+void playMusic(Mix_Music *mainMusic,int cntRepeat);
 
 
 

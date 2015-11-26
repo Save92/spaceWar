@@ -18,7 +18,7 @@ struct EnemyShip
 {
     int posX;
     int posY;
-    int speed;
+    float speed;
     int life;
     int color[4];
     SDL_Rect *rectangle;

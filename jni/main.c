@@ -26,6 +26,7 @@ float accelValues[3];
 //     Uint16 h;
 // } Sprite;
 
+#define IMG_PATH "starbg2.png"
 
 
 void drawCircle(SDL_Renderer* renderer,int x_centre,int y_centre,int rayon)
@@ -105,14 +106,19 @@ void draw(SDL_Window* window, SDL_Renderer* renderer, const Sprite sprite)
 
 int main(int argc, char *argv[])
 {
-    SDL_Init(SDL_INIT_EVERYTHING);
+    SDL_Init(SDL_INIT_VIDEO);
     SDL_Window *window;
     SDL_Renderer *renderer;
 
+    
 
     if(SDL_CreateWindowAndRenderer(0, 0, 0, &window, &renderer) < 0)
         exit(2);
-/*
+
+
+    /*
+ 
+ 
     Sprite sprite = LoadSprite("image.bmp", renderer);
     if(sprite.texture == NULL)
         exit(2);
@@ -129,36 +135,44 @@ int main(int argc, char *argv[])
     //ListShoot * listShoot = malloc(sizeof(ListShoot)) ;
     
     Game * game = initialisationOfTheGame( *widthScreen,*heightScreen);
+    initialisationSound(game);
+    if(game->initAudio != -1)
+        playMusic(game->mainMusic,1);
     //drawMyShip(renderer , game->myShip);
 
     // if(listShoot == NULL)
     //     return;
     
-    
     // listShoot->size = 0;
 
     // listShoot->start = NULL;
- 
+    
 
     /* Main render loop */
     Uint8 done = 0;
     SDL_Event event;
     SDL_PumpEvents();
     
-    
+   
     while(!done)
     {
         SDL_RenderClear(renderer);
-       
+       //SDL_RenderCopy(renderer, img, NULL, &texr);
 
         /* Check for events */
         while(SDL_PollEvent(&event))
         {
             if(event.type == SDL_FINGERDOWN){
-                __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "SLD_FINGERDOWN");
+                //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "SLD_FINGERDOWN");
                 // Test si on est encore en vie pour tirer
                 if(game->myShip->life > 0) {
-                    UserShipShoot(*(game->myShip),game->listShootUser);    
+                    UserShipShoot(*(game->myShip),game->listShootUser);
+                    if(game->initAudio != -1)
+                    {
+                        Mix_PlayChannel(-1,game->Xwing_shoot,0);
+
+                        
+                    }
                 }
                 
                  // __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Ship position PosX : %d , PosY : %d",(*listShoot->start).posX,(*listShoot->start).posY);
@@ -183,13 +197,14 @@ int main(int argc, char *argv[])
         drawGame(renderer,game);
         
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        
         SDL_RenderPresent(renderer);
         if(game->size >0)
             removeNotVisibleSquadronFromGame(game);
         filterMyShoots(game->listShootUser);
         
       //  __android_log_print(ANDROID_LOG_DEBUG, "stopFilter",  "Shots filtered");
-        SDL_Delay(60);
+        SDL_Delay(20);
     }
     freeShip(game->myShip);
     exit(0);

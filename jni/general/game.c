@@ -1,6 +1,6 @@
 //
 //  game.c
-//  
+//
 //
 //  Created by thierry allard saint albin on 01/11/2015.
 //
@@ -19,15 +19,17 @@
 
 #define SizeName  128
 #define MaxEnemy 2
-#define ApparitionTime 800
+#define ApparitionTime 2000
 
 #define quotientTemps 150
 #define quotientForce 0.25
 
 
+
+
 Game *  initialisationOfTheGame(int width,int height)
 {
-
+    
     Game * game = malloc(sizeof(Game));
     game->score = 0;
     game->size = 0;
@@ -42,7 +44,7 @@ Game *  initialisationOfTheGame(int width,int height)
     game->stack = initializeStackHistory();
     game->tempsActuel = SDL_GetTicks();
     game->tempsPrecedent = 0;
-    game->myShip = initialisationUserShip(width,height); 
+    game->myShip = initialisationUserShip(width,height);
     game->listShootUser = malloc(sizeof(ListShoot));
     game->listShootUser->size = 0;
     game->listShootUser->start = NULL;
@@ -60,13 +62,13 @@ Game *  initialisationOfTheGame(int width,int height)
         game->police = NULL;
         game->police =  TTF_OpenFont("game_over.ttf", 65);
         if(game->police == NULL)
-             game->initText = -1;
+            game->initText = -1;
     }
     
     game->gControllerHaptic = SDL_HapticOpen( 0 );
     if (game->gControllerHaptic == NULL)
     {
-         game->initRumble = -1;
+        game->initRumble = -1;
         __android_log_print(ANDROID_LOG_DEBUG, "GAME",  "Warning: Unable to initialize rumble! SDL Error: %s", SDL_GetError() );
     }
     else
@@ -81,27 +83,135 @@ Game *  initialisationOfTheGame(int width,int height)
             game->initRumble = 1;
         }
     }
-
+    
     return game;
+    
+}
 
+
+void initialisationSound( Game * game)
+{
+    game->initAudio = 0;
+    
+    
+    if(SDL_Init(SDL_INIT_AUDIO)==-1)
+    {
+        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "Audio Error : Failed to init SDL_INIT_AUDIO");
+        game->initAudio = -1;
+    }
+    else
+    {
+        int flags=MIX_INIT_MP3;
+        int initted=Mix_Init(flags);
+        if(initted&flags != flags) {
+            __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "Audio Error : Failed to init required suppord ");
+            __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "Audio Error : Mix_Init: %s\n", Mix_GetError() );
+            game->initAudio = -1;
+        }
+        else
+        {
+            if( Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) == -1 )
+            {
+                __android_log_print(ANDROID_LOG_DEBUG, "GAME", "Mix_OpenAudio ERROR");
+                game->initAudio = -1;
+            }
+            else
+            {
+                //Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
+                if(Mix_SetMusicCMD(NULL)==-1) {
+                    __android_log_print(ANDROID_LOG_DEBUG, "GAME", "Mix_SetMusicCMD");
+                }
+                else
+                {
+                    // play some wav file
+                    game->mainMusic=Mix_LoadMUS("rebel-theme.wav");
+                    if(!game->mainMusic) {
+                        __android_log_print(ANDROID_LOG_DEBUG, "GAME","Mix_LoadMUS(\"rebel-theme.wav\"): %s\n", Mix_GetError());
+                        game->initAudio = -1;
+                    }
+                    
+                    game->tie_arrive = Mix_LoadWAV("TIE ARRIVE.wav");
+                    if(!game->tie_arrive ) {
+                        __android_log_print(ANDROID_LOG_DEBUG, "GAME","Mix_LoadWAV: %s\n", Mix_GetError());
+                        game->initAudio = -1;
+                    }
+                    else
+                    {
+                        Mix_VolumeChunk( game->tie_arrive , MIX_MAX_VOLUME - MIX_MAX_VOLUME/3);
+                    }
+                    
+                    game->tie_shoot = Mix_LoadWAV("TIE SHOOT2.wav");
+                    if(!game->tie_shoot )
+                    {
+                        __android_log_print(ANDROID_LOG_DEBUG, "GAME","Mix_LoadWAV: %s\n", Mix_GetError());
+                        game->initAudio = -1;
+                        
+                    }
+                    else
+                    {
+                        Mix_VolumeChunk( game->tie_shoot , MIX_MAX_VOLUME - MIX_MAX_VOLUME/3);
+                    }
+                    
+                    
+                    game->Xwing_shoot = Mix_LoadWAV("XWing-Laser.wav");
+                    if(!game->Xwing_shoot)
+                    {
+                        __android_log_print(ANDROID_LOG_DEBUG, "GAME","Mix_LoadWAV: %s\n", Mix_GetError());
+                        game->initAudio = -1;
+                        
+                    }
+                    else
+                    {
+                        Mix_VolumeChunk( game->Xwing_shoot , MIX_MAX_VOLUME - MIX_MAX_VOLUME/3);
+                    }
+                    
+                    game->Immhit = Mix_LoadWAV("R2D2a.wav");
+                    if(!game->Immhit)
+                    {
+                        __android_log_print(ANDROID_LOG_DEBUG, "GAME","Mix_LoadWAV: %s\n", Mix_GetError());
+                        game->initAudio = -1;
+                        
+                    }
+                    else
+                    {
+                        Mix_VolumeChunk( game->Immhit , MIX_MAX_VOLUME - MIX_MAX_VOLUME/3);
+                    }
+                    
+                }
+            }
+        }
+    }
+}
+
+
+
+void playMusic(Mix_Music *mainMusic,int cntRepeat)
+{
+    if(Mix_PlayMusic(mainMusic, cntRepeat)==-1) {
+        __android_log_print(ANDROID_LOG_DEBUG, "GAME","Mix_PlayMusic: %s\n", Mix_GetError());
+        // well, there's no music, but most games don't break without music...
+    }
+    Mix_VolumeMusic(125);
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "Playing music");
 }
 
 void eventCheckCollisionUserShipEnnemyShoot(Game * game,SDL_Renderer *renderer) {
-
-   // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "CHECK eventCheckCollisionUserShipEnnemyShoot!!!_______________________________");
+    
+    // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "CHECK eventCheckCollisionUserShipEnnemyShoot!!!_______________________________");
     Shoot * indexList = game->listShootEnnemy->start;
-
+    
     Shoot *tmp = indexList;
     while(tmp)
     {
         indexList = tmp;
-
+        
         if (indexList->visible == VISIBLE && checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE) {
             __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR ENNEMIE !!! BOOOOOOOMMMMMM!!!!!"  );
             decreaseLife( game->myShip );
             enum RumbleForce force = MEDIUM_FORCE;
             enum RumbleLength length = MEDIUM_LENGTH;
             playRumble(game,force,length);
+            Mix_PlayChannel(-1,game->Immhit,0);
             
             
             if(game->myShip->life == 0) {
@@ -131,10 +241,10 @@ void eventCheckCollisionUserShipEnnemyShip(Game * game,SDL_Renderer *renderer) {
         while(tmp)
         {
             indexList = tmp;
-           
+            
             if (indexList->visible == VISIBLE  && checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE)
             {
-            __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "VAISSEAUX SE RENTRE DEDANS! BOOOOOOOMMMMMM!!!!!"  );
+                __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "VAISSEAUX SE RENTRE DEDANS! BOOOOOOOMMMMMM!!!!!"  );
                 indexList->life -= 1;
                 if (indexList->life == 0)
                 {
@@ -148,6 +258,7 @@ void eventCheckCollisionUserShipEnnemyShip(Game * game,SDL_Renderer *renderer) {
                 enum RumbleForce force = MEDIUM_FORCE;
                 enum RumbleLength length = MEDIUM_LENGTH;
                 playRumble(game,force,length);
+                Mix_PlayChannel(-1,game->Immhit,0);
             }
             tmp = tmp->nextEnemyShip;
         }
@@ -160,26 +271,26 @@ void eventCheckCollisionUserShipEnnemyShip(Game * game,SDL_Renderer *renderer) {
 }
 
 void eventCheckCollisionUserShipShootEnnemy(Game * game,SDL_Renderer *renderer) {
-
+    
     Squadron * indexSquadron = game->nextSquadron;
-
+    
     Squadron *tmpSquadron = indexSquadron;
     while(tmpSquadron)
     {
-
+        
         EnemyShip * indexList = tmpSquadron->nextEnemyShip;
-
+        
         EnemyShip *tmp = indexList;
         while(tmp)
         {
             indexList = tmp;
             Shoot * indexListShoot = game->listShootUser->start;
-
+            
             Shoot *tmpShoot = indexListShoot;
             while(tmpShoot)
             {
                 indexListShoot = tmpShoot;
-
+                
                 //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR  !!! Pas touche"  );
                 if (indexListShoot->visible == VISIBLE && checkCollision(*(indexList->rectangle), *(indexListShoot->rectangle), indexListShoot->speed) == TRUE) {
                     __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR !!! BOOOOOOOMMMMMM!!!!!"  );
@@ -193,17 +304,17 @@ void eventCheckCollisionUserShipShootEnnemy(Game * game,SDL_Renderer *renderer) 
                 }
                 tmpShoot = tmpShoot->nextShoot;
             }
-
+            
             // if (checkCollision(*(game->myShip->rectangle), *(indexList->rectangle)) == TRUE) {
             //     __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "VAISSEAUX SE RENTRE DEDANS! BOOOOOOOMMMMMM!!!!!"  );
             // }
             tmp = tmp->nextEnemyShip;
         }
-
+        
         indexSquadron = tmpSquadron;
         tmpSquadron = tmpSquadron->nextSquadron;
     }
-
+    
     
 }
 
@@ -212,24 +323,24 @@ void eventCheckCollision(Game * game, SDL_Renderer *renderer) {
     if (game->size > 0) {
         // if (game->myShip->alive() == 1)
         // {
-           
-   
-            eventCheckCollisionUserShipEnnemyShoot(game, renderer);
-            eventCheckCollisionUserShipEnnemyShip(game, renderer);
-            eventCheckCollisionUserShipShootEnnemy(game, renderer);
+        
+        
+        eventCheckCollisionUserShipEnnemyShoot(game, renderer);
+        eventCheckCollisionUserShipEnnemyShip(game, renderer);
+        eventCheckCollisionUserShipShootEnnemy(game, renderer);
         //}
-
+        
     }
 }
 
 void  moveAllGame(Game * game, SDL_Renderer *renderer)
 {
-
+    
     eventCheckCollision(game, renderer);
     moveAllMyShoots(game->listShootUser,game->width,game->height);
     moveAllMyShoots(game->listShootEnnemy,game->width,game->height);
-
-
+    
+    
     game->tempsActuel = SDL_GetTicks();
     if(game->size == 0)
     {
@@ -255,11 +366,11 @@ void  moveAllGame(Game * game, SDL_Renderer *renderer)
     Squadron *tmp =  game->nextSquadron;
     while(tmp)
     {
-        moveSquadron(tmp,game->width,game->height,game->listShootEnnemy);
+        moveSquadron(tmp,game->width,game->height,game->listShootEnnemy,game->tie_shoot);
         tmp= tmp->nextSquadron;
     }
-
-  //  __android_log_print(ANDROID_LOG_DEBUG, "GAME", "END moveAllGame ");
+    
+    //  __android_log_print(ANDROID_LOG_DEBUG, "GAME", "END moveAllGame ");
     
 }
 
@@ -269,7 +380,7 @@ void  drawGame(SDL_Renderer* renderer ,Game * game)
     drawAllMyShoots(renderer,game->listShootUser);
     drawAllMyShoots(renderer,game->listShootEnnemy);
     drawMyShip(renderer , game->myShip);
-   //  __android_log_print(ANDROID_LOG_DEBUG, "GAME", "drawGame ");
+    //  __android_log_print(ANDROID_LOG_DEBUG, "GAME", "drawGame ");
     if(game->size > 0)
     {
         Squadron * squadron;
@@ -285,49 +396,49 @@ void  drawGame(SDL_Renderer* renderer ,Game * game)
         renderScore(game,renderer);
     }
     renderLife(game,renderer);
- //   __android_log_print(ANDROID_LOG_DEBUG, "GAME", "END drawGame ");
+    //   __android_log_print(ANDROID_LOG_DEBUG, "GAME", "END drawGame ");
 }
 
 
 
 void removeNotVisibleSquadronFromGame(Game * game)
 {
-   // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "removeNotVisibleSquadronFromGame"  );
+    // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "removeNotVisibleSquadronFromGame"  );
     Squadron  *tmp;
     Squadron  *previous;
     Squadron  *next;
-   // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG1"  );
+    // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG1"  );
     if(game != NULL && game->nextSquadron != NULL)
     {
-
+        
         if(game->nextSquadron->nextSquadron == NULL)
         {
-        //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG3"  );
+            //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG3"  );
             if(game->nextSquadron == 0)
             {
-            //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG4"  );
+                //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG4"  );
                 freeSquadron(game->nextSquadron);
                 game->nextSquadron = NULL;
             }
         }
         else
         {
-          //  __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG5"  );
+            //  __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG5"  );
             tmp = game->nextSquadron;
             previous = NULL;
             Squadron  *next;
             while(tmp != NULL)
             {
-               // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG6"  );
+                // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG6"  );
                 if(tmp->visible == 0)
                 {
-                  //  __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG7"  );
+                    //  __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG7"  );
                     Squadron * deletedSquadron = tmp;
                     
                     tmp = tmp->nextSquadron;
                     if(previous == NULL)
                     {
-                     //   __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG8"  );
+                        //   __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG8"  );
                         game->nextSquadron = tmp;
                     }
                     else
@@ -336,29 +447,29 @@ void removeNotVisibleSquadronFromGame(Game * game)
                     }
                     if(deletedSquadron)
                     {
-                       // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG9"  );
+                        // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG9"  );
                         freeSquadron(deletedSquadron);
                     }
                     deletedSquadron = NULL;
-                   // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG10"  );
+                    // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG10"  );
                     game->size--;
                 }
                 else
                 {
-                   // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG11"  );
+                    // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG11"  );
                     previous = tmp;
                     tmp= tmp->nextSquadron;
                 }
             }
         }
     }
-  //  __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "END removeNotVisibleSquadronFromGame"  );
- //   __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "END removeNotVisibleSquadronFromGame"  );
+    //  __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "END removeNotVisibleSquadronFromGame"  );
+    //   __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "END removeNotVisibleSquadronFromGame"  );
 }
 
 void  createNextSquadron(Game * game)
 {
-  //   __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "START createNextSquadron"  );
+    //   __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "START createNextSquadron"  );
     
     if(game->history == 0 || game->history %2 == 0)
     {
@@ -368,7 +479,7 @@ void  createNextSquadron(Game * game)
         int nbrEnnemy =nombre_aleatoire % MaxEnemy;
         if(nbrEnnemy == 0)
             nbrEnnemy++;
-       
+        
         int n = 0;
         int side = 1;
         Squadron * squad;
@@ -388,19 +499,21 @@ void  createNextSquadron(Game * game)
         for(n = 0 ; n < nbrEnnemy ; n++)
         {
             addNewEnemy(game,squad,lps);
+            if(game->initAudio != -1)
+                Mix_PlayChannel( -1, game->tie_arrive, 0 );
         }
         freeListePosition(lps);
         
-         game->cntInLastSquadron = nbrEnnemy;
+        game->cntInLastSquadron = nbrEnnemy;
     }
     else
     {
-       // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "IMPAIRE"  );
-
-      //  addEnemyFromHistory(game);
+        // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "IMPAIRE"  );
+        
+        //  addEnemyFromHistory(game);
         
         
-       
+        
         int nombre_aleatoire = 0;
         nombre_aleatoire = rand();
         int nbrEnnemy =nombre_aleatoire % MaxEnemy;
@@ -471,38 +584,38 @@ void addNewEnemy(Game * game,Squadron * squadron,ListePosition * lp)
     }
     int typeShip = 0;
     int typeMovement = my_rand() % 3;
-
+    
     EnemyShip * enemy = initialisationEnemyShip(game->width,game->height,posStart, side,distance,verticalLine,typeShip,typeMovement);
     History *history =  initializeHistory(posStart,side,distance ,verticalLine,typeShip,typeMovement);
     addHistory(history,game->stack);
     
     addEnemyToSquadron(enemy,squadron);
     
-   //  __android_log_print(ANDROID_LOG_DEBUG, "GAME", "End addEnemy");
-   
-
-
+    //  __android_log_print(ANDROID_LOG_DEBUG, "GAME", "End addEnemy");
+    
+    
+    
 }
 
 
 void addEnemyFromHistory(Game * game)
 {
-   // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "addEnemyFromHistory"  );
+    // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "addEnemyFromHistory"  );
     
     
     int nombre = game->cntInLastSquadron;
-   // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "cnt in lastSquadron %d",nombre);
+    // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "cnt in lastSquadron %d",nombre);
     StackHistory * tempStack=getHeads(game->stack,nombre);
     History * tmp = tempStack->head;
     Squadron * lastSqdr = getLastSquadron(game);
     
-   // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "size Stack %d",game->stack->size);
-   // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "size tempStack %d",tempStack->size);
-   // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "stack adress %d",tempStack->head);
+    // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "size Stack %d",game->stack->size);
+    // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "size tempStack %d",tempStack->size);
+    // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "stack adress %d",tempStack->head);
     lastSqdr->nextSquadron = initialisationSquadron(nombre);
     while(tmp != NULL )
     {
-   //     __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "history address %d",tmp);
+        //     __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "history address %d",tmp);
         EnemyShip * enemy = initialisationEnemyShip(game->width,game->height,tmp->LastPosStart, (-1)*tmp->LastSide,tmp->LastDistance,tmp->LastverticalLine,tmp->LastypeShip,tmp->LastTypeMovement);
         
         History *history =  initializeHistory(tmp->LastPosStart,(-1)* (tmp->LastSide),tmp->LastDistance ,tmp->LastverticalLine,tmp->LastypeShip,tmp->LastTypeMovement);
@@ -516,65 +629,65 @@ void addEnemyFromHistory(Game * game)
     }
     
     game->history++;
-  //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "END addEnemyFromHistory"  );
+    //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "END addEnemyFromHistory"  );
 }
 
 int checkCollision(SDL_Rect a, SDL_Rect b, int speed )
 {
-
+    
     //The sides of the rectangles
     int leftA, leftB;
     int rightA, rightB;
     int topA, topB;
     int bottomA, bottomB;
-
+    
     //Calculate the sides of rect A
     leftA = a.x;
     rightA = a.x + a.w;
     topA = a.y;
     bottomA = a.y + a.h;
-
+    
     //Calculate the sides of rect B
     leftB = b.x;
     rightB = b.x + b.w;
     topB = b.y;
     bottomB = b.y + b.h;
- //If any of the sides from A are outside of B
+    //If any of the sides from A are outside of B
     if( bottomA <= topB+speed)
     {
-       // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "botA : %d <= topB : %d", bottomA,  topB);
+        // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "botA : %d <= topB : %d", bottomA,  topB);
         return FALSE;
     }
-
+    
     if( topA + speed>= bottomB )
     {
-
+        
         //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "totA : %d <= bptB : %d", topA,  bottomB);
         return FALSE;
     }
-
+    
     if( rightA <= leftB )
     {
-
+        
         //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "rightA : %d <= leftB : %d", rightA,  leftB);
         return FALSE;
     }
-
+    
     if( leftA >= rightB )
     {
         //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "leftA >= rightB"  );
-
+        
         //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "leftA : %d <= rightB : %d", leftA,  rightB);
         return FALSE;
     }
-
+    
     //If none of the sides from A are outside B
     return TRUE;
 }
 
 Squadron * getLastSquadron(Game * game)
 {
- //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "getLastSquadron"  );
+    //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "getLastSquadron"  );
     Squadron * indexSquadron = game->nextSquadron;
     if(game->size == 0)
     {
@@ -590,7 +703,7 @@ Squadron * getLastSquadron(Game * game)
             tmp = tmp->nextSquadron;
         }
     }
- //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "END getLastSquadron"  );
+    //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "END getLastSquadron"  );
     return indexSquadron;
 }
 
@@ -603,22 +716,22 @@ int my_rand()
 }
 
 void onDestroy(int posx, int posy, SDL_Renderer *renderer) {
-  
+    
     //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "onDestroy avant sprite"  );
     SpriteExplosion explosion = LoadSpriteForExplostion(2, renderer);
     SDL_Rect test = {  posx, posy, 100 , 100  };
-
+    
     //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "onDestroy avant renderer"  );
     SDL_RenderCopyEx(renderer, explosion.texture, &(explosion.image_location), &test, explosion.angle, NULL, SDL_FLIP_NONE);
-   
-   
+    
+    
 }
 
 // Fonction d'affichage du sprite pour l'explosion (Pas au point...)
 SpriteExplosion LoadSpriteForExplostion(int image, SDL_Renderer *renderer)
 {
     
-
+    
     SpriteExplosion * result = malloc(sizeof(SpriteExplosion));
     result->background.r = 255;
     result->background.g = 255;
@@ -636,7 +749,7 @@ SpriteExplosion LoadSpriteForExplostion(int image, SDL_Renderer *renderer)
     result->w = 100;
     result->h = 100;
     result->angle = 0.0;
-
+    
     /* Load the sprite image */
     result->surface = SDL_LoadBMP("../assets/explosion.bmp");
     if (result->surface == NULL)
@@ -646,15 +759,15 @@ SpriteExplosion LoadSpriteForExplostion(int image, SDL_Renderer *renderer)
     /* Create texture from the image */
     result->texture = SDL_CreateTextureFromSurface(renderer, result->surface);
     if (!result->texture) {
-
-     
+        
+        
         SDL_FreeSurface(result->surface);
         return (*result);
     }
-
-  
+    
+    
     SDL_FreeSurface(result->surface);
-
+    
     return (*result);
 }
 
@@ -674,22 +787,22 @@ void playRumble(Game * game,enum RumbleForce force,enum RumbleLength length)
     float frc = (float)(quotientForce * force);
     float lgth = (float)(quotientTemps * length);
     
-  /*  if( SDL_HapticRumblePlay( game->gControllerHaptic, frc, lgth ) != 0 && game->initRumble == 1)
-    {
-        __android_log_print(ANDROID_LOG_DEBUG, "GAME", "Warning: Unable to play rumble! %s\n", SDL_GetError() );
-    }
-   */
+    /*  if( SDL_HapticRumblePlay( game->gControllerHaptic, frc, lgth ) != 0 && game->initRumble == 1)
+     {
+     __android_log_print(ANDROID_LOG_DEBUG, "GAME", "Warning: Unable to play rumble! %s\n", SDL_GetError() );
+     }
+     */
     
     JNIEnv *jni_env = (JNIEnv*)SDL_AndroidGetJNIEnv();
-     __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "(JNIEnv*)SDL_AndroidGetJNIEnv()");
+ 
     jobject jni_activity = (jobject)SDL_AndroidGetActivity();
-    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "(jobject)SDL_AndroidGetActivity()");
+
     jclass jni_class= (*jni_env)->GetObjectClass(jni_env,jni_activity);
-    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "(*jni_env)->GetObjectClass(jni_env,jni_activity);");
+
     jmethodID methID= (*jni_env)->GetMethodID(jni_env, jni_class , "Rumble","()V");
-    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "(*jni_env)->GetMethodID(jni_env, jni_class , 'Rumble','(V)V');");
+
     (*jni_env)->CallVoidMethod(jni_env,jni_activity,methID);
-    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "(*jni_env)->CallVoidMethod(jni_env,jni_activity,methID);");
+
 }
 
 
