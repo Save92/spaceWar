@@ -5,31 +5,23 @@
 #include "SDL.h"
 #include <android/log.h>
 #include <jni.h>
-#include "./general/drawer.h"
 #include "./user/user.h"
 #include "./enemy/generalEnemy.h"
 #include "./general/general.h"
 #include <math.h>
-#include "./enemy/squadron.h"
-#include "./general/game.h"
-#include "./general/drawer.h"
+#include <stdlib.h>
+
 
 
 float accelValues[3];
 #define SIZEACCELVALUES 2
-// typedef struct Sprite
-// {
-//     SDL_Texture* texture;
-//     Uint16 w;
-//     Uint16 h;
-// } Sprite;
-static const char *nativeName;
-static int command;
-static int music;
-static int vibration;
-static int highScore;
+typedef struct Sprite
+{
+    SDL_Texture* texture;
+    Uint16 w;
+    Uint16 h;
+} Sprite;
 
-#define IMG_PATH "starbg2.png"
 
 
 void drawCircle(SDL_Renderer* renderer,int x_centre,int y_centre,int rayon)
@@ -62,62 +54,82 @@ void drawCircle(SDL_Renderer* renderer,int x_centre,int y_centre,int rayon)
 
 }
 
-
-
-
 /* Adapted from SDL's testspriteminimal.c */
-// Sprite LoadSprite(const char* file, SDL_Renderer* renderer)
-// {
-//     Sprite result;
-//     result.texture = NULL;
-//     result.w = 0;
-//     result.h = 0;
+Sprite LoadSprite(const char* file, SDL_Renderer* renderer)
+{
+    Sprite result;
+    result.texture = NULL;
+    result.w = 0;
+    result.h = 0;
 
-//     SDL_Surface* temp;
+    SDL_Surface* temp;
 
-//     /* Load the sprite image */
-//     temp = SDL_LoadBMP(file);
-//     if (temp == NULL)
-//     {
-//         fprintf(stderr, "Couldn't load %s: %s\n", file, SDL_GetError());
-//         return result;
-//     }
-//     result.w = temp->w;
-//     result.h = temp->h;
+    /* Load the sprite image */
+    temp = SDL_LoadBMP(file);
+    if (temp == NULL)
+    {
+        fprintf(stderr, "Couldn't load %s: %s\n", file, SDL_GetError());
+        return result;
+    }
+    result.w = temp->w;
+    result.h = temp->h;
 
-//     /* Create texture from the image */
-//     result.texture = SDL_CreateTextureFromSurface(renderer, temp);
-//     if (!result.texture) {
-//         fprintf(stderr, "Couldn't create texture: %s\n", SDL_GetError());
-//         SDL_FreeSurface(temp);
-//         return result;
-//     }
-//     SDL_FreeSurface(temp);
+    /* Create texture from the image */
+    result.texture = SDL_CreateTextureFromSurface(renderer, temp);
+    if (!result.texture) {
+        fprintf(stderr, "Couldn't create texture: %s\n", SDL_GetError());
+        SDL_FreeSurface(temp);
+        return result;
+    }
+    SDL_FreeSurface(temp);
 
-//     return result;
-// }
+    return result;
+}
 
-jint Java_esgi_fouriam_SDLActivity_setPref(JNIEnv * env, jobject thiz, jstring name, jint commandValue, jint musicValue, jint vibrationValue, jint score){
-    
-__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "--------------------------------------------------------------------");
+int checkCollisions(SDL_Rect a, SDL_Rect b) {
+    //The sides of the rectangles
+    int leftA, leftB;
+    int rightA, rightB;
+    int topA, topB;
+    int bottomA, bottomB;
 
-    nativeName = (*env)->GetStringUTFChars(env, name, 0);
-   // use your string
-   (*env)->ReleaseStringUTFChars(env, name, nativeName);
+    //Calculate the sides of rect A
+    leftA = a.x;
+    rightA = a.x + a.w;
+    topA = a.y;
+    bottomA = a.y + a.h;
 
-   command = commandValue;
-   music = musicValue;
-   vibration = vibrationValue;
-   highScore = score;
-__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE name : %s", nativeName);
-__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE music : %d", music);
-__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE command : %d", command);
-__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE vibration : %d", vibration);
-__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE music : %d", highScore);
-__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "--------------------------------------------------------------------");
+    //Calculate the sides of rect B
+    leftB = b.x;
+    rightB = b.x + b.w;
+    topB = b.y;
+    bottomB = b.y + b.h;
 
 
- }
+    //If any of the sides from A are outside of B
+    if( bottomA <= topB )
+    {
+        return 0;
+    }
+
+    if( topA >= bottomB )
+    {
+        return 0;
+    }
+
+    if( rightA <= leftB )
+    {
+        return 0;
+    }
+
+    if( leftA >= rightB )
+    {
+        return 0;
+    }
+
+    //If none of the sides from A are outside B
+    return 1;
+}
 
 
 
@@ -132,106 +144,88 @@ void draw(SDL_Window* window, SDL_Renderer* renderer, const Sprite sprite)
 
 int main(int argc, char *argv[])
 {
-    SDL_Init(SDL_INIT_VIDEO);
     SDL_Window *window;
     SDL_Renderer *renderer;
-    Sprite background;
-
-    
 
     if(SDL_CreateWindowAndRenderer(0, 0, 0, &window, &renderer) < 0)
         exit(2);
-
-
-
+/*
+    Sprite sprite = LoadSprite("image.bmp", renderer);
+    if(sprite.texture == NULL)
+        exit(2);
+*/
     
     int *widthScreen = malloc (sizeof(int));
     int *heightScreen = malloc (sizeof(int));
     SDL_GetWindowSize(window,widthScreen,heightScreen);
-// load our image
-     background = loadTexture("background.png", renderer);
-     
-    // SDL_Rect screenRect;
-    // screenRect.x = *widthScreen; screenRect.y = *heightScreen; screenRect.w = *widthScreen; screenRect.h = *heightScreen;
-    // SDL_QueryTexture(background, NULL, NULL, *widthScreen, *heightScreen); // get the width and height of the texture
-    // put the location where we want the texture to be drawn into a rectangle
-    // I'm also scaling the texture 2x simply by setting the width and height 
-    //UserShip * myShip = initialisationUserShip(*widthScreen,*heightScreen);
-
-    //drawMyShip(renderer , myShip);
+    __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "02");
+    UserShip * myShip = initialisationUserShip(*widthScreen,*heightScreen);
+    __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "01");
+    drawMyShip(renderer , myShip);
     //= malloc (sizeof(Shoot)) ;
-    //ListShoot * listShoot = malloc(sizeof(ListShoot)) ;
+    ListShoot * listShoot = malloc(sizeof(ListShoot)) ;
+    EnemyShip * enemy = initialisationEnemyShip(*widthScreen,*heightScreen,0,1,200,(*widthScreen)/2,0,0);
+     __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Initialisation enemy");
+    if(listShoot == NULL)
+        return;
     
-
-
-    Game * game = initialisationOfTheGame( *widthScreen,*heightScreen);
     
-    //drawMyShip(renderer , game->myShip);
+    listShoot->size = 0;
+    __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "03");
+    listShoot->start = NULL;
+    /*listShoot->start = malloc(sizeof(listShoot));
+    if(listShoot->start == NULL)
+        return;
+     */
 
-    // if(listShoot == NULL)
-    //     return;
-    
-    // listShoot->size = 0;
-
-    // listShoot->start = NULL;
-    
 
     /* Main render loop */
     Uint8 done = 0;
     SDL_Event event;
     SDL_PumpEvents();
     
-   
     while(!done)
     {
         SDL_RenderClear(renderer);
        
-        //SDL_RenderCopy(renderer, background, NULL, &screenRect);
-renderTexture(background.texture, renderer, 0, 0);
+
         /* Check for events */
         while(SDL_PollEvent(&event))
         {
             if(event.type == SDL_FINGERDOWN){
-                //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "SLD_FINGERDOWN");
-                // Test si on est encore en vie pour tirer
-                if(game->myShip->life > 0) {
-                    UserShipShoot(*(game->myShip),game->listShootUser);
-                    if(game->initAudio != -1)
-                    {
-                        Mix_PlayChannel(-1,game->Xwing_shoot,0);
-                    }
-                }
-                
-                 // __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Ship position PosX : %d , PosY : %d",(*listShoot->start).posX,(*listShoot->start).posY);
+                __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "SLD_FINGERDOWN");
+                UserShipShoot(*myShip,listShoot);
+                  __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Ship position PosX : %d , PosY : %d",(*listShoot->start).posX,(*listShoot->start).posY);
                 
                 
             } else if (event.type == SDL_KEYDOWN) {
                 done = 1;
             }
         }
-     //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Android_JNI_GetAccelerometerValues");
+        /*int i = listShoot->size;
+
+        for(i > 0; i -= 1) {
+            if(checkCollisions(enemy->rectangle, listShoot->start->rectangle) == 1) {
+                __android_log_print(ANDROID_LOG_DEBUG, "EnemyShip", "BOOOOOOMMMMM COLISIONN!");
+            }
+        }*/
+        
+
+        __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Android_JNI_GetAccelerometerValues");
         Android_JNI_GetAccelerometerValues(accelValues);
-     
-        moveAllGame(game, renderer);
-        moveMyShipGeneral(accelValues,SIZEACCELVALUES,game->myShip,*widthScreen,*heightScreen);
-        
-     //   __android_log_print(ANDROID_LOG_DEBUG, "moveMyShipGeneral",  "Vaisseau posX : %d posY :%d",  myShip->posX ,myShip->posY);
-        
-     //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "draw enemy");
-        SDL_Delay(10);
-        
-        drawGame(renderer,game);
-        
+        moveAllMyShoots(listShoot,*widthScreen,*heightScreen);
+        drawAllMyShoots(renderer,listShoot);
+        moveMyShipGeneral(accelValues,SIZEACCELVALUES,myShip,*widthScreen,*heightScreen);
+        __android_log_print(ANDROID_LOG_DEBUG, "moveMyShipGeneral",  "Vaisseau posX : %d posY :%d",  myShip->posX ,myShip->posY);
+
+        drawMyShip(renderer , myShip);
+         __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "draw enemy");
+        drawEnemyShip(renderer,enemy);
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        
         SDL_RenderPresent(renderer);
-        SDL_Delay(10);
-        removeNotVisibleSquadronFromGame(game);
-        filterShootsFromGame( game);
-        
-      //  __android_log_print(ANDROID_LOG_DEBUG, "stopFilter",  "Shots filtered");
-        
+        filterMyShoots(listShoot);
+        __android_log_print(ANDROID_LOG_DEBUG, "stopFilter",  "Shots filtered");
     }
-    freeShip(game->myShip);
+    freeShip(myShip);
     exit(0);
 }
