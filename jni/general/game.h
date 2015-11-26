@@ -41,6 +41,7 @@ struct Game
     int initText;
     SDL_Haptic* gControllerHaptic;
     int initRumble;
+    Sprite background;
     
     
     int cntInLastSquadron;
@@ -102,6 +103,8 @@ void onDestroy(int posx, int posy, SDL_Renderer *renderer);
 SpriteExplosion LoadSpriteForExplostion(int image, SDL_Renderer *renderer);
 void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y);
 void playRumble(Game * game,enum RumbleForce force,enum RumbleLength length);
+//jint Java_esgi_fouriam_SDLActivity_setPref(JNIEnv * env, jobject thiz, jstring name, jint commandValue, jint musicValue, jint vibrationValue, jint highScore);
+void setHighScore(JNIEnv * env, jobject thiz, int score);
 
 
 

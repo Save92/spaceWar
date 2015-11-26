@@ -25,6 +25,8 @@
 #define quotientForce 0.25
 
 
+
+
 Game *  initialisationOfTheGame(int width,int height)
 {
 
@@ -266,6 +268,8 @@ void  moveAllGame(Game * game, SDL_Renderer *renderer)
 
 void  drawGame(SDL_Renderer* renderer ,Game * game)
 {
+    //game->background = LoadSprite("background.bmp", renderer);
+    //renderTexture(game->background.texture, renderer, 0, 0);
     drawAllMyShoots(renderer,game->listShootUser);
     drawAllMyShoots(renderer,game->listShootEnnemy);
     drawMyShip(renderer , game->myShip);
@@ -691,5 +695,13 @@ void playRumble(Game * game,enum RumbleForce force,enum RumbleLength length)
     (*jni_env)->CallVoidMethod(jni_env,jni_activity,methID);
     __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "(*jni_env)->CallVoidMethod(jni_env,jni_activity,methID);");
 }
+
+void setHighScore(JNIEnv * env, jobject thiz, int score){
+     jclass c = (*env)->GetObjectClass(env,thiz);
+     jmethodID methID= (*env)->GetMethodID(env,c , "setHighScore","(I)V");
+     if (methID==0)
+     return ;
+     (*env)->CallVoidMethod(env,thiz,methID,score);
+ } 
 
 

@@ -34,3 +34,32 @@ Sprite LoadSprite(const char* file, SDL_Renderer* renderer)
 
     return result;
 }
+
+Sprite loadTexture(const char* file, SDL_Renderer *renderer)
+{
+    //The final texture
+    Sprite result;
+    result.texture = NULL;
+    SDL_Texture* newTexture = NULL;
+
+    //Load image at specified path
+    SDL_Surface* loadedSurface = IMG_Load(file);
+    if( loadedSurface == NULL )
+    {
+        printf( "Unable to load image %s! SDL_image Error: %s\n", file, "nop");
+    }
+    else
+    {
+        //Create texture from surface pixels
+        result.texture = SDL_CreateTextureFromSurface( /*gRenderer*/ renderer, loadedSurface );
+        if( result.texture == NULL )
+        {
+            printf( "Unable to create texture from %s! SDL Error: %s\n", file, SDL_GetError() );
+        }
+
+        //Get rid of old loaded surface
+        SDL_FreeSurface( loadedSurface );
+    }
+
+    return result;
+}
