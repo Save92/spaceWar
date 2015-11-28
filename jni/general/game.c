@@ -905,14 +905,6 @@ void playRumble(Game * game,enum RumbleForce force,enum RumbleLength length)
 
 }
 
-void setHighScore(JNIEnv * env, jobject thiz, int score){
-     jclass c = (*env)->GetObjectClass(env,thiz);
-     jmethodID methID= (*env)->GetMethodID(env,c , "setHighScore","(I)V");
-     if (methID==0)
-     return ;
-     (*env)->CallVoidMethod(env,thiz,methID,score);
- } 
-
 void filterShootsFromGame(Game * game)
 {
     customLog(0 , "GAME" ,  __func__);

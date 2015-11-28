@@ -123,6 +123,31 @@ jint Java_esgi_fouriam_SDLActivity_setPref(JNIEnv * env, jobject thiz, jstring n
 }
 
 
+// void setHighScore(JNIEnv * env, jobject thiz, int score){
+//      jclass c = (*env)->GetObjectClass(env,thiz);
+//      jmethodID methID= (*env)->GetMethodID(env,c , "setHighScore","(I)V");
+//      if (methID==0)
+//      return ;
+//      (*env)->CallVoidMethod(env,thiz,methID,score);
+//  } 
+
+void gameOver(Game* game) {
+    //@TDOD Afficher le texte Game over
+__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "GAME OVER : %s", nativeName);
+       // (*jni_env)->CallVoidMethod(jni_env,jni_activity,methID, score);
+    if(game->saveNewHighScore == TRUE) {
+        JNIEnv *jni_env = (JNIEnv*)SDL_AndroidGetJNIEnv();
+        
+        jobject jni_activity = (jobject)SDL_AndroidGetActivity();
+        
+        jclass jni_class= (*jni_env)->GetObjectClass(jni_env,jni_activity);
+        
+        jmethodID methID= (*jni_env)->GetMethodID(jni_env, jni_class , "setHighScore","(I)V");
+
+        (*jni_env)->CallVoidMethod(jni_env,jni_activity,methID, game->score);
+    
+    }
+}
 
 void draw(SDL_Window* window, SDL_Renderer* renderer, const Sprite sprite)
 {
@@ -174,9 +199,24 @@ int main(int argc, char *argv[])
     
     while(!done)
     {
+        int breaked = 0;
         frameTicksAtStart  = SDL_GetTicks();
         SDL_RenderClear(renderer);
-
+        if (game->myShip->life == 0) {
+            gameOver(game);
+            while(SDL_PollEvent(&event))
+            {
+                if(event.type == SDL_FINGERDOWN){
+                    // __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Ship position PosX : %d , PosY : %d",(*listShoot->start).posX,(*listShoot->start).posY);
+                    breaked = 1;
+                    
+                } else if (event.type == SDL_KEYDOWN) {
+                    breaked = 1;
+                }
+            }
+            if(breaked = 1)
+                break;
+        }
 
         
         //SDL_RenderCopy(renderer, background, NULL, &screenRect);
@@ -226,7 +266,8 @@ int main(int argc, char *argv[])
         if( frameTicks < SCREEN_TICKS_PER_FRAME )
         {
             //Wait remaining time
-            SDL_Delay( SCREEN_TICKS_PER_FRAME - frameTicks );
+           SDL_Delay( SCREEN_TICKS_PER_FRAME - frameTicks );
+            //SDL_Delay(10);
         }
         
         //  __android_log_print(ANDROID_LOG_DEBUG, "stopFilter",  "Shots filtered");

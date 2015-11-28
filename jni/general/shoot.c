@@ -242,16 +242,25 @@ void filterMyShoots(ListShoot * listShoot)
     customLog(0 , "shoot" ,  __func__);
     Shoot  *tmp;
     Shoot  *previous;
+    customLog(0 , "shoot" ,  "1");
     //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG1"  );
     if(listShoot != NULL && listShoot->start != NULL)
     {
+
+    customLog(0 , "shoot" ,  "2");
      //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG2"  );
         previous = listShoot->start;
+
+    customLog(0 , "shoot" ,  "3");
         if(previous->nextShoot == NULL)
         {
+
+    customLog(0 , "shoot" ,  "4");
        //     __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG3"  );
             if(previous->visible == INVISIBLE)
             {
+
+    customLog(0 , "shoot" ,  "5");
                 __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG4"  );
                 FreeMyShoot(listShoot->start);
                 listShoot->start = NULL;
@@ -259,31 +268,45 @@ void filterMyShoots(ListShoot * listShoot)
         }
         else
         {
+
+    customLog(0 , "shoot" ,  "6");
        //     __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG5"  );
             tmp = previous;
             previous = NULL;
             
+    customLog(0 , "shoot" ,  "7");
             while(tmp != NULL)
             {
+
+    customLog(0 , "shoot" ,  "8");
        //         __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG6"  );
                 if(tmp->visible == INVISIBLE)
                 {
+
+    customLog(0 , "shoot" ,  "9");
        //             __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG7"  );
                     Shoot * deletedShoot = tmp;
                     
+    customLog(0 , "shoot" ,  "10");
                     tmp = tmp->nextShoot;
                     if(previous == NULL)
                     {
+
+    customLog(0 , "shoot" ,  "11");
          //               __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG8"  );
                         listShoot->start = tmp;
                     }
                     else
                     {
+
+    customLog(0 , "shoot" ,  "12");
                         previous->nextShoot = tmp;
                     }
                     FreeMyShoot(deletedShoot);
                     deletedShoot = NULL;
                     listShoot->size--;
+
+    customLog(0 , "shoot" ,  "13");
                 }
                 else
                 {
@@ -295,21 +318,39 @@ void filterMyShoots(ListShoot * listShoot)
         }
     }
     
-    char * str ;
+    customLog(0 , "shoot" ,  "15");
+    char * str = malloc(sizeof(char) * 255);
     sprintf(str,"end %s",__func__);
     customLog(0 , "GAME" , str);
+    free(str);
 }
 
 void myShipShoot(UserShip myShip,ListShoot * listShoot,int direction,int damage)
 {
     //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "myShipShoot");
-    addShoot(myShip.posX,myShip.posY,myShip.rectangle->w,myShip.rectangle->h,listShoot,direction,damage,-1,255,255,255, 255);
+    addShoot(myShip.posX,myShip.posY,myShip.rectangle->w,myShip.rectangle->h,listShoot,direction,damage,-1,0,255,51, 255);
 }
 
 void EnemyShoot(EnemyShip enemy,ListShoot * listShoot,int direction,int damage)
 {
-    //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "EnemyShoot");
-    addShoot(enemy.posX,enemy.posY,enemy.rectangle->w,enemy.rectangle->h,listShoot,direction,damage,1,2,130,171, 255);
+    switch (enemy.type) {
+        case 0 :
+            //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "EnemyShoot");
+            addShoot(enemy.posX,enemy.posY,enemy.rectangle->w,enemy.rectangle->h,listShoot,direction,damage,1,255,51,0, 255);
+        break;
+        case 1 :
+            //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "EnemyShoot");
+            addShoot(enemy.posX,enemy.posY,enemy.rectangle->w,enemy.rectangle->h,listShoot,direction,damage,1,51,51,255, 255);
+        break;
+        case 2 :
+            //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "EnemyShoot");
+            addShoot(enemy.posX,enemy.posY,enemy.rectangle->w,enemy.rectangle->h,listShoot,direction,damage,1,153,0,255, 255);
+        break;
+        case 3 :
+            //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "EnemyShoot");
+            addShoot(enemy.posX,enemy.posY,enemy.rectangle->w,enemy.rectangle->h,listShoot,direction,damage,1,255,255,0, 255);
+        break;
+    }
 }
 
 
