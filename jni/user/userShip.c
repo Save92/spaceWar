@@ -182,7 +182,7 @@ UserShip * initialisationUserShip(int width,int height)
     myShip->color[1] = 198;
     myShip->color[2] = 181;
     myShip->color[3] = 255;
-    myShip->life = 99;
+    myShip->life = 5;
     myShip->shotLevel = 1;
     myShip->visible = VISIBLE;
     //myShip->myShipSprite = NULL;
