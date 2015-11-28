@@ -41,17 +41,24 @@
 
 void drawMyShoot(SDL_Renderer* renderer , Shoot * shoot)
 {
+    customLog(0 , "SHOOT" ,  __func__);
     shoot->rectangle->x = shoot->posX;
     shoot->rectangle->y = shoot->posY;
     shoot->rectangle->w = WIDTH;
     shoot->rectangle->h = HEIGHT;
     SDL_SetRenderDrawColor(renderer, shoot->color[0], shoot->color[1], shoot->color[2], shoot->color[3]);
     SDL_RenderFillRect(renderer, (shoot->rectangle));
+    
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "SHOOT" , str);
+    free(str);
+
 }
 
 void moveMyShoot(Shoot * shoot ,int widthScreen , int heightScreen)
 {
-    
+    customLog(0 , "SHOOT" ,  __func__);
     if(shoot != NULL)
     {
         
@@ -87,11 +94,16 @@ void moveMyShoot(Shoot * shoot ,int widthScreen , int heightScreen)
         }
     }
     
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "SHOOT" , str);
+    free(str);
     
 }
 
 void moveVerticaly(Shoot * shoot,int widthScreen,int heightScreen)
 {
+     customLog(0 , "SHOOT" ,  __func__);
     if(shoot != NULL)
     {
       //  __android_log_print(ANDROID_LOG_DEBUG, "moveVerticaly",  "Shoot posX : %d posY :%d",  shoot->posX ,shoot->posY);
@@ -103,10 +115,16 @@ void moveVerticaly(Shoot * shoot,int widthScreen,int heightScreen)
         }
         setVisibility(shoot,widthScreen,heightScreen);
     }
+    
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "SHOOT" , str);
+    free(str);
 }
 
 void moveDiagonaleLeft(Shoot * shoot,int widthScreen,int heightScreen)
 {
+     customLog(0 , "SHOOT" ,  __func__);
     if(shoot != NULL)
     {
        // __android_log_print(ANDROID_LOG_DEBUG, "moveVerticaly",  "Shoot posX : %d posY :%d",  shoot->posX ,shoot->posY);
@@ -124,15 +142,19 @@ void moveDiagonaleLeft(Shoot * shoot,int widthScreen,int heightScreen)
         setVisibility(shoot,widthScreen,heightScreen);
     }
     shoot->cmptMoov++;
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "SHOOT" , str);
+    free(str);
 }
 
 
 void moveDiagonaleRight(Shoot * shoot,int widthScreen,int heightScreen)
 {
+    customLog(0 , "SHOOT" ,  __func__);
     if(shoot != NULL)
     {
-        __android_log_print(ANDROID_LOG_DEBUG, "moveDiagonaleRight",  "Shoot posX : %d posY :%d",  shoot->posX ,shoot->posY);
-        if (shoot->way == -1) {
+               if (shoot->way == -1) {
             shoot->posY = shoot->posY  + ( shoot->way * shoot->speed);
         } else if (shoot->way == 1) {
             shoot->posY = shoot->posY  + ( shoot->way * shoot->speed);
@@ -148,11 +170,16 @@ void moveDiagonaleRight(Shoot * shoot,int widthScreen,int heightScreen)
         setVisibility(shoot,widthScreen,heightScreen);
     }
     shoot->cmptMoov++;
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "SHOOT" , str);
+    free(str);
 }
 
 
 void moveDiagonaleSubRight(Shoot * shoot,int widthScreen,int heightScreen)
 {
+    customLog(0 , "SHOOT" ,  __func__);
     if(shoot != NULL)
     {
       //  __android_log_print(ANDROID_LOG_DEBUG, "moveVerticaly",  "Shoot posX : %d posY :%d",  shoot->posX ,shoot->posY);
@@ -169,11 +196,16 @@ void moveDiagonaleSubRight(Shoot * shoot,int widthScreen,int heightScreen)
         setVisibility(shoot,widthScreen,heightScreen);
     }
     shoot->cmptMoov++;
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "SHOOT" , str);
+    free(str);
 }
 
 
 void moveDiagonaleSubLeft(Shoot * shoot,int widthScreen,int heightScreen)
 {
+    customLog(0 , "SHOOT" ,  __func__);
     if(shoot != NULL)
     {
      //   __android_log_print(ANDROID_LOG_DEBUG, "moveVerticaly",  "Shoot posX : %d posY :%d",  shoot->posX ,shoot->posY);
@@ -189,12 +221,17 @@ void moveDiagonaleSubLeft(Shoot * shoot,int widthScreen,int heightScreen)
         setVisibility(shoot,widthScreen,heightScreen);
     }
     shoot->cmptMoov++;
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "SHOOT" , str);
+    free(str);
 }
 
 
 
 void setVisibility(Shoot * shoot,int widthScreen,int heightScreen)
 {
+    customLog(0 , "SHOOT" ,  __func__);
     if(shoot != NULL)
     {
         if(shoot->posY < 0 || shoot->posY > heightScreen || shoot->posX < 0 || shoot->posX > widthScreen)
@@ -202,11 +239,16 @@ void setVisibility(Shoot * shoot,int widthScreen,int heightScreen)
             shoot->visible = INVISIBLE;
         }
     }
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "SHOOT" , str);
+    free(str);
 }
 
 
 void moveAllMyShoots(ListShoot * listShoot ,int widthScreen , int heightScreen)
 {
+    customLog(0 , "SHOOT" ,  __func__);
     if((*listShoot).size > 0 && (*listShoot).start)
     {
         
@@ -220,11 +262,16 @@ void moveAllMyShoots(ListShoot * listShoot ,int widthScreen , int heightScreen)
             
         }
     }
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "SHOOT" , str);
+    free(str);
     
 }
 
 void drawAllMyShoots(SDL_Renderer* renderer , ListShoot * listShoot)
 {
+    customLog(0 , "SHOOT" ,  __func__);
     if(listShoot->size > 0)
     {
         Shoot * nextShoot = listShoot->start;
@@ -235,6 +282,10 @@ void drawAllMyShoots(SDL_Renderer* renderer , ListShoot * listShoot)
             nextShoot = nextShoot->nextShoot;
         }
     }
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "SHOOT" , str);
+    free(str);
 }
 
 void filterMyShoots(ListShoot * listShoot)
@@ -295,26 +346,41 @@ void filterMyShoots(ListShoot * listShoot)
         }
     }
     
-    char * str ;
+    char * str = malloc(sizeof(char)* 255);
     sprintf(str,"end %s",__func__);
-    customLog(0 , "GAME" , str);
+    customLog(0 , "SHOOT" , str);
+    free(str);
 }
 
 void myShipShoot(UserShip myShip,ListShoot * listShoot,int direction,int damage)
 {
+    customLog(0 , "shoot" ,  __func__);
+    Shoot  *tmp;
+    Shoot  *previous;
     //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "myShipShoot");
     addShoot(myShip.posX,myShip.posY,myShip.rectangle->w,myShip.rectangle->h,listShoot,direction,damage,-1,255,255,255, 255);
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "SHOOT" , str);
+    free(str);
 }
+
 
 void EnemyShoot(EnemyShip enemy,ListShoot * listShoot,int direction,int damage)
 {
+    customLog(0 , "shoot" ,  __func__);
     //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "EnemyShoot");
     addShoot(enemy.posX,enemy.posY,enemy.rectangle->w,enemy.rectangle->h,listShoot,direction,damage,1,2,130,171, 255);
+    char * str = malloc(sizeof(char)* 255) ;
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "SHOOT" , str);
+    free(str);
 }
 
 
 void addShoot(int posX,int posY , int width , int height , ListShoot * listShoot, int direction, int damage,signed int way,int color1,int color2,int color3, int transparence )
 {
+    customLog(0 , "shoot" ,  __func__);
     //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "EnemyShipShoot");
     int cnt = 0;
     Shoot * nextShoot = malloc(sizeof(Shoot));
@@ -360,6 +426,10 @@ void addShoot(int posX,int posY , int width , int height , ListShoot * listShoot
         (*listShoot).start->nextShoot = NULL;
     }
     (*listShoot).size =  (*listShoot).size +1;
+    char * str = malloc(sizeof(char)* 255) ;
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "SHOOT" , str);
+    free(str);
 }
 
 
@@ -368,15 +438,20 @@ void addShoot(int posX,int posY , int width , int height , ListShoot * listShoot
 
 void FreeMyShoot(Shoot * shoot)
 {
+     customLog(0 , "shoot" ,  __func__);
     free(shoot->rectangle);
    // __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "Free1"  );
     free(shoot);
+    char * str = malloc(sizeof(char)* 255) ;
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "SHOOT" , str);
 }
 
 
 
 void UserShipShoot(UserShip myShip,ListShoot * listShoot)
 {
+      customLog(0 , "shoot" ,  __func__);
     switch (myShip.shotLevel)
     {
         case 1: myShipShoot(myShip,listShoot,DIRECTION_VERTICAL,LOW_DAMAGE);
@@ -408,11 +483,16 @@ void UserShipShoot(UserShip myShip,ListShoot * listShoot)
         default: myShipShoot(myShip,listShoot,DIRECTION_VERTICAL,LOW_DAMAGE);
             break;
     }
+    char * str = malloc(sizeof(char)* 255) ;
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "SHOOT" , str);
+    free(str);
 }
 
 
 void EnemyShipShoot(EnemyShip myShip,ListShoot * listShoot)
 {
+    customLog(0 , "shoot" ,  __func__);
     switch (myShip.shotLevel)
     {
         case 1: EnemyShoot(myShip,listShoot,DIRECTION_VERTICAL,LOW_DAMAGE);
@@ -444,6 +524,10 @@ void EnemyShipShoot(EnemyShip myShip,ListShoot * listShoot)
         default: EnemyShoot(myShip,listShoot,DIRECTION_VERTICAL,LOW_DAMAGE);
             break;
     }
+    char * str = malloc(sizeof(char)* 255) ;
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "SHOOT" , str);
+    free(str);
 }
 
 

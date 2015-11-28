@@ -189,8 +189,7 @@ int main(int argc, char *argv[])
                 // Test si on est encore en vie pour tirer
                 if(game->myShip->life > 0) {
                     UserShipShoot(*(game->myShip),game->listShootUser);
-                    MyPlaySample(-1,game->Xwing_shoot,0,game->music);
-                    
+                    MyPlaySample(-1,game->Xwing_shoot,0,game->music);   
                 }
                 
                 // __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Ship position PosX : %d , PosY : %d",(*listShoot->start).posX,(*listShoot->start).posY);

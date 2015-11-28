@@ -45,7 +45,7 @@ struct EnemyShip
 
 
 void drawEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip);
-void moveEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen);
+int moveEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen);
 void freeEnemyShip(EnemyShip * enemyShip);
 EnemyShip * initialisationEnemyShip(int width,int height,int typeStart,int side,int distance,int verticalLine,int typeShip,int typeMovement,int shotLevel);
 int canShoot(EnemyShip * enemyShip);
@@ -54,6 +54,7 @@ void moveEnemyShipVertically(EnemyShip * enemyShip,int widthScreen,int heightScr
 void moveEnemyShipZigZag(EnemyShip * enemyShip,int widthScreen,int heightScreen);
 void verifySideFromVerticalLine(EnemyShip * enemyShip);
 int enemyShipIsAlive(EnemyShip * enemyShip);
+void setEnemyToInvisible(EnemyShip * enemy);
 
 
 

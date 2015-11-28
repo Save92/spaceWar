@@ -18,7 +18,7 @@
 
 
 #define SizeName  128
-#define MaxEnemy 2
+#define MaxEnemy 4
 #define ApparitionTime 2000
 
 #define quotientTemps 150
@@ -289,9 +289,8 @@ void eventCheckCollisionUserShipEnnemyShip(Game * game,SDL_Renderer *renderer) {
                 if (indexList->life <= 0)
                 {
                    // onDestroy(indexList->posX, indexList->posY, renderer);
-                    indexList->visible = INVISIBLE;
-                    setVisibilitySquadron(tmpSquadron);
-                    
+                    setEnemyToInvisible(indexList);
+                    //tmpSquadron->size--;
                 }
                 decreasePower(game->myShip);
                 // game->myShip->visible = INVISIBLE;
@@ -348,7 +347,8 @@ void eventCheckCollisionUserShipShootEnnemy(Game * game,SDL_Renderer *renderer) 
                     if (indexList->life <= 0) {
                         
                        // onDestroy(indexList->posX, indexList->posY, renderer);
-                        indexList->visible = INVISIBLE;
+                        setEnemyToInvisible(indexList);
+                        //tmpSquadron->size--;
                         setVisibilitySquadron(tmpSquadron);
                         addScore(*indexList,&(game->score));
 
@@ -480,24 +480,29 @@ void  drawGame(SDL_Renderer* renderer ,Game * game)
 
 void removeNotVisibleSquadronFromGame(Game * game)
 {
-    customLog(0 , "GAME" ,  __func__);
-    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "game size %d" ,game->size );
+    customLog(1 , "GAME" ,  __func__);
+   // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "game size %d" ,game->size );
     // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "removeNotVisibleSquadronFromGame"  );
     Squadron  *tmp;
     Squadron  *previous;
     Squadron  *next;
+    
+    
     // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG1"  );
     if(game != NULL && game->nextSquadron != NULL)
     {
-        
+      //  __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG2"  );
         if(game->nextSquadron->nextSquadron == NULL)
         {
-            //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG3"  );
-            if(game->nextSquadron == 0)
+            removeNotVisibleEnemy((game->nextSquadron));
+         //   __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG3"  );
+            if(game->nextSquadron->visible == INVISIBLE || game->nextSquadron->size <= 0)
             {
-                //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG4"  );
+                    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG4"  );
+                
                 freeSquadron(game->nextSquadron);
                 game->nextSquadron = NULL;
+                game->size--;
             }
         }
         else
@@ -506,10 +511,14 @@ void removeNotVisibleSquadronFromGame(Game * game)
             tmp = game->nextSquadron;
             previous = NULL;
             Squadron  *next;
+            
             while(tmp != NULL)
             {
-                // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG6"  );
-                if(tmp->visible == INVISIBLE)
+                    removeNotVisibleEnemy(tmp);
+                 __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG6"  );
+             //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "VISIBLE %d",tmp->visible  );
+                 __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "size Squadron %d",tmp->size  );
+                if(tmp->visible == INVISIBLE || tmp->size <= 0)
                 {
                     __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG7"  );
                     Squadron * deletedSquadron = tmp;
@@ -535,7 +544,8 @@ void removeNotVisibleSquadronFromGame(Game * game)
                 }
                 else
                 {
-                    // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG11"  );
+                    
+                 //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "FLAG11"  );
                     previous = tmp;
                     tmp= tmp->nextSquadron;
                 }
@@ -555,7 +565,7 @@ void  createNextSquadron(Game * game)
     customLog(0 , "GAME" ,  __func__);
     //   __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "START createNextSquadron"  );
 
-        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "PAIRE"  );
+       // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "PAIRE"  );
         int nombre_aleatoire = 0;
         nombre_aleatoire = my_rand();
         int nbrEnnemy =nombre_aleatoire % MaxEnemy;
@@ -583,6 +593,7 @@ void  createNextSquadron(Game * game)
             addNewEnemy(game,squad,lps);
             MyPlaySample(-1,  game->tie_arrive, 0 ,game->music);
         }
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "newSquadron size %d" ,squad->size );
         freeListePosition(lps);
         
         game->cntInLastSquadron = nbrEnnemy;
@@ -918,7 +929,7 @@ void filterShootsFromGame(Game * game)
     customLog(0 , "GAME" ,  __func__);
     
     filterMyShoots(game->listShootUser);
-    
+    filterMyShoots(game->listShootEnnemy);
     
     char * str = malloc(sizeof(char)* 255);
     sprintf(str,"end %s",__func__);
