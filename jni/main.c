@@ -29,37 +29,40 @@ static int music;
 static int vibration;
 static int highScore;
 
-#define IMG_PATH "starbg2.png"
+
+
+
+
 
 
 void drawCircle(SDL_Renderer* renderer,int x_centre,int y_centre,int rayon)
 {
-
-        int x = 0;
-        int y = rayon;
-        int m = 5 - 4 * rayon;
-        while(x <= y)
+    
+    int x = 0;
+    int y = rayon;
+    int m = 5 - 4 * rayon;
+    while(x <= y)
+    {
+        SDL_RenderDrawPoint(renderer, x+x_centre ,y+y_centre);
+        SDL_RenderDrawPoint(renderer, y+x_centre , x+y_centre);
+        SDL_RenderDrawPoint(renderer, -x+x_centre, y+y_centre );
+        SDL_RenderDrawPoint(renderer, -y+x_centre, x+y_centre );
+        SDL_RenderDrawPoint(renderer, x+x_centre, -y+y_centre );
+        SDL_RenderDrawPoint(renderer, y+x_centre, -x+y_centre );
+        SDL_RenderDrawPoint(renderer, -x+x_centre, -y+y_centre );
+        SDL_RenderDrawPoint(renderer, -y+x_centre, -x+y_centre );
+        if( m > 0)
         {
-            SDL_RenderDrawPoint(renderer, x+x_centre ,y+y_centre);
-            SDL_RenderDrawPoint(renderer, y+x_centre , x+y_centre);
-            SDL_RenderDrawPoint(renderer, -x+x_centre, y+y_centre );
-            SDL_RenderDrawPoint(renderer, -y+x_centre, x+y_centre );
-            SDL_RenderDrawPoint(renderer, x+x_centre, -y+y_centre );
-            SDL_RenderDrawPoint(renderer, y+x_centre, -x+y_centre );
-            SDL_RenderDrawPoint(renderer, -x+x_centre, -y+y_centre );
-            SDL_RenderDrawPoint(renderer, -y+x_centre, -x+y_centre );
-            if( m > 0)
-            {
-                y--;
-                m = m - 8 *y; 
-            }
-            x = x +1;
-            m = m + 8 *x +4;
+            y--;
+            m = m - 8 *y;
         }
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-        SDL_RenderPresent(renderer);
-        SDL_Delay(0);
-
+        x = x +1;
+        m = m + 8 *x +4;
+    }
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderPresent(renderer);
+    SDL_Delay(0);
+    
 }
 
 
@@ -99,25 +102,25 @@ void drawCircle(SDL_Renderer* renderer,int x_centre,int y_centre,int rayon)
 
 jint Java_esgi_fouriam_SDLActivity_setPref(JNIEnv * env, jobject thiz, jstring name, jint commandValue, jint musicValue, jint vibrationValue, jint score){
     
-__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "--------------------------------------------------------------------");
-
+    __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "--------------------------------------------------------------------");
+    
     nativeName = (*env)->GetStringUTFChars(env, name, 0);
-   // use your string
-   (*env)->ReleaseStringUTFChars(env, name, nativeName);
-
-   command = commandValue;
-   music = musicValue;
-   vibration = vibrationValue;
-   highScore = score;
-__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE name : %s", nativeName);
-__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE music : %d", music);
-__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE command : %d", command);
-__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE vibration : %d", vibration);
-__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE music : %d", highScore);
-__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "--------------------------------------------------------------------");
-
-
- }
+    // use your string
+    (*env)->ReleaseStringUTFChars(env, name, nativeName);
+    
+    command = commandValue;
+    music = musicValue;
+    vibration = vibrationValue;
+    highScore = score;
+    __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE name : %s", nativeName);
+    __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE music : %d", music);
+    __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE command : %d", command);
+    __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE vibration : %d", vibration);
+    __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE music : %d", highScore);
+    __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "--------------------------------------------------------------------");
+    
+    
+}
 
 
 
@@ -136,58 +139,48 @@ int main(int argc, char *argv[])
     SDL_Window *window;
     SDL_Renderer *renderer;
     Sprite background;
-
     
-
+    int SCREEN_FPS = 60;
+    int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
+    
     if(SDL_CreateWindowAndRenderer(0, 0, 0, &window, &renderer) < 0)
         exit(2);
-
-
-
+    
+    
+    
     
     int *widthScreen = malloc (sizeof(int));
     int *heightScreen = malloc (sizeof(int));
     SDL_GetWindowSize(window,widthScreen,heightScreen);
-// load our image
-     background = loadTexture("background.png", renderer);
-     
-    // SDL_Rect screenRect;
-    // screenRect.x = *widthScreen; screenRect.y = *heightScreen; screenRect.w = *widthScreen; screenRect.h = *heightScreen;
-    // SDL_QueryTexture(background, NULL, NULL, *widthScreen, *heightScreen); // get the width and height of the texture
-    // put the location where we want the texture to be drawn into a rectangle
-    // I'm also scaling the texture 2x simply by setting the width and height 
-    //UserShip * myShip = initialisationUserShip(*widthScreen,*heightScreen);
-
-    //drawMyShip(renderer , myShip);
-    //= malloc (sizeof(Shoot)) ;
-    //ListShoot * listShoot = malloc(sizeof(ListShoot)) ;
+    // load our image
+    background = loadTexture("background.png", renderer);
     
-
-
-    Game * game = initialisationOfTheGame( *widthScreen,*heightScreen);
     
-    //drawMyShip(renderer , game->myShip);
-
-    // if(listShoot == NULL)
-    //     return;
     
-    // listShoot->size = 0;
-
-    // listShoot->start = NULL;
+    Game * game = initialisationOfTheGame( *widthScreen,*heightScreen,nativeName,command,music,vibration,highScore);
     
-
+    
     /* Main render loop */
     Uint8 done = 0;
     SDL_Event event;
     SDL_PumpEvents();
     
-   
+
+    
+    //Start counting frames per second
+    int countedFrames = 0;
+    int frameTicksAtStart;
+    int frameTicksAtEnd;
+    
     while(!done)
     {
+        frameTicksAtStart  = SDL_GetTicks();
         SDL_RenderClear(renderer);
-       
+
+
+        
         //SDL_RenderCopy(renderer, background, NULL, &screenRect);
-renderTexture(background.texture, renderer, 0, 0);
+        renderTexture(background.texture, renderer, 0, 0);
         /* Check for events */
         while(SDL_PollEvent(&event))
         {
@@ -196,40 +189,47 @@ renderTexture(background.texture, renderer, 0, 0);
                 // Test si on est encore en vie pour tirer
                 if(game->myShip->life > 0) {
                     UserShipShoot(*(game->myShip),game->listShootUser);
-                    if(game->initAudio != -1)
-                    {
-                        Mix_PlayChannel(-1,game->Xwing_shoot,0);
-                    }
+                    MyPlaySample(-1,game->Xwing_shoot,0,game->music);
+                    
                 }
                 
-                 // __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Ship position PosX : %d , PosY : %d",(*listShoot->start).posX,(*listShoot->start).posY);
+                // __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Ship position PosX : %d , PosY : %d",(*listShoot->start).posX,(*listShoot->start).posY);
                 
                 
             } else if (event.type == SDL_KEYDOWN) {
                 done = 1;
             }
         }
-     //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Android_JNI_GetAccelerometerValues");
+        //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Android_JNI_GetAccelerometerValues");
         Android_JNI_GetAccelerometerValues(accelValues);
-     
+        
         moveAllGame(game, renderer);
         moveMyShipGeneral(accelValues,SIZEACCELVALUES,game->myShip,*widthScreen,*heightScreen);
         
-     //   __android_log_print(ANDROID_LOG_DEBUG, "moveMyShipGeneral",  "Vaisseau posX : %d posY :%d",  myShip->posX ,myShip->posY);
+        //   __android_log_print(ANDROID_LOG_DEBUG, "moveMyShipGeneral",  "Vaisseau posX : %d posY :%d",  myShip->posX ,myShip->posY);
         
-     //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "draw enemy");
-        SDL_Delay(10);
+        //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "draw enemy");
+
         
         drawGame(renderer,game);
         
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         
         SDL_RenderPresent(renderer);
-        SDL_Delay(10);
+        
+
         removeNotVisibleSquadronFromGame(game);
         filterShootsFromGame( game);
+        countedFrames++;
+        frameTicksAtEnd = SDL_GetTicks();
+        int frameTicks = frameTicksAtEnd - frameTicksAtStart;
+        if( frameTicks < SCREEN_TICKS_PER_FRAME )
+        {
+            //Wait remaining time
+            SDL_Delay( SCREEN_TICKS_PER_FRAME - frameTicks );
+        }
         
-      //  __android_log_print(ANDROID_LOG_DEBUG, "stopFilter",  "Shots filtered");
+        //  __android_log_print(ANDROID_LOG_DEBUG, "stopFilter",  "Shots filtered");
         
     }
     freeShip(game->myShip);

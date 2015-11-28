@@ -32,7 +32,7 @@ struct Squadron
 
 Squadron * initialisationSquadron(int maxSize);
 void addEnemyToSquadron(EnemyShip * enemy,Squadron * squadron);
-void moveSquadron(Squadron * squadron,int width,int height,ListShoot * listShootEnnemy,Mix_Chunk * tie_shoot);
+void moveSquadron(Squadron * squadron,int width,int height,ListShoot * listShootEnnemy,Mix_Chunk * tie_shoot,int playMusic);
 void drawMySquadron(SDL_Renderer* renderer , Squadron * squadron);
 int allVisible(Squadron * squadron);
 int sendNextSquadron(Squadron * squadron,int width,int height);

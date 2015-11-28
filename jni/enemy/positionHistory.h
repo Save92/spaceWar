@@ -23,6 +23,7 @@ struct History
     int  LastverticalLine;
     int  LastypeShip;
     int  LastTypeMovement;
+    int LastShotLevel;
     History  * nextHistory;
    
 };
@@ -53,7 +54,7 @@ struct ListePosition
     int size ;
 };
 
-History * initializeHistory(int LastPosStart,int  LastSide,int  LastDistance,int  LastverticalLine,int  LastypeShip,int  LastTypeMovement);
+History * initializeHistory(int LastPosStart,int  LastSide,int  LastDistance,int  LastverticalLine,int  LastypeShip,int  LastTypeMovement,int lastShotLevel);
 StackHistory * initializeStackHistory();
 StackHistory * getHeads(StackHistory * stackHistory,int n);
 void addHistory(History * history,StackHistory * stackHistory);

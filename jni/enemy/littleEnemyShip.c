@@ -33,7 +33,7 @@ void drawLittleEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip)
 }
 
 
-EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int side,int distance,int verticalLine,int typeShip,int typeMovement)
+EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int side,int distance,int verticalLine,int typeShip,int typeMovement,int shotLevel)
 {
     
     SDL_Rect  * rectangle = malloc( sizeof(SDL_Rect));
@@ -67,7 +67,7 @@ EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int
     srand((unsigned) time(&t));
     
     enemyShip->bonus = t%17;
-    enemyShip->shotLevel = t%2;
+    enemyShip->shotLevel = shotLevel;
     enemyShip->cntFootStep = 0;
     enemyShip->type = 0;
     enemyShip->typeMovement = typeMovement;
@@ -239,7 +239,7 @@ void moveLittleEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen
 int  LittleEnemyShipCanShoot(EnemyShip * enemyShip)
 {
     
-    if(enemyShip->cntFootStep % enemyShip->frequencyOfShoot == 0)
+    if(enemyShip->cntFootStep % enemyShip->frequencyOfShoot == 0 && enemyShip->visible == VISIBLE)
         return TRUE;
     else
         return FALSE;

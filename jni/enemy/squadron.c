@@ -117,7 +117,7 @@ void removeNotVisibleEnemy(Squadron * squadron)
 }
 
 
-void moveSquadron(Squadron * squadron,int width,int height, ListShoot * listShootEnnemy , Mix_Chunk * tie_shoot)
+void moveSquadron(Squadron * squadron,int width,int height, ListShoot * listShootEnnemy , Mix_Chunk * tie_shoot,int playMusic)
 {
     //__android_log_print(ANDROID_LOG_DEBUG, "Squadron",  "moveSquadron");
     
@@ -133,14 +133,14 @@ void moveSquadron(Squadron * squadron,int width,int height, ListShoot * listShoo
             if(canShoot(enemy))
             {
                 EnemyShipShoot(*enemy,listShootEnnemy);
-                Mix_PlayChannel( -1, tie_shoot, 0 );
+                MyPlaySample(-1, tie_shoot, 0 ,playMusic);
             }
             enemy = enemy->nextEnemyShip;
         }
     }
     changeAppearNext(squadron,height);
    // __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "before setVisibilitySquadron"   );
-    setVisibilitySquadron(squadron);
+    //setVisibilitySquadron(squadron);
     
 }
 
@@ -224,34 +224,32 @@ void setVisibilitySquadron(Squadron * squadron)
     {
      //    __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL2"   );
         EnemyShip * tempShip = squadron->nextEnemyShip;
-        int allVisible = VISIBLE;
+        int allVisible = INVISIBLE;
         if(squadron->size > 0)
         {
        //      __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL3"   );
             while(tempShip != NULL)
             {
         //        __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL4"   );
-                if(tempShip->visible == INVISIBLE )
+                if(tempShip->visible == VISIBLE )
                 {
-                    allVisible = INVISIBLE;
+                    allVisible = VISIBLE;
                 }
                 tempShip = tempShip->nextEnemyShip;
        //         __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL5"   );
         //         __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron %d",tempShip);
             }
-            
-            if(allVisible == INVISIBLE)
-            {
-
-                squadron->visible = INVISIBLE;
-      //          __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL6"   );
-            }
+             squadron->visible = allVisible;
         }
         else
         {
             squadron->visible = INVISIBLE;
      //       __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "setVisibilitySquadron FL7"   );
         }
+    }
+    else
+    {
+        squadron->visible = INVISIBLE;
     }
 }
 

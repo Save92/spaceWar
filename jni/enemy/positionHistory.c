@@ -74,7 +74,7 @@ void addHistory(History * history,StackHistory * stackHistory)
 History * copyHistory(History history)
 {
    //  __android_log_print(ANDROID_LOG_DEBUG, "History",   "copyHistory"  );
-    History * copyHistory = initializeHistory(history.LastPosStart,history.LastSide,history.LastDistance,history.LastverticalLine,history.LastypeShip,history.LastTypeMovement);
+    History * copyHistory = initializeHistory(history.LastPosStart,history.LastSide,history.LastDistance,history.LastverticalLine,history.LastypeShip,history.LastTypeMovement,history.LastShotLevel);
   //  __android_log_print(ANDROID_LOG_DEBUG, "History",   "END copyHistory"  );
     return copyHistory;
 }
@@ -90,7 +90,7 @@ StackHistory * initializeStackHistory()
 }
 
 
-History * initializeHistory(int LastPosStart,int  LastSide,int  LastDistance,int  LastverticalLine,int  LastypeShip,int  LastTypeMovement)
+History * initializeHistory(int LastPosStart,int  LastSide,int  LastDistance,int  LastverticalLine,int  LastypeShip,int  LastTypeMovement,int shotLevel)
 {
   //   __android_log_print(ANDROID_LOG_DEBUG, "History",   "initializeHistory"  );
     History * newHistory = malloc(sizeof(History));
@@ -100,6 +100,7 @@ History * initializeHistory(int LastPosStart,int  LastSide,int  LastDistance,int
     newHistory->LastverticalLine = LastverticalLine;
     newHistory->LastypeShip = LastypeShip;
     newHistory->LastTypeMovement = LastTypeMovement;
+    newHistory->LastShotLevel = shotLevel;
     newHistory->nextHistory = NULL;
    //   __android_log_print(ANDROID_LOG_DEBUG, "History",   "END initializeHistory"  );
     return newHistory;

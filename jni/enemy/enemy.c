@@ -21,14 +21,16 @@
 
 void drawEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip)
 {
-    switch (enemyShip->type) {
+  
+        switch (enemyShip->type) {
         case 0:
             drawLittleEnemyShip(renderer , enemyShip);
             break;
             
         default:
             break;
-    }
+        }
+    
 }
 
 void moveEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen)
@@ -61,14 +63,14 @@ void freeEnemyShip(EnemyShip * enemyShip)
    
 }
 
-EnemyShip * initialisationEnemyShip(int width,int height,int typeStart,int side,int distance,int verticalLine,int typeShip,int typeMovement)
+EnemyShip * initialisationEnemyShip(int width,int height,int typeStart,int side,int distance,int verticalLine,int typeShip,int typeMovement,int shotLevel)
 {
    // __android_log_print(ANDROID_LOG_DEBUG, "EnemyShip",   "initialisationEnemyShip"  );
 
     EnemyShip * enemyShip;
     switch(typeShip)
     {
-        case 0: enemyShip   = initialisationLittleEnemyShip( width, height, typeStart, side, distance, verticalLine, typeShip, typeMovement);
+        case 0: enemyShip   = initialisationLittleEnemyShip( width, height, typeStart, side, distance, verticalLine, typeShip, typeMovement,shotLevel);
             break;
             
         default :
@@ -97,11 +99,12 @@ int canShoot(EnemyShip * enemyShip)
 
 void setVisibilityEnemy(EnemyShip * enemyShip,int widthScreen,int heightScreen)
 {
-    if(enemyShip != NULL )
+    if(enemyShip != NULL && enemyShip->visible == VISIBLE )
     {
         
         if((enemyShip->posY+enemyShip->height) < 0 || enemyShip->posY > heightScreen || (enemyShip->posX + enemyShip->width) < 0 || enemyShip->posX > widthScreen)
         {
+             __android_log_print(ANDROID_LOG_DEBUG, "Enemy", " INVISIBLE");
             enemyShip->visible = INVISIBLE;
         }
     }

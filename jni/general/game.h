@@ -53,6 +53,13 @@ struct Game
     Mix_Chunk *tie_shoot;
     Mix_Chunk *Xwing_shoot;
     Mix_Chunk *Immhit;
+    
+     char * nativeName;
+     int command;
+     int music;
+     int vibration;
+     int PreviousHighScore;
+    int  saveNewHighScore;
 
 };
 
@@ -95,7 +102,7 @@ void initialisationSound( Game * game);
 enum RumbleForce {AUCUN,FAIBLE, MEDIUM_FORCE, FORT,MAXIMUM};
 enum RumbleLength {INEXISTANT,COURT, MEDIUM_LENGTH, LONG};
 
-Game *  initialisationOfTheGame(int width,int height);
+Game *  initialisationOfTheGame(int width,int height,char * nativeName,int command,int music, int vibration,int highScore);
 void  moveAllGame(Game * game, SDL_Renderer *renderer);
 void  drawGame(SDL_Renderer* renderer ,Game * game);
 void  createNextSquadron(Game * game);
@@ -116,8 +123,11 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y);
 void playRumble(Game * game,enum RumbleForce force,enum RumbleLength length);
 //jint Java_esgi_fouriam_SDLActivity_setPref(JNIEnv * env, jobject thiz, jstring name, jint commandValue, jint musicValue, jint vibrationValue, jint highScore);
 void setHighScore(JNIEnv * env, jobject thiz, int score);
-void playMusic(Mix_Music *mainMusic,int cntRepeat);
+void playMusic(Mix_Music *mainMusic,int cntRepeat,Game * game);
+void MyPlaySample(int channel,Mix_Chunk  * sample, int loop,int playMusic  );
 void filterShootsFromGame(Game * game);
+void IncrementPower(UserShip * ship );
+void decreasePower(UserShip * ship);
 
 
 

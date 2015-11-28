@@ -118,12 +118,8 @@ void moveDiagonaleLeft(Shoot * shoot,int widthScreen,int heightScreen)
         //shoot->posY = shoot->posY  - ( 1 * shoot->speed);
         if(shoot->cmptMoov%2 == 0)
         {
-            if (shoot->way == -1) {
-                shoot->posX = shoot->posX  + ( shoot->way * shoot->speed/2);
-            } else if (shoot->way == 1) {
-                shoot->posX = shoot->posX  + ( shoot->way * shoot->speed/2);
-            }
-            //shoot->posX = shoot->posX  - ( 1 * shoot->speed/2);
+            shoot->posX = shoot->posX  + ( shoot->way * shoot->speed/2);
+                    //shoot->posX = shoot->posX  - ( 1 * shoot->speed/2);
         }
         setVisibility(shoot,widthScreen,heightScreen);
     }
@@ -135,7 +131,7 @@ void moveDiagonaleRight(Shoot * shoot,int widthScreen,int heightScreen)
 {
     if(shoot != NULL)
     {
-       // __android_log_print(ANDROID_LOG_DEBUG, "moveVerticaly",  "Shoot posX : %d posY :%d",  shoot->posX ,shoot->posY);
+        __android_log_print(ANDROID_LOG_DEBUG, "moveDiagonaleRight",  "Shoot posX : %d posY :%d",  shoot->posX ,shoot->posY);
         if (shoot->way == -1) {
             shoot->posY = shoot->posY  + ( shoot->way * shoot->speed);
         } else if (shoot->way == 1) {
@@ -143,11 +139,8 @@ void moveDiagonaleRight(Shoot * shoot,int widthScreen,int heightScreen)
         }
         //shoot->posY = shoot->posY  - ( 1 * shoot->speed);
         if(shoot->cmptMoov%2 == 0){
-            if (shoot->way == -1) {
-                shoot->posX = shoot->posX  + ( shoot->way * shoot->speed/2);
-            } else if (shoot->way == 1) {
-                shoot->posX = shoot->posX  + ( shoot->way * shoot->speed/2);
-            }
+
+                shoot->posX = shoot->posX  + ( (-shoot->way) * shoot->speed/2);
             //shoot->posX = shoot->posX  + ( 1 * shoot->speed/2);
         }
         
@@ -170,13 +163,8 @@ void moveDiagonaleSubRight(Shoot * shoot,int widthScreen,int heightScreen)
         }
         //shoot->posY = shoot->posY  - ( 1 * shoot->speed);
         if(shoot->cmptMoov%3 == 0){
-            if (shoot->way == -1) {
-                shoot->posX = shoot->posX  + ( shoot->way * shoot->speed/2);
-            } else if (shoot->way == 1) {
-                shoot->posX = shoot->posX  + ( shoot->way * shoot->speed/2);
-            }
-            
-            //shoot->posX = shoot->posX  + ( 1 * shoot->speed/2);
+                shoot->posX = shoot->posX  + ( (-shoot->way) * shoot->speed/2);
+ //shoot->posX = shoot->posX  + ( 1 * shoot->speed/2);
         }
         setVisibility(shoot,widthScreen,heightScreen);
     }
@@ -196,13 +184,7 @@ void moveDiagonaleSubLeft(Shoot * shoot,int widthScreen,int heightScreen)
         }
         //shoot->posY = shoot->posY  - ( 1 * shoot->speed);
         if(shoot->cmptMoov%3 == 0) {
-            if (shoot->way == -1) {
                 shoot->posX = shoot->posX  + ( shoot->way * shoot->speed);
-            } else if (shoot->way == 1) {
-                shoot->posX = shoot->posX  + ( shoot->way * shoot->speed);
-            }
-            
-            //shoot->posX = shoot->posX  - ( 1 * shoot->speed/2);
         }
         setVisibility(shoot,widthScreen,heightScreen);
     }
@@ -356,7 +338,7 @@ void addShoot(int posX,int posY , int width , int height , ListShoot * listShoot
     (*nextShoot).way = way;
     
     
-  //  __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "Shoot posX : %d posY :%d",  (*nextShoot).posX ,(*nextShoot).posY);
+    // __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "Shoot posX : %d posY :%d",  (*nextShoot).posX ,(*nextShoot).posY);
     if(listShoot->size > 0 && (*listShoot).start != NULL)
     {
         Shoot * previousShoot;
@@ -369,6 +351,8 @@ void addShoot(int posX,int posY , int width , int height , ListShoot * listShoot
         }
         nextShoot->nextShoot = NULL;
         previousShoot->nextShoot = nextShoot;
+        __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "Shoot posX : %d posY :%d DIRECTION %d",  (*nextShoot).posX ,(*nextShoot).posY , nextShoot->direction);
+
     }
     else
     {

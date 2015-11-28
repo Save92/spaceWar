@@ -11,5 +11,12 @@
 
 #define REPEAT -1
 
+#define MAX_SPEED  15
+#define MAX_POWER  5
+
+#define LIMIT_LEVEL_UP 100
+
+
+
 
 #endif /* constant_h */

@@ -19,6 +19,8 @@
 
 void renderScore(Game * game,SDL_Renderer *renderer);
 void addScore(EnemyShip enemy, int * score );
+void renderHighScore(Game * game,SDL_Renderer *renderer);
+
 
 
 #endif /* score_h */

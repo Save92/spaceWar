@@ -54,7 +54,7 @@
 
 //     return result;
 // }
-
+#define SPEED_DIVIDENDE 4
 void drawMyShip(SDL_Renderer* renderer , UserShip * myShip)
 {
      if(myShip->visible == VISIBLE)
@@ -215,7 +215,36 @@ void addLife( UserShip * myShip )
         (myShip->life)++;
 }
 
+void addSpeed( UserShip * myShip )
+{
+    if(myShip->speed < MAX_SPEED)
+    {
+        myShip->speed = myShip->speed + myShip->speed/SPEED_DIVIDENDE;
+    }
+}
+void decreaseSpeed( UserShip * myShip )
+{
+    if(myShip->speed > 1)
+    {
+         myShip->speed = myShip->speed - myShip->speed/SPEED_DIVIDENDE;
+    }
+}
 
+
+void addShotLevel( UserShip * myShip )
+{
+    if(myShip->shotLevel < MAX_POWER)
+    {
+        myShip->shotLevel++;
+    }
+}
+void decreaseShotLevel( UserShip * myShip )
+{
+    if(myShip->shotLevel > 1)
+    {
+        myShip->shotLevel--;
+    }
+}
 
 
 
