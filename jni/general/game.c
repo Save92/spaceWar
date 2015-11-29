@@ -398,6 +398,12 @@ void  moveAllGame(Game * game, SDL_Renderer *renderer)
 {
     customLog(0 , "GAME" ,  __func__);
     eventCheckCollision(game, renderer);
+    if(myShipContinousShoot(game->myShip) == TRUE)
+    {
+        UserShipShoot(*(game->myShip),game->listShootUser);
+        MyPlaySample(-1,game->Xwing_shoot,0,game->music);
+    }
+    
     moveAllMyShoots(game->listShootUser,game->width,game->height);
     moveAllMyShoots(game->listShootEnnemy,game->width,game->height);
     
@@ -430,6 +436,8 @@ void  moveAllGame(Game * game, SDL_Renderer *renderer)
         moveSquadron(tmp,game->width,game->height,game->listShootEnnemy,game->tie_shoot,game->music);
         tmp= tmp->nextSquadron;
     }
+    
+   
     
     //  __android_log_print(ANDROID_LOG_DEBUG, "GAME", "END moveAllGame ");
     char * str = malloc(sizeof(char)* 255);

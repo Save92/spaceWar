@@ -224,20 +224,14 @@ int main(int argc, char *argv[])
         /* Check for events */
         while(SDL_PollEvent(&event))
         {
-            if(event.type == SDL_FINGERDOWN){
-                //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "SLD_FINGERDOWN");
-                // Test si on est encore en vie pour tirer
-                if(game->myShip->life > 0 && myShipCanShoot(game->myShip) == TRUE) {
-                    UserShipShoot(*(game->myShip),game->listShootUser);
-                    MyPlaySample(-1,game->Xwing_shoot,0,game->music);   
-                }
-                
-                // __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Ship position PosX : %d , PosY : %d",(*listShoot->start).posX,(*listShoot->start).posY);
-                
-                
-            } else if (event.type == SDL_KEYDOWN) {
+            
+            if(event.type ==  SDL_FINGERDOWN)
+                 game->myShip->canShoot = TRUE;
+            if(event.type ==  SDL_KEYDOWN)
                 done = 1;
-            }
+            if(event.type ==  SDL_FINGERUP)
+                game->myShip->canShoot = FALSE;
+            
         }
         //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Android_JNI_GetAccelerometerValues");
         Android_JNI_GetAccelerometerValues(accelValues);

@@ -71,6 +71,7 @@ void drawMyShip(SDL_Renderer* renderer , UserShip * myShip)
         //SDL_RenderFillRect(renderer, (myShip->rectangle));
         //myShip->myShipSprite = LoadSprite("myShipGood.bmp", renderer);
         myShip->myShipSprite = loadTexture("myShipGood.png", renderer);
+       
         renderTexture(myShip->myShipSprite.texture, renderer, myShip->rectangle->x, myShip->rectangle->y);
     }
 }
@@ -191,6 +192,7 @@ UserShip * initialisationUserShip(int width,int height)
     myShip->shotLevel = 1;
     myShip->visible = VISIBLE;
     myShip->cntMovement = 0;
+    myShip->canShoot = FALSE;
     //myShip->myShipSprite = NULL;
     
     return myShip;
@@ -252,9 +254,9 @@ void decreaseShotLevel( UserShip * myShip )
     }
 }
 
-int myShipCanShoot( UserShip * myShip )
+int myShipContinousShoot( UserShip * myShip )
 {
-    if(myShip->cntMovement >= RATE_IMAGE_SHOOT )
+    if(myShip->cntMovement >= RATE_IMAGE_SHOOT && myShip->canShoot == TRUE && myShip->life > 0 )
     {
         myShip->cntMovement = 0;
         return TRUE;
