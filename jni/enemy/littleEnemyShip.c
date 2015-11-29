@@ -15,8 +15,7 @@
 #include <android/log.h>
 #include "../general/constant.h"
 
-#define RATIO_SIZE 50
-#define RATIO_SPEED 15
+
 void drawLittleEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip)
 {
     enemyShip->rectangle->x = enemyShip->posX;

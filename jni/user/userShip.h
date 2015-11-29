@@ -36,11 +36,14 @@ typedef struct UserShip
 
 void drawMyShip(SDL_Renderer* renderer , UserShip * myShip);
 void moveMyShip(UserShip * myShip,int TypeMove,int widthScreen, int heightScreen, double coef);
-void moveMyShipGeneral(float * accelValues,int SIZEACCELVALUES,UserShip * myShip,int widthScreen,int heightScreen);
+
 
 void freeShip(UserShip * myShip);
 UserShip * initialisationUserShip();
 void moveMyShipGeneral(float * accelValues,int SIZEACCELVALUES,UserShip * myShip,int widthScreen,int heightScreen);
+
+void moveMyShipTouch(int posX , int posY ,UserShip * myShip,int widthScreen,int heightScreen);
+
 int userShipIsAlive(UserShip * userShip);
 void decreaseLife( UserShip * myShip);
 void addLife( UserShip * myShip);

@@ -17,14 +17,10 @@
 #include "CustomLog.h"
 
 
-#define SizeName  128
-#define MaxEnemy 5
-#define ApparitionTime 2000
 
-#define quotientTemps 150
-#define quotientForce 0.25
 
-static int levelUp = 100;
+int level = 0;
+int levelUp = 100;
 int Time_app = ApparitionTime;
 int maxShotLevelEnemi = 1 ;
 
@@ -198,6 +194,18 @@ void initialisationSound( Game * game)
                         Mix_VolumeChunk( game->Immhit , MIX_MAX_VOLUME - MIX_MAX_VOLUME/3);
                     }
                     
+                    game->yoda = Mix_LoadWAV("swnotry.wav");
+                    if(!game->yoda)
+                    {
+                        __android_log_print(ANDROID_LOG_DEBUG, "GAME","Mix_LoadWAV: %s\n", Mix_GetError());
+                        game->initAudio = -1;
+                        
+                    }
+                    else
+                    {
+                        Mix_VolumeChunk( game->yoda , MIX_MAX_VOLUME - MIX_MAX_VOLUME/3);
+                    }
+                    
                 }
             }
         }
@@ -268,6 +276,7 @@ void eventCheckCollisionUserShipEnnemyShoot(Game * game,SDL_Renderer *renderer) 
 
 void eventCheckCollisionUserShipEnnemyShip(Game * game,SDL_Renderer *renderer) {
     // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "CHECK eventCheckCollisionUserShipEnnemyShip!!!_______________________________");
+    
     customLog(0 , "GAME" ,  __func__);
     Squadron * indexSquadron = game->nextSquadron;
     
@@ -338,9 +347,10 @@ void eventCheckCollisionUserShipShootEnnemy(Game * game,SDL_Renderer *renderer) 
                 //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR  !!! Pas touche"  );
                 if (indexListShoot->visible == VISIBLE && checkCollision(*(indexList->rectangle), *(indexListShoot->rectangle), indexListShoot->speed) == TRUE) {
                     __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR !!! BOOOOOOOMMMMMM!!!!!"  );
-                    if(game->score%levelUp == 0 && levelUp <=  game->score)
+                    if(levelUp < level)
                     {
                         IncrementPower(game->myShip);
+                         MyPlaySample(-1,game->yoda,0,game->music);
                     }
 
                     indexList->life -= 1;
@@ -351,6 +361,7 @@ void eventCheckCollisionUserShipShootEnnemy(Game * game,SDL_Renderer *renderer) 
                         //tmpSquadron->size--;
                         setVisibilitySquadron(tmpSquadron);
                         addScore(*indexList,&(game->score));
+                        addScore(*indexList,&level);
 
                     }
                     indexListShoot->visible = INVISIBLE;
@@ -942,12 +953,14 @@ void IncrementPower(UserShip * ship )
 {
      customLog(0 , "GAME" ,  __func__);
     
-    levelUp = levelUp * levelUp;
+    levelUp = levelUp * 10;
     addSpeed( ship);
     Time_app -= 50;
     addShotLevel( ship );
     if(maxShotLevelEnemi < MAX_POWER)
         maxShotLevelEnemi++;
+    
+    
     
     char * str = malloc(sizeof(char)* 255);
     sprintf(str,"end %s",__func__);
@@ -960,8 +973,13 @@ void IncrementPower(UserShip * ship )
 void decreasePower(UserShip * ship)
 {
     customLog(0 , "GAME" ,  __func__);
+    
     if(levelUp > LIMIT_LEVEL_UP)
-        levelUp /= levelUp ;
+    {
+        levelUp /= 10 ;
+        level /= 10;
+    }
+     
     decreaseShotLevel(ship);
 
     decreaseSpeed(ship);

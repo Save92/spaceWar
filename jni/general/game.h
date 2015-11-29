@@ -53,6 +53,7 @@ struct Game
     Mix_Chunk *tie_shoot;
     Mix_Chunk *Xwing_shoot;
     Mix_Chunk *Immhit;
+    Mix_Chunk * yoda ;
     
      char * nativeName;
      int command;

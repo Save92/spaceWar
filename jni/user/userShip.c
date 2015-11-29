@@ -1,6 +1,6 @@
 //
 //  userShip.c
-//  
+//
 //
 //  Created by thierry allard saint albin on 22/09/2015.
 //
@@ -14,55 +14,15 @@
 #include <math.h>
 #include "../general/constant.h"
 #include "../general/drawer.h"
+#include "../general/CustomLog.h"
 
-
-
-
-// typedef struct SpriteShip
-// {
-//     SDL_Texture* texture;
-//     Uint16 w;
-//     Uint16 h;
-// } SpriteShip;
-
-// SpriteShip LoadSpriteShip(const char* file, SDL_Renderer* renderer)
-// {
-//     SpriteShip result;
-//     result.texture = NULL;
-//     result.w = 0;
-//     result.h = 0;
-
-//     SDL_Surface* temp;
-
-//     /* Load the sprite image */
-//     temp = SDL_LoadBMP(file);
-
-//     SDL_SetColorKey(temp, SDL_TRUE, SDL_MapRGB(temp->format, 0, 0, 0));
-//     if (temp == NULL)
-//     {
-//         fprintf(stderr, "Couldn't load %s: %s\n", file, SDL_GetError());
-//         return result;
-//     }
-//     result.w = temp->w;
-//     result.h = temp->h;
-
-//     /* Create texture from the image */
-//     result.texture = SDL_CreateTextureFromSurface(renderer, temp);
-//     if (!result.texture) {
-//         fprintf(stderr, "Couldn't create texture: %s\n", SDL_GetError());
-//         SDL_FreeSurface(temp);
-//         return result;
-//     }
-//     SDL_FreeSurface(temp);
-
-//     return result;
-// }
 #define SPEED_DIVIDENDE 4
 void drawMyShip(SDL_Renderer* renderer , UserShip * myShip)
 {
-     if(myShip->visible == VISIBLE)
-     {
-
+    myShip->cntMovement++;
+    if(myShip->visible == VISIBLE)
+    {
+        
         myShip->rectangle->x = myShip->posX;
         myShip->rectangle->y = myShip->posY;
         myShip->rectangle->w = 200;
@@ -71,7 +31,7 @@ void drawMyShip(SDL_Renderer* renderer , UserShip * myShip)
         //SDL_RenderFillRect(renderer, (myShip->rectangle));
         //myShip->myShipSprite = LoadSprite("myShipGood.bmp", renderer);
         myShip->myShipSprite = loadTexture("myShipGood.png", renderer);
-       
+        
         renderTexture(myShip->myShipSprite.texture, renderer, myShip->rectangle->x, myShip->rectangle->y);
     }
 }
@@ -79,17 +39,17 @@ void drawMyShip(SDL_Renderer* renderer , UserShip * myShip)
 void moveMyShip(UserShip * myShip,int TypeMove,int widthScreen, int heightScreen, double coef)
 {
     int newValue;
-   // __android_log_print(ANDROID_LOG_DEBUG, "TypeMove"," %d",TypeMove);
+    // __android_log_print(ANDROID_LOG_DEBUG, "TypeMove"," %d",TypeMove);
     int cntMovement;
-
+    
     switch(TypeMove)
     {
         case 0:
             
             newValue = myShip->posX + (coef * myShip->speed);
-           if(newValue < widthScreen - myShip->rectangle->w)
+            if(newValue < widthScreen - myShip->rectangle->w)
                 myShip->posX = newValue;
-                
+            
             break;
             
         case 1:
@@ -98,29 +58,65 @@ void moveMyShip(UserShip * myShip,int TypeMove,int widthScreen, int heightScreen
             if(newValue < heightScreen - myShip->rectangle->h)
                 myShip->posY = newValue;
             break;
-     
+            
         case 2:
             
             newValue = myShip->posX - (coef * myShip->speed);
             
             if(newValue > -1)
                 myShip->posX = newValue;
-
+            
             break;
-    
-        case 3:   
+            
+        case 3:
             newValue = myShip->posY - (coef * myShip->speed);
-          //  if(newValue > -1)
-                myShip->posY = newValue;
+            //  if(newValue > -1)
+            myShip->posY = newValue;
             break;
-     
+            
     }
 }
-
-
-void moveMyShipGeneral(float * accelValues,int sizeAccelValues ,UserShip * myShip,int widthScreen, int heightScreen)
+void moveMyShipTouch(int posX , int posY ,UserShip * myShip,int widthScreen,int heightScreen)
 {
-    myShip->cntMovement++;
+     __android_log_print(ANDROID_LOG_DEBUG, "UserShip", "moveMyShipTouch");
+    
+    __android_log_print(ANDROID_LOG_DEBUG, "UserShip", "[FINGER] PosX %d , PosY %d", posX, posY);
+    __android_log_print(ANDROID_LOG_DEBUG, "UserShip", "[UserShip] Pos %d , PosY %d", myShip->posX, myShip->posY);
+    int coef = (int)1/DIVIDENDE_SPEED;
+    int ecart = coef * myShip->speed;
+    int tempPosX = myShip->posX;
+    int tempPosY = myShip->posY;
+    if(myShip->posX < (posX - ecart) )
+    {
+        tempPosX += ecart;
+    }
+    if(myShip->posX > (posX + ecart))
+    {
+        tempPosX -= ecart;
+    }
+    if(myShip->posY < (posY - ecart))
+    {
+        tempPosY += ecart;
+    }
+    if(myShip->posY > (posY + ecart))
+    {
+        tempPosY -= ecart;
+    }
+    
+    if(tempPosX > 0  && tempPosX < (widthScreen -  myShip->rectangle->w))
+    {
+        myShip->posX = tempPosX;
+    }
+    
+    if(tempPosY > 0  && tempPosY < (heightScreen -  myShip->rectangle->h))
+    {
+        myShip->posY = tempPosY;
+    }
+    
+}
+
+void moveMyShipGeneral(float * accelValues,int sizeAccelValues ,UserShip * myShip,int widthScreen, int heightScreen){
+
     char values[30];
     int index = 0;
     for(index = 0 ; index < sizeAccelValues ; index++)
@@ -130,38 +126,25 @@ void moveMyShipGeneral(float * accelValues,int sizeAccelValues ,UserShip * myShi
             case 0:
                 if(accelValues[index] > 0.15)
                 {
-                    moveMyShip(myShip,0,widthScreen,heightScreen, fabs(floor(accelValues[index]/0.12)));
+                    moveMyShip(myShip,0,widthScreen,heightScreen, fabs(floor(accelValues[index]/DIVIDENDE_SPEED)));
                 }
-            
+                
                 if(accelValues[index] < -0.15)
                 {
-                    moveMyShip(myShip,2,widthScreen,heightScreen, fabs(floor(accelValues[index]/0.12)));
+                    moveMyShip(myShip,2,widthScreen,heightScreen, fabs(floor(accelValues[index]/DIVIDENDE_SPEED)));
                 }
-                
-                
-       //         sprintf(values,"value X %f",accelValues[index]);
                 break;
-                
             case 1:
                 if(accelValues[index] > 0.15)
                 {
-                    moveMyShip(myShip,1,widthScreen,heightScreen, fabs(floor(accelValues[index]/0.12)));
+                    moveMyShip(myShip,1,widthScreen,heightScreen, fabs(floor(accelValues[index]/DIVIDENDE_SPEED)));
                 }
                 if(accelValues[index] < -0.15)
                 {
-                    moveMyShip(myShip,3,widthScreen,heightScreen, fabs(floor(accelValues[index]/0.12)));
+                    moveMyShip(myShip,3,widthScreen,heightScreen, fabs(floor(accelValues[index]/DIVIDENDE_SPEED)));
                 }
-                
-                
-      //          sprintf(values,"value Y %f",accelValues[index]);
                 break;
-                
-                //               case 2: sprintf(values,"value Z %f",accelValues[i]);
-                //               break;
-                
         }
-       // __android_log_print(ANDROID_LOG_DEBUG, "accelValues","%s",values);
-       // memset(values, 0, 30 * (sizeof values[0]));
     }
 }
 
@@ -178,7 +161,7 @@ UserShip * initialisationUserShip(int width,int height)
     SDL_Rect  * rectangle = malloc( sizeof(SDL_Rect));
     UserShip  * myShip = malloc( sizeof(UserShip));
     myShip->rectangle = rectangle;
-
+    
     rectangle->x = width/2;
     rectangle->y = height/8 * 7;
     myShip->posX = rectangle->x;
@@ -188,15 +171,13 @@ UserShip * initialisationUserShip(int width,int height)
     myShip->color[1] = 198;
     myShip->color[2] = 181;
     myShip->color[3] = 255;
-    myShip->life = 5;
+    myShip->life = STARTING_LIFE;
     myShip->shotLevel = 1;
     myShip->visible = VISIBLE;
     myShip->cntMovement = 0;
     myShip->canShoot = FALSE;
     //myShip->myShipSprite = NULL;
-    
     return myShip;
-
 }
 
 int userShipIsAlive(UserShip * userShip)
@@ -210,7 +191,7 @@ void decreaseLife( UserShip * myShip )
 {
     if(myShip->life >0)
     {
-        (myShip->life)--; 
+        (myShip->life)--;
     }
     if(myShip->life == 0)
     {
@@ -234,7 +215,7 @@ void decreaseSpeed( UserShip * myShip )
 {
     if(myShip->speed > 1)
     {
-         myShip->speed = myShip->speed - myShip->speed/SPEED_DIVIDENDE;
+        myShip->speed = myShip->speed - myShip->speed/SPEED_DIVIDENDE;
     }
 }
 
@@ -264,5 +245,5 @@ int myShipContinousShoot( UserShip * myShip )
     return FALSE;
 }
 
-
-
+    
+    
