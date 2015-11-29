@@ -15,6 +15,9 @@
 #include "../general/constant.h"
 #include "../general/drawer.h"
 
+
+
+
 // typedef struct SpriteShip
 // {
 //     SDL_Texture* texture;
@@ -76,6 +79,7 @@ void moveMyShip(UserShip * myShip,int TypeMove,int widthScreen, int heightScreen
 {
     int newValue;
    // __android_log_print(ANDROID_LOG_DEBUG, "TypeMove"," %d",TypeMove);
+    int cntMovement;
 
     switch(TypeMove)
     {
@@ -115,6 +119,7 @@ void moveMyShip(UserShip * myShip,int TypeMove,int widthScreen, int heightScreen
 
 void moveMyShipGeneral(float * accelValues,int sizeAccelValues ,UserShip * myShip,int widthScreen, int heightScreen)
 {
+    myShip->cntMovement++;
     char values[30];
     int index = 0;
     for(index = 0 ; index < sizeAccelValues ; index++)
@@ -185,6 +190,7 @@ UserShip * initialisationUserShip(int width,int height)
     myShip->life = 5;
     myShip->shotLevel = 1;
     myShip->visible = VISIBLE;
+    myShip->cntMovement = 0;
     //myShip->myShipSprite = NULL;
     
     return myShip;
@@ -244,6 +250,16 @@ void decreaseShotLevel( UserShip * myShip )
     {
         myShip->shotLevel--;
     }
+}
+
+int myShipCanShoot( UserShip * myShip )
+{
+    if(myShip->cntMovement >= RATE_IMAGE_SHOOT )
+    {
+        myShip->cntMovement = 0;
+        return TRUE;
+    }
+    return FALSE;
 }
 
 

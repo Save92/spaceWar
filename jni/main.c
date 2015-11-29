@@ -227,7 +227,7 @@ int main(int argc, char *argv[])
             if(event.type == SDL_FINGERDOWN){
                 //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "SLD_FINGERDOWN");
                 // Test si on est encore en vie pour tirer
-                if(game->myShip->life > 0) {
+                if(game->myShip->life > 0 && myShipCanShoot(game->myShip) == TRUE) {
                     UserShipShoot(*(game->myShip),game->listShootUser);
                     MyPlaySample(-1,game->Xwing_shoot,0,game->music);   
                 }

@@ -16,7 +16,7 @@
 
 #define LIMIT_LEVEL_UP 100
 
-
+#define RATE_IMAGE_SHOOT 15
 
 
 #endif /* constant_h */

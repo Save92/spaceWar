@@ -26,6 +26,7 @@ typedef struct UserShip
     int shotLevel;
     int visible ;
     Sprite myShipSprite;
+    unsigned int cntMovement;
 
 
     
@@ -46,6 +47,7 @@ void addSpeed( UserShip * myShip );
 void decreaseSpeed( UserShip * myShip );
 void addShotLevel( UserShip * myShip );
 void decreaseShotLevel( UserShip * myShip );
+int myShipCanShoot( UserShip * myShip );
 
 #endif /* defined(____userShip__) */
 
