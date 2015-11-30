@@ -67,7 +67,9 @@ public class ConfigurationActivity extends Activity
         gyroBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                
                 if(!gyroBtn.isSelected()) {
+                    gyroBtn.setSelected(true);
                     gyroBtn.setTextColor(getResources().getColor(R.color.grenat));
                     touchBtn.setTextColor(getResources().getColor(R.color.white));
                     touchBtn.setSelected(false);
@@ -82,7 +84,9 @@ public class ConfigurationActivity extends Activity
         touchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                
                 if(!touchBtn.isSelected()) {
+                    touchBtn.setSelected(true);
                     touchBtn.setTextColor(getResources().getColor(R.color.grenat));
                     gyroBtn.setTextColor(getResources().getColor(R.color.white));
                     gyroBtn.setSelected(false);
@@ -143,6 +147,7 @@ public class ConfigurationActivity extends Activity
                 prefsEditor.apply();
                 toast.setText(getResources().getString(R.string.saved));
                 toast.show();
+                finish();
             }
         });
 
