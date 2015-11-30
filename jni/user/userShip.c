@@ -25,8 +25,8 @@ void drawMyShip(SDL_Renderer* renderer , UserShip * myShip)
         
         myShip->rectangle->x = myShip->posX;
         myShip->rectangle->y = myShip->posY;
-        myShip->rectangle->w = 200;
-        myShip->rectangle->h = 174;
+        myShip->rectangle->w = USER_SHIP_WIDTH;
+        myShip->rectangle->h = USER_SHIP_HEIGHT;
         //SDL_SetRenderDrawColor(renderer, myShip->color[0], myShip->color[1], myShip->color[2], myShip->color[3]);
         //SDL_RenderFillRect(renderer, (myShip->rectangle));
         //myShip->myShipSprite = LoadSprite("myShipGood.bmp", renderer);
@@ -86,30 +86,37 @@ void moveMyShipTouch(int posX , int posY ,UserShip * myShip,int widthScreen,int 
     int ecart = coef * myShip->speed;
     int tempPosX = myShip->posX;
     int tempPosY = myShip->posY;
-    if(myShip->posX < (posX - ecart) )
+    int height = myShip->rectangle->h;
+    int width = myShip->rectangle->w;
+    
+    
+    
+    if(myShip->posX + width/2 < (posX - ecart) )
     {
         tempPosX += ecart;
     }
-    if(myShip->posX > (posX + ecart))
+    if(myShip->posX +width/2 > (posX + ecart))
     {
         tempPosX -= ecart;
     }
-    if(myShip->posY < (posY - ecart))
+    if(myShip->posY +height/2 < (posY - ecart))
     {
         tempPosY += ecart;
     }
-    if(myShip->posY > (posY + ecart))
+    if(myShip->posY + height/2 > (posY + ecart))
     {
         tempPosY -= ecart;
     }
-    
+     __android_log_print(ANDROID_LOG_DEBUG, "UserShip", "[TEMPOS] PosX %d , PosY %d", tempPosX, tempPosY);
     if(tempPosX > 0  && tempPosX < (widthScreen -  myShip->rectangle->w))
     {
+        __android_log_print(ANDROID_LOG_DEBUG, "UserShip", "[TEMPOS] move in X");
         myShip->posX = tempPosX;
     }
     
     if(tempPosY > 0  && tempPosY < (heightScreen -  myShip->rectangle->h))
     {
+        __android_log_print(ANDROID_LOG_DEBUG, "UserShip", "[TEMPOS] move in Y");
         myShip->posY = tempPosY;
     }
     
@@ -163,7 +170,7 @@ UserShip * initialisationUserShip(int width,int height)
     myShip->rectangle = rectangle;
     
     rectangle->x = width/2;
-    rectangle->y = height/8 * 7;
+    rectangle->y = height - USER_SHIP_HEIGHT;
     myShip->posX = rectangle->x;
     myShip->posY = rectangle->y;
     myShip->speed = 1;

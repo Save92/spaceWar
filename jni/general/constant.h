@@ -41,6 +41,8 @@
 //USERSHIP////////
 #define RATE_IMAGE_SHOOT 15
 #define DIVIDENDE_SPEED 0.12
+#define USER_SHIP_WIDTH 200
+#define USER_SHIP_HEIGHT 174
 
 #define COEF_SPEED_TOUCH 8
 #endif /* constant_h */

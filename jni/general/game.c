@@ -40,7 +40,7 @@ Game *  initialisationOfTheGame(int width,int height,char * nativeName,int comma
     strcpy(game->nameUser, nativeName);
     game->history = 0;
     game->cntInLastSquadron = 0;
-    game->stack = initializeStackHistory();
+    //game->stack = initializeStackHistory();
     game->tempsActuel = SDL_GetTicks();
     game->tempsPrecedent = 0;
     game->myShip = initialisationUserShip(width,height);
@@ -666,8 +666,8 @@ void addNewEnemy(Game * game,Squadron * squadron,ListePosition * lp)
     int typeMovement = my_rand() % 3;
     
     EnemyShip * enemy = initialisationEnemyShip(game->width,game->height,posStart, side,distance,verticalLine,typeShip,typeMovement,shotLevel);
-    History *history =  initializeHistory(posStart,side,distance ,verticalLine,typeShip,typeMovement,shotLevel);
-    addHistory(history,game->stack);
+   // History *history =  initializeHistory(posStart,side,distance ,verticalLine,typeShip,typeMovement,shotLevel);
+    //addHistory(history,game->stack);
     
     addEnemyToSquadron(enemy,squadron);
     
@@ -689,15 +689,15 @@ void addEnemyFromHistory(Game * game)
     
     int nombre = game->cntInLastSquadron;
     // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "cnt in lastSquadron %d",nombre);
-    StackHistory * tempStack=getHeads(game->stack,nombre);
-    History * tmp = tempStack->head;
+    //StackHistory * tempStack=getHeads(game->stack,nombre);
+    //History * tmp = tempStack->head;
     Squadron * lastSqdr = getLastSquadron(game);
     
     // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "size Stack %d",game->stack->size);
     // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "size tempStack %d",tempStack->size);
     // __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "stack adress %d",tempStack->head);
     lastSqdr->nextSquadron = initialisationSquadron(nombre);
-    while(tmp != NULL )
+   /* while(tmp != NULL )
     {
         //     __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "history address %d",tmp);
         EnemyShip * enemy = initialisationEnemyShip(game->width,game->height,tmp->LastPosStart, (-1)*tmp->LastSide,tmp->LastDistance,tmp->LastverticalLine,tmp->LastypeShip,tmp->LastTypeMovement,tmp->LastShotLevel);
@@ -706,7 +706,7 @@ void addEnemyFromHistory(Game * game)
         
         addEnemyToSquadron(enemy,lastSqdr->nextSquadron);
         
-        addHistory(history,game->stack);
+       // addHistory(history,game->stack);
         tmp = tmp->nextHistory;
         
         
@@ -717,6 +717,7 @@ void addEnemyFromHistory(Game * game)
     sprintf(str,"end %s",__func__);
     customLog(0 , "GAME" , str);
     free(str);
+    */
     //    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "END addEnemyFromHistory"  );
 }
 
@@ -955,7 +956,6 @@ void IncrementPower(UserShip * ship )
     
     levelUp = levelUp * 10;
     addSpeed( ship);
-    Time_app -= 50;
     addShotLevel( ship );
     if(maxShotLevelEnemi < MAX_POWER)
         maxShotLevelEnemi++;
