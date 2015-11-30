@@ -55,6 +55,7 @@ void moveEnemyShipZigZag(EnemyShip * enemyShip,int widthScreen,int heightScreen)
 void verifySideFromVerticalLine(EnemyShip * enemyShip);
 int enemyShipIsAlive(EnemyShip * enemyShip);
 void setEnemyToInvisible(EnemyShip * enemy);
+void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int typeStart,int side,int defaultGap);
 
 
 

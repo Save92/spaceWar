@@ -19,6 +19,9 @@ LOCAL_SRC_FILES := $(SDL_PATH)/src/main/android/SDL_android_main.c \
 	$(GENERAL_PATH)/CustomLog.c \
         $(GENERAL_PATH)/drawer.c \
         $(ENEMY_PATH)/littleEnemyShip.c \
+        $(ENEMY_PATH)/interceptorEnemy.c \
+        $(ENEMY_PATH)/littleBomberEnemy.c \
+        $(ENEMY_PATH)/bigBomberEnemy.c \
 	$(ENEMY_PATH)/enemy.c \
 	$(GENERAL_PATH)/shoot.c \
 	$(USER_PATH)/userShip.c \
