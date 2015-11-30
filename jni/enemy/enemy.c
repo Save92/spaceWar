@@ -11,9 +11,12 @@
 #include <jni.h>
 #include <stdlib.h>
 #include <math.h>
-
+#include "movementConstant.h"
 #include "enemy.h"
 #include "littleEnemyShip.h"
+#include "interceptorEnemy.h"
+#include "littleBomberEnemy.h"
+#include "bigBomberEnemy.h"
 #include "../general/constant.h"
 #include "../general/CustomLog.h"
 
@@ -26,7 +29,15 @@ void drawEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip)
         case 0:
             drawLittleEnemyShip(renderer , enemyShip);
             break;
-            
+        case 1:
+            drawInterceptorEnemy(renderer , enemyShip);
+            break;
+        case 2:
+            drawLittleBomberEnemy(renderer , enemyShip);
+            break;
+        case 3:
+            drawBigBomberEnemy(renderer , enemyShip);
+            break;            
         default:
             break;
     }
@@ -44,8 +55,6 @@ int moveEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen)
             
         case 2 : moveEnemyShipZigZag(enemyShip,widthScreen,heightScreen);
             break;
-            
-            
         default:
             moveEnemyShipZigZag(enemyShip,widthScreen,heightScreen);
             break;
@@ -84,7 +93,12 @@ EnemyShip * initialisationEnemyShip(int width,int height,int typeStart,int side,
     {
         case 0: enemyShip   = initialisationLittleEnemyShip( width, height, typeStart, side, distance, verticalLine, typeShip, typeMovement,shotLevel);
             break;
-            
+        case 1: enemyShip   = initialisationInterceptorEnemy( width, height, typeStart, side, distance, verticalLine, typeShip, typeMovement,shotLevel);
+            break;
+        case 2: enemyShip   = initialisationLittleBomberEnemy( width, height, typeStart, side, distance, verticalLine, typeShip, typeMovement,shotLevel);
+            break;
+        case 3: enemyShip   = initialisationBigBomberEnemy( width, height, typeStart, side, distance, verticalLine, typeShip, typeMovement,shotLevel);
+            break;    
         default :
             break;
             
@@ -100,6 +114,12 @@ int canShoot(EnemyShip * enemyShip)
     switch (enemyShip->type) {
         case 0: canShoot = LittleEnemyShipCanShoot(enemyShip);
             break;
+        case 1: canShoot = InterceptorEnemyCanShoot(enemyShip);
+        break;
+        case 2: canShoot = LittleBomberEnemyCanShoot(enemyShip);
+        break;
+        case 3: canShoot = BigBomberEnemyCanShoot(enemyShip);
+        break;
             
         default:
             break;
@@ -188,6 +208,140 @@ void setEnemyToInvisible(EnemyShip * enemy)
         enemy->visible = INVISIBLE;
     }
 }
+
+
+
+void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int typeStart,int side,int defaultGap)
+{
+    int gap = 0;
+  //  __android_log_print(ANDROID_LOG_DEBUG, "Start", "typeStart : %d , side : %d",typeStart,side);
+    switch(typeStart)
+    {
+        case TOP_SCREEN :
+            gap = width/8;
+            if(side == 1)
+            {
+                
+                enemyShip->rectangle->x = width/2 - gap;
+                enemyShip->rectangle->y = 0;
+                enemyShip->verticalSide = 1;
+            }
+            else
+            {
+                if(side == -1)
+                {
+                    enemyShip->rectangle->x = width/2 + gap;
+                    enemyShip->rectangle->y = 0;
+                    enemyShip->verticalSide = -1;
+                }
+            }
+            break;
+            
+        case TOP_SIDE_SCREEN :
+            gap = width/6;
+            if(side == 1)
+            {
+                
+                enemyShip->rectangle->x = width/2 - gap;
+                enemyShip->rectangle->y = 0;
+                enemyShip->verticalSide = 1;
+            }
+            else
+            {
+                if(side == -1)
+                {
+                    enemyShip->rectangle->x = width/2 + gap;
+                    enemyShip->rectangle->y = 0;
+                    enemyShip->verticalSide = -1;
+                }
+            }
+            break;
+            
+        case TOP_MIDDLE_SIDE_SCREEN :
+            gap = width/4;
+            if(side == 1)
+            {
+                
+                enemyShip->rectangle->x = width/2 - gap;
+                enemyShip->rectangle->y = 0;
+                enemyShip->verticalSide = 1;
+            }
+            else
+            {
+                if(side == -1)
+                {
+                    enemyShip->rectangle->x = width/2 + gap;
+                    enemyShip->rectangle->y = 0;
+                    enemyShip->verticalSide = -1;
+                }
+            }
+            break;
+            
+        case TOP_EXTREME_SIDE_SCREEN:
+            gap = defaultGap;
+            if(side == 1)
+            {
+           //     __android_log_print(ANDROID_LOG_DEBUG, "bigBomberEnemy", "TOP_EXTREME_SIDE_SCREEN____LEFT");
+                
+               
+                enemyShip->rectangle->x = 0 ;
+                enemyShip->rectangle->y = 0;
+                enemyShip->verticalSide = 1;
+            }
+            else
+            {
+                if(side == -1)
+                {
+              
+                    enemyShip->rectangle->x = width - gap ;
+                    enemyShip->rectangle->y = 0;
+                    enemyShip->verticalSide = -1;
+                }
+            }
+            break;
+            
+        case EXTREME_SIDE_SCREEN:
+            gap = defaultGap;
+            if(side == 1)
+            {
+                
+                enemyShip->rectangle->x = 0-(gap/2);
+                enemyShip->rectangle->y = height/4 + gap ;
+                enemyShip->verticalSide = 1;
+            }
+            else
+            {
+                if(side == -1)
+                {
+                    enemyShip->rectangle->x = width -(gap/2);
+                    enemyShip->rectangle->y = height/2 + gap;
+                    enemyShip->verticalSide = -1;
+                }
+            }
+            break;
+            
+        default :
+            gap = width/8;
+            if(side == 1)
+            {
+                
+                enemyShip->rectangle->x = width/2 - gap;
+                enemyShip->rectangle->y = 0;
+                enemyShip->verticalSide = 1;
+            }
+            else
+            {
+                if(side == -1)
+                {
+                    enemyShip->rectangle->x = width/2 + gap;
+                    enemyShip->rectangle->y = 0;
+                    enemyShip->verticalSide = -1;
+                }
+            }
+            break;
+    }
+}
+
 
 
 
