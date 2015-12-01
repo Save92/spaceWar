@@ -250,7 +250,7 @@ void eventCheckCollisionUserShipEnnemyShoot(Game * game,SDL_Renderer *renderer) 
         
         if (indexList->visible == VISIBLE && checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE) {
             //__android_log_print(ANDROID_LOG_DEBUG, "GAME",   "TIR ENNEMIE !!! BOOOOOOOMMMMMM!!!!!"  );
-            customLog(0 , "GAME" ,  "TIR ENNEMIE !!! BOOOOOOOMMMMMM!!!!!");
+            //customLog(0 , "GAME" ,  "TIR ENNEMIE !!! BOOOOOOOMMMMMM!!!!!");
             decreaseLife( game->myShip );
             enum RumbleForce force = MEDIUM_FORCE;
             enum RumbleLength length = MEDIUM_LENGTH;
@@ -662,7 +662,8 @@ void addNewEnemy(Game * game,Squadron * squadron,ListePosition * lp)
     {
         side = -1;
     }
-    int typeShip =  my_rand()%4;
+    //int typeShip =  my_rand()%4;
+     int typeShip =  rand()%4;
     int typeMovement = my_rand() % 3;
     
     EnemyShip * enemy = initialisationEnemyShip(game->width,game->height,posStart, side,distance,verticalLine,typeShip,typeMovement,shotLevel);

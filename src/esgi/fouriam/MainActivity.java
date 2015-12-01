@@ -30,6 +30,7 @@ public class MainActivity extends Activity
     private Toast toast;
     private TextView highScore;
     private Integer score;
+    private String highScoreName;
     /** Called when the activity is first created. */
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,9 +51,14 @@ public class MainActivity extends Activity
 
         settings = getSharedPreferences(PREFS_NAME, 0);
         score = settings.getInt("highScore", 0);
+        highScoreName = settings.getString("nameHighScore", "");
+        if(score != 0 || highScoreName != "") {
 
         highScore = (TextView) findViewById(R.id.highScore);
-        highScore.setText(score.toString());
+        highScore.setText(highScoreName + " : " +score.toString());
+        } else {
+            highScore.setVisibility(View.GONE);
+        }
 
         playBtn = (TextView) findViewById(R.id.jouerBtn);
         playBtn.setOnClickListener(new View.OnClickListener() {

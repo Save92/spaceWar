@@ -129,6 +129,7 @@ public class SDLActivity extends Activity {
         settings = getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putInt("highScore", score);
+        editor.putString("nameHighScore", name);
         editor.commit();
     }
 
