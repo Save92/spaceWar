@@ -118,7 +118,7 @@ jint Java_esgi_fouriam_SDLActivity_setPref(JNIEnv * env, jobject thiz, jstring n
     __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE music : %d", music);
     __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE command : %d", command);
     __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE vibration : %d", vibration);
-    __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE music : %d", highScore);
+    __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE highscore : %d", highScore);
     __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "--------------------------------------------------------------------");
     
     
@@ -169,7 +169,7 @@ int main(int argc, char *argv[])
     int posX = 0;
     int posY = 0;
     
-    int SCREEN_FPS = 50;
+    int SCREEN_FPS = 60;
     int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
     
     if(SDL_CreateWindowAndRenderer(0, 0, 0, &window, &renderer) < 0)
@@ -204,7 +204,7 @@ int main(int argc, char *argv[])
     int startMoving = FALSE;
     if(command == TOUCH_GESTION)
     {
-        game->myShip->canShoot = TRUE;   
+        game->myShip->canShoot = TRUE;
     }
     
     
@@ -254,11 +254,11 @@ int main(int argc, char *argv[])
             {
                 if(command == TOUCH_GESTION )
                 {
-                    if( event.type == SDL_MOUSEMOTION || event.type == SDL_FINGERMOTION || event.type == SDL_FINGERDOWN)
+                    if( event.type == SDL_MOUSEMOTION )
                     {
                         startMoving = TRUE;
-                        posX = (event.motion.x  );
-                        posY = (event.motion.y );
+                        posX = event.motion.x ;
+                        posY = event.motion.y;
                     }
                     
                     if(event.type ==  SDL_FINGERUP)
@@ -290,7 +290,7 @@ int main(int argc, char *argv[])
         
         drawGame(renderer,game);
         
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        //SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         
         SDL_RenderPresent(renderer);
         
@@ -303,8 +303,8 @@ int main(int argc, char *argv[])
         if( frameTicks < SCREEN_TICKS_PER_FRAME )
         {
             //Wait remaining time
-            //SDL_Delay( SCREEN_TICKS_PER_FRAME - frameTicks );
-            SDL_Delay(10);
+            SDL_Delay( SCREEN_TICKS_PER_FRAME - frameTicks );
+            //SDL_Delay(10);
         }
         
         //  __android_log_print(ANDROID_LOG_DEBUG, "stopFilter",  "Shots filtered");
