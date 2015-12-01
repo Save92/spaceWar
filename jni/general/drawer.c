@@ -1,6 +1,11 @@
 
 #include "drawer.h"
 
+Sprite littleEnemyImg;
+Sprite littleBomberEnemyImg;
+Sprite interceptorEnemyImg;
+Sprite bigBomberEnemyImg;
+Sprite userShipImg;
 
 Sprite LoadSprite(const char* file, SDL_Renderer* renderer)
 {
@@ -62,4 +67,34 @@ Sprite loadTexture(const char* file, SDL_Renderer *renderer)
     }
 
     return result;
+}
+
+void loadImages(SDL_Renderer* renderer) {
+    littleEnemyImg = loadTexture("littleEnemy.png", renderer);
+    littleBomberEnemyImg = loadTexture("littleBomberEnemy.png", renderer);
+    interceptorEnemyImg = loadTexture("interceptorEnemy.png", renderer);
+    bigBomberEnemyImg = loadTexture("bigBomberEnemy.png", renderer);
+    userShipImg =  loadTexture("myShipGood.png", renderer);
+        
+}
+
+Sprite getLittleEnemyImg() {
+    return littleEnemyImg;
+}
+
+Sprite getLittleBomberImg() {
+    return littleBomberEnemyImg;
+}
+
+Sprite getInterceptorImg() {
+    return interceptorEnemyImg;
+}
+
+Sprite getBigBomberImg() {
+    return bigBomberEnemyImg;
+}
+
+
+Sprite getUserShipImg() {
+    return userShipImg;
 }

@@ -896,9 +896,12 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y){
     dst.x = x;
     dst.y = y;
     //Query the texture to get its width and height to use
+    __android_log_print(ANDROID_LOG_DEBUG, "renderTexture",   "FL1"  );
+
     SDL_QueryTexture(tex, NULL, NULL, &dst.w, &dst.h);
+    __android_log_print(ANDROID_LOG_DEBUG, "renderTexture",   "FL2"  );
     SDL_RenderCopy(ren, tex, NULL, &dst);
-    
+    __android_log_print(ANDROID_LOG_DEBUG, "renderTexture",   "FL3"  );
     char * str = malloc(sizeof(char)* 255);
     sprintf(str,"end %s",__func__);
     customLog(0 , "GAME" , str);

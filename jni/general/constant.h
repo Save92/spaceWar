@@ -26,7 +26,7 @@
 
 #define SizeName  128
 #define MaxEnemy 3
-#define ApparitionTime 2000
+#define ApparitionTime 3000
 
 #define quotientTemps 150
 #define quotientForce 0.25

@@ -26,7 +26,9 @@ void drawLittleEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip)
     // SDL_RenderFillRect(renderer, (enemyShip->rectangle));
     //enemyShip->enemySprite = LoadSprite("littleEnemy.bmp", renderer);
 
-    enemyShip->enemySprite = loadTexture("littleEnemy.png", renderer);
+    //enemyShip->enemySprite = loadTexture("littleEnemy.png", renderer);
+
+    enemyShip->enemySprite = getLittleEnemyImg();
     renderTexture(enemyShip->enemySprite.texture, renderer, enemyShip->rectangle->x, enemyShip->rectangle->y);
     
 }
