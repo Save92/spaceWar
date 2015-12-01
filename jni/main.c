@@ -114,41 +114,47 @@ jint Java_esgi_fouriam_SDLActivity_setPref(JNIEnv * env, jobject thiz, jstring n
     music = musicValue;
     vibration = vibrationValue;
     highScore = score;
-    __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE name : %s", nativeName);
+   /* __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE name : %s", nativeName);
     __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE music : %d", music);
     __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE command : %d", command);
     __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE vibration : %d", vibration);
     __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "RECEIVE highscore : %d", highScore);
     __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "--------------------------------------------------------------------");
-    
+    */
     
 }
 
 
-// void setHighScore(JNIEnv * env, jobject thiz, int score){
-//      jclass c = (*env)->GetObjectClass(env,thiz);
-//      jmethodID methID= (*env)->GetMethodID(env,c , "setHighScore","(I)V");
-//      if (methID==0)
-//      return ;
-//      (*env)->CallVoidMethod(env,thiz,methID,score);
-//  }
 
 void gameOver(Game* game) {
     //@TDOD Afficher le texte Game over
-    __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "GAME OVER : %s", nativeName);
+    //__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "GAME OVER : %s", nativeName);
     // (*jni_env)->CallVoidMethod(jni_env,jni_activity,methID, score);
     if(game->saveNewHighScore == TRUE) {
         JNIEnv *jni_env = (JNIEnv*)SDL_AndroidGetJNIEnv();
-        
         jobject jni_activity = (jobject)SDL_AndroidGetActivity();
-        
         jclass jni_class= (*jni_env)->GetObjectClass(jni_env,jni_activity);
-        
         jmethodID methID= (*jni_env)->GetMethodID(jni_env, jni_class , "setHighScore","(I)V");
-        
         (*jni_env)->CallVoidMethod(jni_env,jni_activity,methID, game->score);
         
     }
+    
+}
+
+
+
+void print_gameOver(Game * game,SDL_Renderer * renderer)
+{
+    SDL_Color couleur= {255, 255, 255};
+    char str[255];
+    sprintf(str, "Game Over");
+    SDL_Surface *surf = TTF_RenderText_Blended(game->police, str, couleur);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer,surf);
+    int iW, iH;
+    SDL_QueryTexture(texture, NULL, NULL, &iW, &iH);
+    int x = 0 + (game->width/2);
+    int y = 0 + (game->height/2);
+    renderTexture(texture, renderer, x, y);
 }
 
 void draw(SDL_Window* window, SDL_Renderer* renderer, const Sprite sprite)
@@ -197,106 +203,90 @@ int main(int argc, char *argv[])
     
     
     //Start counting frames per second
-    int countedFrames = 0;
+    //int countedFrames = 0;
     int frameTicksAtStart;
     int frameTicksAtEnd;
-
+    
     int startMoving = FALSE;
     if(command == TOUCH_GESTION)
     {
         game->myShip->canShoot = TRUE;
     }
-    
-    
-    
-    
+
     while(!done)
     {
-        
-         __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "command : %d",command);
-        
-        int breaked = 0;
+      
         frameTicksAtStart  = SDL_GetTicks();
         SDL_RenderClear(renderer);
-        if (game->myShip->life == 0) {
+
+        
+        if (game->myShip->life <= 0) {
+            __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "IN_GAMEOVER");
             gameOver(game);
+            //renderTexture(background.texture, renderer, 0, 0);
+            print_gameOver(game,renderer);
             while(SDL_PollEvent(&event))
             {
                 if(event.type ==  SDL_KEYDOWN)
                     done = 1;
             }
         }
-        
-        
-        //SDL_RenderCopy(renderer, background, NULL, &screenRect);
-        renderTexture(background.texture, renderer, 0, 0);
-        /* Check for events */
-        while(SDL_PollEvent(&event))
+        else
         {
-            if(event.type ==  SDL_KEYDOWN)
-                done = 1;
-            if(command == ACCEL_GESTION )
+            renderTexture(background.texture, renderer, 0, 0);
+            /* Check for events */
+            while(SDL_PollEvent(&event))
             {
-                if(event.type ==  SDL_FINGERDOWN)
-                    game->myShip->canShoot = TRUE;
-                if(event.type ==  SDL_FINGERUP)
-                    game->myShip->canShoot = FALSE;
+                if(event.type ==  SDL_KEYDOWN)
+                    done = 1;
+                if(command == ACCEL_GESTION )
+                {
+                    if(event.type ==  SDL_FINGERDOWN)
+                        game->myShip->canShoot = TRUE;
+                    if(event.type ==  SDL_FINGERUP)
+                        game->myShip->canShoot = FALSE;
+                }
+                else
+                {
+                    if(command == TOUCH_GESTION )
+                    {
+                        if( event.type == SDL_MOUSEMOTION )
+                        {
+                            startMoving = TRUE;
+                            posX = event.motion.x ;
+                            posY = event.motion.y;
+                        }
+                        if(event.type ==  SDL_FINGERUP)
+                            startMoving = FALSE;
+                    }
+                }
             }
+
+            Android_JNI_GetAccelerometerValues(accelValues);
+            moveAllGame(game, renderer);
+            if(command == ACCEL_GESTION)
+                moveMyShipGeneral(accelValues,SIZEACCELVALUES,game->myShip,*widthScreen,*heightScreen);
             else
             {
-                if(command == TOUCH_GESTION )
+                if(command == TOUCH_GESTION && startMoving == TRUE)
                 {
-                    if( event.type == SDL_MOUSEMOTION )
-                    {
-                        startMoving = TRUE;
-                        posX = event.motion.x ;
-                        posY = event.motion.y;
-                    }
-                    
-                    if(event.type ==  SDL_FINGERUP)
-                        startMoving = FALSE;
-                    
+                    moveMyShipTouch(posX, posY,game->myShip, *widthScreen,*heightScreen);
                 }
             }
             
-        }
-        //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Android_JNI_GetAccelerometerValues");
-        Android_JNI_GetAccelerometerValues(accelValues);
-        
-        moveAllGame(game, renderer);
-        if(command == ACCEL_GESTION)
-            moveMyShipGeneral(accelValues,SIZEACCELVALUES,game->myShip,*widthScreen,*heightScreen);
-        else
-        {
-            if(command == TOUCH_GESTION && startMoving == TRUE)
+            drawGame(renderer,game);
+            SDL_RenderPresent(renderer);
+            removeNotVisibleSquadronFromGame(game);
+            filterShootsFromGame( game);
+            //countedFrames++;
+            frameTicksAtEnd = SDL_GetTicks();
+            int frameTicks = frameTicksAtEnd - frameTicksAtStart;
+            if( frameTicks < SCREEN_TICKS_PER_FRAME )
             {
-                moveMyShipTouch(posX, posY,game->myShip, *widthScreen,*heightScreen);
+                //Wait remaining time
+                SDL_Delay( SCREEN_TICKS_PER_FRAME - frameTicks );
+                //SDL_Delay(10);
             }
-        }
-        
-        
-        //   __android_log_print(ANDROID_LOG_DEBUG, "moveMyShipGeneral",  "Vaisseau posX : %d posY :%d",  myShip->posX ,myShip->posY);
-        
-        //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "draw enemy");
-        
-        
-        drawGame(renderer,game);
-        
-        //SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        
-        SDL_RenderPresent(renderer);
-        
-        
-        removeNotVisibleSquadronFromGame(game);
-        filterShootsFromGame( game);
-        countedFrames++;
-        frameTicksAtEnd = SDL_GetTicks();
-        int frameTicks = frameTicksAtEnd - frameTicksAtStart;
-        if( frameTicks < SCREEN_TICKS_PER_FRAME )
-        {
-            //Wait remaining time
-            SDL_Delay( SCREEN_TICKS_PER_FRAME - frameTicks );
-            //SDL_Delay(10);
         }
         
         //  __android_log_print(ANDROID_LOG_DEBUG, "stopFilter",  "Shots filtered");

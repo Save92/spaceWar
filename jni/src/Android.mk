@@ -15,7 +15,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(SDL_PATH)/include \
 		$(LOCAL_PATH)/../SDL_mixer  
 
 # Add your application source files here...
-LOCAL_SRC_FILES := $(SDL_PATH)/src/main/android/SDL_android_main.c \
+LOCAL_SRC_FILES := $(SDL_PATH)/src/main/android/android_main.c \
 	$(GENERAL_PATH)/CustomLog.c \
         $(GENERAL_PATH)/drawer.c \
         $(ENEMY_PATH)/littleEnemyShip.c \
