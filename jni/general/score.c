@@ -58,7 +58,13 @@ void addScore(EnemyShip enemy, int * score )
     {
         case 0 :   *score += 10;
             break;
-            
+        case 1 :   *score += 20;
+            break;
+        case 2 :   *score += 20;
+            break;
+        case 3 :   *score += 20;
+            break;
+
         default : *score += 10;
             break;
     }

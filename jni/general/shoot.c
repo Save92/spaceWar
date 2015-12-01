@@ -53,7 +53,7 @@ void drawMyShoot(SDL_Renderer* renderer , Shoot * shoot)
     sprintf(str,"end %s",__func__);
     customLog(0 , "SHOOT" , str);
     free(str);
-
+    
 }
 
 void moveMyShoot(Shoot * shoot ,int widthScreen , int heightScreen)
@@ -103,13 +103,13 @@ void moveMyShoot(Shoot * shoot ,int widthScreen , int heightScreen)
 
 void moveVerticaly(Shoot * shoot,int widthScreen,int heightScreen)
 {
-     customLog(0 , "SHOOT" ,  __func__);
+    customLog(0 , "SHOOT" ,  __func__);
     if(shoot != NULL)
     {
-      //  __android_log_print(ANDROID_LOG_DEBUG, "moveVerticaly",  "Shoot posX : %d posY :%d",  shoot->posX ,shoot->posY);
+        //  __android_log_print(ANDROID_LOG_DEBUG, "moveVerticaly",  "Shoot posX : %d posY :%d",  shoot->posX ,shoot->posY);
         if (shoot->way == -1) {
             shoot->posY = shoot->posY  + ( shoot->way * shoot->speed);
-
+            
         } else if (shoot->way == 1) {
             shoot->posY = shoot->posY  + ( shoot->way * shoot->speed);
         }
@@ -124,10 +124,10 @@ void moveVerticaly(Shoot * shoot,int widthScreen,int heightScreen)
 
 void moveDiagonaleLeft(Shoot * shoot,int widthScreen,int heightScreen)
 {
-     customLog(0 , "SHOOT" ,  __func__);
+    customLog(0 , "SHOOT" ,  __func__);
     if(shoot != NULL)
     {
-       // __android_log_print(ANDROID_LOG_DEBUG, "moveVerticaly",  "Shoot posX : %d posY :%d",  shoot->posX ,shoot->posY);
+        // __android_log_print(ANDROID_LOG_DEBUG, "moveVerticaly",  "Shoot posX : %d posY :%d",  shoot->posX ,shoot->posY);
         if (shoot->way == -1) {
             shoot->posY = shoot->posY  + ( shoot->way * shoot->speed);
         } else if (shoot->way == 1) {
@@ -137,7 +137,7 @@ void moveDiagonaleLeft(Shoot * shoot,int widthScreen,int heightScreen)
         if(shoot->cmptMoov%2 == 0)
         {
             shoot->posX = shoot->posX  + ( shoot->way * shoot->speed/2);
-                    //shoot->posX = shoot->posX  - ( 1 * shoot->speed/2);
+            //shoot->posX = shoot->posX  - ( 1 * shoot->speed/2);
         }
         setVisibility(shoot,widthScreen,heightScreen);
     }
@@ -154,15 +154,15 @@ void moveDiagonaleRight(Shoot * shoot,int widthScreen,int heightScreen)
     customLog(0 , "SHOOT" ,  __func__);
     if(shoot != NULL)
     {
-               if (shoot->way == -1) {
+        if (shoot->way == -1) {
             shoot->posY = shoot->posY  + ( shoot->way * shoot->speed);
         } else if (shoot->way == 1) {
             shoot->posY = shoot->posY  + ( shoot->way * shoot->speed);
         }
         //shoot->posY = shoot->posY  - ( 1 * shoot->speed);
         if(shoot->cmptMoov%2 == 0){
-
-                shoot->posX = shoot->posX  + ( (-shoot->way) * shoot->speed/2);
+            
+            shoot->posX = shoot->posX  + ( (-shoot->way) * shoot->speed/2);
             //shoot->posX = shoot->posX  + ( 1 * shoot->speed/2);
         }
         
@@ -182,7 +182,7 @@ void moveDiagonaleSubRight(Shoot * shoot,int widthScreen,int heightScreen)
     customLog(0 , "SHOOT" ,  __func__);
     if(shoot != NULL)
     {
-      //  __android_log_print(ANDROID_LOG_DEBUG, "moveVerticaly",  "Shoot posX : %d posY :%d",  shoot->posX ,shoot->posY);
+        //  __android_log_print(ANDROID_LOG_DEBUG, "moveVerticaly",  "Shoot posX : %d posY :%d",  shoot->posX ,shoot->posY);
         if (shoot->way == -1) {
             shoot->posY = shoot->posY  + ( shoot->way * shoot->speed);
         } else if (shoot->way == 1) {
@@ -190,8 +190,8 @@ void moveDiagonaleSubRight(Shoot * shoot,int widthScreen,int heightScreen)
         }
         //shoot->posY = shoot->posY  - ( 1 * shoot->speed);
         if(shoot->cmptMoov%3 == 0){
-                shoot->posX = shoot->posX  + ( (-shoot->way) * shoot->speed/2);
- //shoot->posX = shoot->posX  + ( 1 * shoot->speed/2);
+            shoot->posX = shoot->posX  + ( (-shoot->way) * shoot->speed/2);
+            //shoot->posX = shoot->posX  + ( 1 * shoot->speed/2);
         }
         setVisibility(shoot,widthScreen,heightScreen);
     }
@@ -208,7 +208,7 @@ void moveDiagonaleSubLeft(Shoot * shoot,int widthScreen,int heightScreen)
     customLog(0 , "SHOOT" ,  __func__);
     if(shoot != NULL)
     {
-     //   __android_log_print(ANDROID_LOG_DEBUG, "moveVerticaly",  "Shoot posX : %d posY :%d",  shoot->posX ,shoot->posY);
+        //   __android_log_print(ANDROID_LOG_DEBUG, "moveVerticaly",  "Shoot posX : %d posY :%d",  shoot->posX ,shoot->posY);
         if (shoot->way == -1) {
             shoot->posY = shoot->posY  + ( shoot->way * shoot->speed);
         } else if (shoot->way == 1) {
@@ -216,7 +216,7 @@ void moveDiagonaleSubLeft(Shoot * shoot,int widthScreen,int heightScreen)
         }
         //shoot->posY = shoot->posY  - ( 1 * shoot->speed);
         if(shoot->cmptMoov%3 == 0) {
-                shoot->posX = shoot->posX  + ( shoot->way * shoot->speed);
+            shoot->posX = shoot->posX  + ( shoot->way * shoot->speed);
         }
         setVisibility(shoot,widthScreen,heightScreen);
     }
@@ -256,7 +256,7 @@ void moveAllMyShoots(ListShoot * listShoot ,int widthScreen , int heightScreen)
         nextShoot = (*listShoot).start;
         while(nextShoot)
         {
-      //      __android_log_print(ANDROID_LOG_DEBUG, "moveVerticaly",  "Shoot adress :%d",  nextShoot);
+            //      __android_log_print(ANDROID_LOG_DEBUG, "moveVerticaly",  "Shoot adress :%d",  nextShoot);
             moveMyShoot(nextShoot,widthScreen,heightScreen);
             nextShoot = nextShoot->nextShoot;
             
@@ -297,21 +297,21 @@ void filterMyShoots(ListShoot * listShoot)
     //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG1"  );
     if(listShoot != NULL && listShoot->start != NULL)
     {
-
-    customLog(0 , "shoot" ,  "2");
-     //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG2"  );
+        
+        customLog(0 , "shoot" ,  "2");
+        //   __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG2"  );
         previous = listShoot->start;
-
-    customLog(0 , "shoot" ,  "3");
+        
+        customLog(0 , "shoot" ,  "3");
         if(previous->nextShoot == NULL)
         {
-
-    customLog(0 , "shoot" ,  "4");
-       //     __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG3"  );
+            
+            customLog(0 , "shoot" ,  "4");
+            //     __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG3"  );
             if(previous->visible == INVISIBLE)
             {
-
-    customLog(0 , "shoot" ,  "5");
+                
+                customLog(0 , "shoot" ,  "5");
                 __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG4"  );
                 FreeMyShoot(listShoot->start);
                 listShoot->start = NULL;
@@ -319,49 +319,49 @@ void filterMyShoots(ListShoot * listShoot)
         }
         else
         {
-
-    customLog(0 , "shoot" ,  "6");
-       //     __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG5"  );
+            
+            customLog(0 , "shoot" ,  "6");
+            //     __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG5"  );
             tmp = previous;
             previous = NULL;
             
-    customLog(0 , "shoot" ,  "7");
+            customLog(0 , "shoot" ,  "7");
             while(tmp != NULL)
             {
-
-    customLog(0 , "shoot" ,  "8");
-       //         __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG6"  );
+                
+                customLog(0 , "shoot" ,  "8");
+                //         __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG6"  );
                 if(tmp->visible == INVISIBLE)
                 {
-
-    customLog(0 , "shoot" ,  "9");
-       //             __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG7"  );
+                    
+                    customLog(0 , "shoot" ,  "9");
+                    //             __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG7"  );
                     Shoot * deletedShoot = tmp;
                     
-    customLog(0 , "shoot" ,  "10");
+                    customLog(0 , "shoot" ,  "10");
                     tmp = tmp->nextShoot;
                     if(previous == NULL)
                     {
-
-    customLog(0 , "shoot" ,  "11");
-         //               __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG8"  );
+                        
+                        customLog(0 , "shoot" ,  "11");
+                        //               __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG8"  );
                         listShoot->start = tmp;
                     }
                     else
                     {
-
-    customLog(0 , "shoot" ,  "12");
+                        
+                        customLog(0 , "shoot" ,  "12");
                         previous->nextShoot = tmp;
                     }
                     FreeMyShoot(deletedShoot);
                     deletedShoot = NULL;
                     listShoot->size--;
-
-    customLog(0 , "shoot" ,  "13");
+                    
+                    customLog(0 , "shoot" ,  "13");
                 }
                 else
                 {
-        //            __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG9"  );
+                    //            __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "FLAG9"  );
                     previous = tmp;
                     tmp= tmp->nextShoot;
                 }
@@ -391,19 +391,19 @@ void EnemyShoot(EnemyShip enemy,ListShoot * listShoot,int direction,int damage)
         case 0 :
             //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "EnemyShoot");
             addShoot(enemy.posX,enemy.posY,enemy.rectangle->w,enemy.rectangle->h,listShoot,direction,damage,1,255,51,0, 255);
-        break;
+            break;
         case 1 :
             //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "EnemyShoot");
             addShoot(enemy.posX,enemy.posY,enemy.rectangle->w,enemy.rectangle->h,listShoot,direction,damage,1,51,51,255, 255);
-        break;
+            break;
         case 2 :
             //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "EnemyShoot");
             addShoot(enemy.posX,enemy.posY,enemy.rectangle->w,enemy.rectangle->h,listShoot,direction,damage,1,153,0,255, 255);
-        break;
+            break;
         case 3 :
             //__android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "EnemyShoot");
             addShoot(enemy.posX,enemy.posY,enemy.rectangle->w,enemy.rectangle->h,listShoot,direction,damage,1,255,255,0, 255);
-        break;
+            break;
     }
 }
 
@@ -448,7 +448,7 @@ void addShoot(int posX,int posY , int width , int height , ListShoot * listShoot
         nextShoot->nextShoot = NULL;
         previousShoot->nextShoot = nextShoot;
         __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "Shoot posX : %d posY :%d DIRECTION %d",  (*nextShoot).posX ,(*nextShoot).posY , nextShoot->direction);
-
+        
     }
     else
     {
@@ -468,9 +468,9 @@ void addShoot(int posX,int posY , int width , int height , ListShoot * listShoot
 
 void FreeMyShoot(Shoot * shoot)
 {
-     customLog(0 , "shoot" ,  __func__);
+    customLog(0 , "shoot" ,  __func__);
     free(shoot->rectangle);
-   // __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "Free1"  );
+    // __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip",   "Free1"  );
     free(shoot);
     char * str = malloc(sizeof(char)* 255) ;
     sprintf(str,"end %s",__func__);
@@ -481,7 +481,7 @@ void FreeMyShoot(Shoot * shoot)
 
 void UserShipShoot(UserShip myShip,ListShoot * listShoot)
 {
-      customLog(0 , "shoot" ,  __func__);
+    customLog(0 , "shoot" ,  __func__);
     switch (myShip.shotLevel)
     {
         case 1: myShipShoot(myShip,listShoot,DIRECTION_VERTICAL,LOW_DAMAGE);

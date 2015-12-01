@@ -132,25 +132,31 @@ void removeNotVisibleEnemy(Squadron * squadron)
 void moveSquadron(Squadron * squadron,int width,int height, ListShoot * listShootEnnemy , Mix_Chunk * tie_shoot,int playMusic)
 {
     //__android_log_print(ANDROID_LOG_DEBUG, "Squadron",  "moveSquadron");
-    int tempVisible;
-    if((*squadron).size > 0 && (*squadron).nextEnemyShip)
+    customLog(1 , "SQUADRON" ,  __func__);
+    if(squadron && (*squadron).size > 0 && (*squadron).nextEnemyShip)
     {
         
+        __android_log_print(ANDROID_LOG_DEBUG, "Squadron",  "FL1");
         EnemyShip * enemy;
         enemy = (*squadron).nextEnemyShip;
         while(enemy)
         {
-            //      __android_log_print(ANDROID_LOG_DEBUG, "Squadron",  "Shoot enemy :%d",  enemy);
-            tempVisible = moveEnemyShip(enemy,width, height);
+            __android_log_print(ANDROID_LOG_DEBUG, "Squadron",  "FL2");
+            moveEnemyShip(enemy,width, height);
             if(canShoot(enemy))
             {
+                __android_log_print(ANDROID_LOG_DEBUG, "Squadron",  "FL3");
                 EnemyShipShoot(*enemy,listShootEnnemy);
                 MyPlaySample(-1, tie_shoot, 0 ,playMusic);
             }
             enemy = enemy->nextEnemyShip;
         }
     }
-    changeAppearNext(squadron,height);
+    //changeAppearNext(squadron,height);
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "SQUADRON" , str);
+    free(str);
     // __android_log_print(ANDROID_LOG_DEBUG, "Squadron",   "before setVisibilitySquadron"   );
     //setVisibilitySquadron(squadron);
     

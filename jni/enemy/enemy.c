@@ -37,29 +37,41 @@ void drawEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip)
             break;
         case 3:
             drawBigBomberEnemy(renderer , enemyShip);
-            break;            
+            break;
         default:
+            drawLittleEnemyShip(renderer , enemyShip);
             break;
     }
     
 }
 
+
+
+
+
 int moveEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen)
 {
-    switch (enemyShip->movementScheme->type) {
-        case 0:
-            moveEnemyShipVertically(enemyShip,widthScreen,heightScreen);
-            break;
-        case 1 :moveEnemyShipZigZag(enemyShip,widthScreen,heightScreen);
-            break;
-            
-        case 2 : moveEnemyShipZigZag(enemyShip,widthScreen,heightScreen);
-            break;
-        default:
-            moveEnemyShipZigZag(enemyShip,widthScreen,heightScreen);
-            break;
+    customLog(0 , "GAME" ,  __func__);
+    if(enemyShip && enemyShip->movementScheme)
+    {
+        switch (enemyShip->movementScheme->type) {
+            case 0:
+                moveEnemyShipVertically(enemyShip,widthScreen,heightScreen);
+                break;
+            case 1 :moveEnemyShipZigZag(enemyShip,widthScreen,heightScreen);
+                break;
+                
+            case 2 : moveEnemyShipZigZag(enemyShip,widthScreen,heightScreen);
+                break;
+            default:
+                moveEnemyShipZigZag(enemyShip,widthScreen,heightScreen);
+                break;
+        }
     }
-    
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "GAME" , str);
+    free(str);
     if(enemyShip->visible == VISIBLE)
         return 1;
     return 0;
@@ -86,9 +98,14 @@ void freeEnemyShip(EnemyShip * enemyShip)
 
 EnemyShip * initialisationEnemyShip(int width,int height,int typeStart,int side,int distance,int verticalLine,int typeShip,int typeMovement,int shotLevel)
 {
+     customLog(0 , "GAME" , __func__);
     // __android_log_print(ANDROID_LOG_DEBUG, "EnemyShip",   "initialisationEnemyShip"  );
+        EnemyShip * enemyShip;
+     __android_log_print(ANDROID_LOG_DEBUG, "EnemyShip",   "initialisationEnemyShip %d",  typeShip  );
+    if(typeShip < 0)
+        typeShip *= -1;
     
-    EnemyShip * enemyShip;
+    
     switch(typeShip)
     {
         case 0: enemyShip   = initialisationLittleEnemyShip( width, height, typeStart, side, distance, verticalLine, typeShip, typeMovement,shotLevel);
@@ -98,11 +115,16 @@ EnemyShip * initialisationEnemyShip(int width,int height,int typeStart,int side,
         case 2: enemyShip   = initialisationLittleBomberEnemy( width, height, typeStart, side, distance, verticalLine, typeShip, typeMovement,shotLevel);
             break;
         case 3: enemyShip   = initialisationBigBomberEnemy( width, height, typeStart, side, distance, verticalLine, typeShip, typeMovement,shotLevel);
-            break;    
+            break;
         default :
             break;
             
     }
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "GAME" , str);
+    free(str);
+
     return enemyShip;
 }
 
@@ -110,27 +132,18 @@ EnemyShip * initialisationEnemyShip(int width,int height,int typeStart,int side,
 
 int canShoot(EnemyShip * enemyShip)
 {
-    int canShoot;
-    switch (enemyShip->type) {
-        case 0: canShoot = LittleEnemyShipCanShoot(enemyShip);
-            break;
-        case 1: canShoot = InterceptorEnemyCanShoot(enemyShip);
-        break;
-        case 2: canShoot = LittleBomberEnemyCanShoot(enemyShip);
-        break;
-        case 3: canShoot = BigBomberEnemyCanShoot(enemyShip);
-        break;
-            
-        default:
-            break;
-    }
-    
+    customLog(1 , "ENEMY" ,  __func__);
+    int canShoot =LittleEnemyShipCanShoot(enemyShip);
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "ENEMY" , str);
+    free(str);
     return canShoot;
-    
 }
 
 void setVisibilityEnemy(EnemyShip * enemyShip,int widthScreen,int heightScreen)
 {
+    customLog(0 , "GAME" ,  __func__);
     if(enemyShip != NULL && enemyShip->visible == VISIBLE )
     {
         
@@ -139,20 +152,32 @@ void setVisibilityEnemy(EnemyShip * enemyShip,int widthScreen,int heightScreen)
             setEnemyToInvisible(enemyShip);
         }
     }
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "ENEMY" , str);
+    free(str);
+    
 }
 
 void moveEnemyShipVertically(EnemyShip * enemyShip,int widthScreen,int heightScreen)
 {
+    customLog(0 , "GAME" ,  __func__);
     //  __android_log_print(ANDROID_LOG_DEBUG, "Enemy", "move vertically");
     enemyShip->posY = enemyShip->posY + (1* enemyShip->speed);
     setVisibilityEnemy(enemyShip,widthScreen,heightScreen);
     enemyShip->cntFootStep++;
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "ENEMY" , str);
+    free(str);
+    
     
 }
 
 
 void moveEnemyShipZigZag(EnemyShip * enemyShip,int widthScreen,int heightScreen)
 {
+    customLog(0 , "GAME" ,  __func__);
     //    __android_log_print(ANDROID_LOG_DEBUG, "Enemy", "move zig-zag");
     verifySideFromVerticalLine(enemyShip);
     enemyShip->posY = enemyShip->posY + (1 * enemyShip->speed);
@@ -165,6 +190,11 @@ void moveEnemyShipZigZag(EnemyShip * enemyShip,int widthScreen,int heightScreen)
     enemyShip->cntFootStep++;
     setVisibilityEnemy(enemyShip,widthScreen,heightScreen);
     //   __android_log_print(ANDROID_LOG_DEBUG, "Enemy", "enemyShip Positon X : %d , Position Y : %d",enemyShip->posX,enemyShip->posY);
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "ENEMY" , str);
+    free(str);
+    
     
 }
 
@@ -214,7 +244,7 @@ void setEnemyToInvisible(EnemyShip * enemy)
 void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int typeStart,int side,int defaultGap)
 {
     int gap = 0;
-  //  __android_log_print(ANDROID_LOG_DEBUG, "Start", "typeStart : %d , side : %d",typeStart,side);
+    //  __android_log_print(ANDROID_LOG_DEBUG, "Start", "typeStart : %d , side : %d",typeStart,side);
     switch(typeStart)
     {
         case TOP_SCREEN :
@@ -281,9 +311,9 @@ void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int type
             gap = defaultGap;
             if(side == 1)
             {
-           //     __android_log_print(ANDROID_LOG_DEBUG, "bigBomberEnemy", "TOP_EXTREME_SIDE_SCREEN____LEFT");
+                //     __android_log_print(ANDROID_LOG_DEBUG, "bigBomberEnemy", "TOP_EXTREME_SIDE_SCREEN____LEFT");
                 
-               
+                
                 enemyShip->rectangle->x = 0 ;
                 enemyShip->rectangle->y = 0;
                 enemyShip->verticalSide = 1;
@@ -292,7 +322,7 @@ void initialisationTypeStart(int width,int height,EnemyShip * enemyShip,int type
             {
                 if(side == -1)
                 {
-              
+                    
                     enemyShip->rectangle->x = width - gap ;
                     enemyShip->rectangle->y = 0;
                     enemyShip->verticalSide = -1;

@@ -34,13 +34,14 @@ void drawInterceptorEnemy(SDL_Renderer* renderer , EnemyShip * enemyShip)
 
 EnemyShip * initialisationInterceptorEnemy(int width,int height,int typeStart,int side,int distance,int verticalLine,int typeShip,int typeMovement,int shotLevel)
 {
+    customLog(0 , "GAME" , __func__);
     
     SDL_Rect  * rectangle = malloc( sizeof(SDL_Rect));
     EnemyShip  * enemyShip = malloc( sizeof(EnemyShip));
     enemyShip->rectangle = rectangle;
     enemyShip->verticalSide = side;
-    enemyShip->width = 110;
-    enemyShip->height = 105;
+    enemyShip->width = WIDTH_INTERCEPTOR;
+    enemyShip->height = HEIGHT_INTERCEPTOR;
     enemyShip->speed = (float)(height/width) * RATIO_SPEED;
     enemyShip->color[0] = 106;
     enemyShip->color[1] = 98;
@@ -68,7 +69,7 @@ EnemyShip * initialisationInterceptorEnemy(int width,int height,int typeStart,in
     enemyShip->bonus = t%17;
     enemyShip->shotLevel = shotLevel;
     enemyShip->cntFootStep = 0;
-    enemyShip->type = 1;
+    enemyShip->type = typeShip;
     enemyShip->typeMovement = typeMovement;
    // __android_log_print(ANDROID_LOG_DEBUG, "interceptorEnemy", "__initialisationinterceptorEnemy__ distance : %d",distance);
     enemyShip->movementScheme = initializeMovementScheme(enemyShip->posX,enemyShip->posY,0,0,distance,verticalLine,typeMovement);
@@ -82,7 +83,7 @@ EnemyShip * initialisationInterceptorEnemy(int width,int height,int typeStart,in
     enemyShip->visible = VISIBLE;
 
 
-    
+    return enemyShip;
 
 }
 

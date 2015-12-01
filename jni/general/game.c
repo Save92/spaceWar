@@ -294,13 +294,7 @@ void eventCheckCollisionUserShipEnnemyShip(Game * game,SDL_Renderer *renderer) {
             if (indexList->visible == VISIBLE  && checkCollision(*(game->myShip->rectangle), *(indexList->rectangle), indexList->speed) == TRUE)
             {
                 __android_log_print(ANDROID_LOG_DEBUG, "GAME",   "VAISSEAUX SE RENTRE DEDANS! BOOOOOOOMMMMMM!!!!!"  );
-                indexList->life -= 1;
-                if (indexList->life <= 0)
-                {
-                   // onDestroy(indexList->posX, indexList->posY, renderer);
-                    setEnemyToInvisible(indexList);
-                    //tmpSquadron->size--;
-                }
+                setEnemyToInvisible(indexList);
                 decreasePower(game->myShip);
                 // game->myShip->visible = INVISIBLE;
                 // indexList->visible = INVISIBLE;
@@ -423,6 +417,7 @@ void  moveAllGame(Game * game, SDL_Renderer *renderer)
     if(game->size == 0)
     {
         createNextSquadron(game);
+        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   " moveAllGame FLAG4"  );
     }
     else
     {
@@ -435,15 +430,20 @@ void  moveAllGame(Game * game, SDL_Renderer *renderer)
             {
                 createNextSquadron(game);
                 game->tempsPrecedent = game->tempsActuel;
+                __android_log_print(ANDROID_LOG_DEBUG, "GAME",   " moveAllGame FLAG1"  );
             }
             tmp= tmp->nextSquadron;
             index++;
+            __android_log_print(ANDROID_LOG_DEBUG, "GAME",   " moveAllGame FLAG2"  );
         }
+        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   " moveAllGame FLAG3"  );
     }
     
+    __android_log_print(ANDROID_LOG_DEBUG, "GAME",   " moveAllGame FLAG5"  );
     Squadron *tmp =  game->nextSquadron;
     while(tmp)
     {
+        __android_log_print(ANDROID_LOG_DEBUG, "GAME",   " moveAllGame FLAG6"  );
         moveSquadron(tmp,game->width,game->height,game->listShootEnnemy,game->tie_shoot,game->music);
         tmp= tmp->nextSquadron;
     }
@@ -662,7 +662,7 @@ void addNewEnemy(Game * game,Squadron * squadron,ListePosition * lp)
     {
         side = -1;
     }
-    int typeShip = 0;
+    int typeShip =  my_rand()%4;
     int typeMovement = my_rand() % 3;
     
     EnemyShip * enemy = initialisationEnemyShip(game->width,game->height,posStart, side,distance,verticalLine,typeShip,typeMovement,shotLevel);

@@ -222,17 +222,9 @@ int main(int argc, char *argv[])
             gameOver(game);
             while(SDL_PollEvent(&event))
             {
-                
-                if(event.type == SDL_FINGERDOWN){
-                    // __android_log_print(ANDROID_LOG_DEBUG, "SpaceShip", "Ship position PosX : %d , PosY : %d",(*listShoot->start).posX,(*listShoot->start).posY);
-                    breaked = 1;
-                    
-                } else if (event.type == SDL_KEYDOWN) {
-                    breaked = 1;
-                }
+                if(event.type ==  SDL_KEYDOWN)
+                    done = 1;
             }
-            if(breaked = 1)
-                break;
         }
         
         

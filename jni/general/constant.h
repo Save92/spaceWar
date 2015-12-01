@@ -38,6 +38,24 @@
 #define RATIO_SPEED 15
 
 
+//////BIG BOMBER//////////
+
+#define WIDTH_BOMBER 126
+#define HEIGHT_BOMBER 105
+
+//////INTERCEPTOR//////////
+
+#define WIDTH_INTERCEPTOR 110
+#define HEIGHT_INTERCEPTOR 105
+
+//////LITTLE BOMBER//////
+
+#define WIDTH_LITTLE_BOMBER 110
+#define HEIGHT_LITTLE_BOMBER 100
+
+
+
+
 //USERSHIP////////
 #define RATE_IMAGE_SHOOT 15
 #define DIVIDENDE_SPEED 0.12
