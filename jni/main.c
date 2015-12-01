@@ -125,13 +125,20 @@ jint Java_esgi_fouriam_SDLActivity_setPref(JNIEnv * env, jobject thiz, jstring n
 }
 
 
-// void setHighScore(JNIEnv * env, jobject thiz, int score){
-//      jclass c = (*env)->GetObjectClass(env,thiz);
-//      jmethodID methID= (*env)->GetMethodID(env,c , "setHighScore","(I)V");
-//      if (methID==0)
-//      return ;
-//      (*env)->CallVoidMethod(env,thiz,methID,score);
-//  }
+void renderGameOver(Game * game,SDL_Renderer *renderer)
+{
+    SDL_Color couleur= {255, 255, 255};
+    char str[255];
+    sprintf(str, "GAME OVER", game->score);
+    SDL_Surface *surf = TTF_RenderText_Blended(game->police, str, couleur);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer,surf);
+    int iW, iH;
+    SDL_QueryTexture(texture, NULL, NULL, &iW, &iH);
+    int x = 0 + (game->width/8);
+    int y = 0 + (game->height/2);
+    renderTexture(texture, renderer, x, y);
+    
+}
 
 void gameOver(Game* game) {
     //@TDOD Afficher le texte Game over
@@ -220,6 +227,7 @@ int main(int argc, char *argv[])
         SDL_RenderClear(renderer);
         if (game->myShip->life == 0) {
             gameOver(game);
+            renderGameOver(game,renderer);
             while(SDL_PollEvent(&event))
             {
                 if(event.type ==  SDL_KEYDOWN)
