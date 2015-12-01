@@ -23,5 +23,11 @@ typedef struct Sprite
 Sprite LoadSprite(const char* file, SDL_Renderer* renderer);
 //SDL_Texture* LoadTexture(const char* file, SDL_Renderer* renderer);
 Sprite loadTexture(const char* file, SDL_Renderer* renderer);
+void loadImages(SDL_Renderer* renderer);
+Sprite getLittleEnemyImg();
+Sprite getLittleBomberImg();
+Sprite getInterceptorImg();
+Sprite getBigBomberImg();
 
+Sprite getUserShipImg();
 #endif /* drawer_h */

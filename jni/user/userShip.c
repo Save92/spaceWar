@@ -30,7 +30,8 @@ void drawMyShip(SDL_Renderer* renderer , UserShip * myShip)
         //SDL_SetRenderDrawColor(renderer, myShip->color[0], myShip->color[1], myShip->color[2], myShip->color[3]);
         //SDL_RenderFillRect(renderer, (myShip->rectangle));
         //myShip->myShipSprite = LoadSprite("myShipGood.bmp", renderer);
-        myShip->myShipSprite = loadTexture("myShipGood.png", renderer);
+        //myShip->myShipSprite = loadTexture("myShipGood.png", renderer);
+          myShip->myShipSprite = getUserShipImg();
         
         renderTexture(myShip->myShipSprite.texture, renderer, myShip->rectangle->x, myShip->rectangle->y);
     }

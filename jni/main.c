@@ -14,7 +14,6 @@
 #include <math.h>
 #include "./enemy/squadron.h"
 #include "./general/game.h"
-#include "./general/drawer.h"
 
 
 float accelValues[3];
@@ -143,6 +142,7 @@ void gameOver(Game* game) {
 
 
 
+
 void print_gameOver(Game * game,SDL_Renderer * renderer)
 {
     SDL_Color couleur= {255, 255, 255};
@@ -193,7 +193,7 @@ int main(int argc, char *argv[])
     
     
     Game * game = initialisationOfTheGame( *widthScreen,*heightScreen,nativeName,command,music,vibration,highScore);
-    
+    loadImages(renderer);
     
     /* Main render loop */
     Uint8 done = 0;
