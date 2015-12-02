@@ -79,7 +79,7 @@ EnemyShip * initialisationLittleBomberEnemy(int width,int height,int typeStart,i
     enemyShip->changeDirection = t%3;
     
     enemyShip->repeatMovement = 0;
-    enemyShip->frequencyOfShoot = 70;
+    enemyShip->frequencyOfShoot = 30;
     enemyShip->verticalSide = side;
     enemyShip->nextEnemyShip = NULL;
     enemyShip->visible = VISIBLE;

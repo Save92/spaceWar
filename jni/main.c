@@ -298,8 +298,8 @@ int main(int argc, char *argv[])
             if( frameTicks < SCREEN_TICKS_PER_FRAME )
             {
                 //Wait remaining time
-                SDL_Delay( SCREEN_TICKS_PER_FRAME - frameTicks );
-                //SDL_Delay(10);
+                //SDL_Delay( SCREEN_TICKS_PER_FRAME - frameTicks );
+                SDL_Delay(10);
             }
         }
         
