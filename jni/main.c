@@ -124,32 +124,57 @@ jint Java_esgi_fouriam_SDLActivity_setPref(JNIEnv * env, jobject thiz, jstring n
 }
 
 
-void renderGameOver(Game * game,SDL_Renderer *renderer)
-{
-    SDL_Color couleur= {255, 255, 255};
-    char str[255];
-    sprintf(str, "GAME OVER", game->score);
-    SDL_Surface *surf = TTF_RenderText_Blended(game->police, str, couleur);
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer,surf);
-    int iW, iH;
-    SDL_QueryTexture(texture, NULL, NULL, &iW, &iH);
-    int x = 0 + (game->width/8);
-    int y = 0 + (game->height/2);
-    renderTexture(texture, renderer, x, y);
-    
-}
+// void renderGameOver(Game * game,SDL_Renderer *renderer)
+// {
+//     // SDL_Color couleur= {255, 255, 255};
+//     // char str[255];
+//     // sprintf(str, "GAME OVER", game->score);
+//     // SDL_Surface *surf = TTF_RenderText_Blended(game->police, str, couleur);
+//     // SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer,surf);
+//     // int iW, iH;
+//     // SDL_QueryTexture(texture, NULL, NULL, &iW, &iH);
+//     // int x = 0 + (game->width/8);
+//     // int y = 0 + (game->height/2);
+//     // renderTexture(texture, renderer, x, y);
 
-void gameOver(Game* game) {
+  
+    
+// }
+
+void gameOver(Game* game, SDL_Renderer* renderer, Sprite gameoverIMG, Sprite background) {
+    __android_log_print(ANDROID_LOG_DEBUG, "GAMEOVER",   "1");
     //@TDOD Afficher le texte Game over
+    SDL_Event event;
+    SDL_PumpEvents();
     //__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "GAME OVER : %s", nativeName);
     // (*jni_env)->CallVoidMethod(jni_env,jni_activity,methID, score);
-    if(game->saveNewHighScore == TRUE) {
+    int quit = 0;
+    // SDL_Surface* surfaceDead = TTF_RenderText_Blended(police, "Game over", whiteColor);
+    // SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceDead);
+
+    
+    while(!quit){
+
+        renderTexture(background.texture, renderer, 0, 0);
+        renderTexture(gameoverIMG.texture, renderer, (game->width/2 - 133), (game->height/2 - 84));
+        while(SDL_PollEvent(&event))
+        {
+            if(event.type ==  SDL_KEYDOWN ||event.type ==  SDL_FINGERDOWN)
+            {
+                quit = 1;
+            }
+        }
+        SDL_RenderPresent(renderer);        
+        SDL_Delay(20);
+    }
         JNIEnv *jni_env = (JNIEnv*)SDL_AndroidGetJNIEnv();
         jobject jni_activity = (jobject)SDL_AndroidGetActivity();
         jclass jni_class= (*jni_env)->GetObjectClass(jni_env,jni_activity);
         jmethodID methID= (*jni_env)->GetMethodID(jni_env, jni_class , "setHighScore","(I)V");
-        (*jni_env)->CallVoidMethod(jni_env,jni_activity,methID, game->score);
-        
+    if(game->saveNewHighScore == TRUE) {
+        (*jni_env)->CallVoidMethod(jni_env,jni_activity,methID, game->score); 
+    }  else {
+        (*jni_env)->CallVoidMethod(jni_env,jni_activity,methID, 0); 
     }
     
 }
@@ -159,16 +184,16 @@ void gameOver(Game* game) {
 
 void print_gameOver(Game * game,SDL_Renderer * renderer)
 {
-    SDL_Color couleur= {255, 255, 255};
-    char str[255];
-    sprintf(str, "Game Over");
-    SDL_Surface *surf = TTF_RenderText_Blended(game->police, str, couleur);
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer,surf);
-    int iW, iH;
-    SDL_QueryTexture(texture, NULL, NULL, &iW, &iH);
-    int x = 0 + (game->width/2);
-    int y = 0 + (game->height/2);
-    renderTexture(texture, renderer, x, y);
+    // SDL_Color couleur= {255, 255, 255};
+    // char str[255];
+    // sprintf(str, "Game Over");
+    // SDL_Surface *surf = TTF_RenderText_Blended(game->police, str, couleur);
+    // SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer,surf);
+    // int iW, iH;
+    // SDL_QueryTexture(texture, NULL, NULL, &iW, &iH);
+    // int x = 0 + (game->width/2);
+    // int y = 0 + (game->height/2);
+    // renderTexture(texture, renderer, x, y);
 }
 
 void draw(SDL_Window* window, SDL_Renderer* renderer, const Sprite sprite)
@@ -186,6 +211,7 @@ int main(int argc, char *argv[])
     SDL_Window *window;
     SDL_Renderer *renderer;
     Sprite background;
+    Sprite gameoverIMG;
     int posX = 0;
     int posY = 0;
     
@@ -203,6 +229,7 @@ int main(int argc, char *argv[])
     SDL_GetWindowSize(window,widthScreen,heightScreen);
     // load our image
     background = loadTexture("background.png", renderer);
+    gameoverIMG = loadTexture("gameover.png", renderer);
     
     
     
@@ -236,14 +263,14 @@ int main(int argc, char *argv[])
         
         if (game->myShip->life <= 0) {
             //__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "IN_GAMEOVER");
-            gameOver(game);
+            done = 1;
             //renderTexture(background.texture, renderer, 0, 0);
-            print_gameOver(game,renderer);
-            while(SDL_PollEvent(&event))
-            {
-                if(event.type ==  SDL_KEYDOWN)
-                    done = 1;
-            }
+            //print_gameOver(game,renderer);
+            // while(SDL_PollEvent(&event))
+            // {
+            //     if(event.type ==  SDL_KEYDOWN)
+            //         done = 1;
+            // }
         }
         else
         {
@@ -298,14 +325,16 @@ int main(int argc, char *argv[])
             if( frameTicks < SCREEN_TICKS_PER_FRAME )
             {
                 //Wait remaining time
-                //SDL_Delay( SCREEN_TICKS_PER_FRAME - frameTicks );
-                SDL_Delay(10);
+                SDL_Delay( SCREEN_TICKS_PER_FRAME - frameTicks );
+                //SDL_Delay(10);
             }
         }
         
         //  __android_log_print(ANDROID_LOG_DEBUG, "stopFilter",  "Shots filtered");
         
     }
+
+    gameOver(game, renderer, gameoverIMG, background);
     freeShip(game->myShip);
     exit(0);
 }

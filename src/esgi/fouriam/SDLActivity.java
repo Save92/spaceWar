@@ -55,6 +55,9 @@ public class SDLActivity extends Activity {
     private int highScore;
 
 
+    private Intent mainIntent;
+
+
     // Load the .so
     static {
         System.loadLibrary("SDL2");
@@ -126,12 +129,18 @@ public class SDLActivity extends Activity {
     }
 
     public void setHighScore(int score) {
-        settings = getSharedPreferences(PREFS_NAME, 0);
-        name = settings.getString("playerName", "");
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putInt("highScore", score);
-        editor.putString("nameHighScore", name);
-        editor.commit();
+        mainIntent = new Intent(this, MainActivity.class);
+        if(score > 0) {
+                    settings = getSharedPreferences(PREFS_NAME, 0);
+            name = settings.getString("playerName", "");
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putInt("highScore", score);
+            editor.putString("nameHighScore", name);
+            editor.commit();    
+        }
+        startActivity(mainIntent); 
+
+
     }
 
 
