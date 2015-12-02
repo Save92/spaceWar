@@ -80,7 +80,7 @@ EnemyShip * initialisationBigBomberEnemy(int width,int height,int typeStart,int 
     enemyShip->changeDirection = t%3;
     
     enemyShip->repeatMovement = 0;
-    enemyShip->frequencyOfShoot = 80;
+    enemyShip->frequencyOfShoot = 25;
     enemyShip->verticalSide = side;
     enemyShip->nextEnemyShip = NULL;
     enemyShip->visible = VISIBLE;

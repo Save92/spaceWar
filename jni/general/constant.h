@@ -21,7 +21,7 @@
 
 //GAME
 
-#define STARTING_LIFE 99
+#define STARTING_LIFE 5
 #define LIMIT_LEVEL_UP 100
 
 #define SizeName  128
