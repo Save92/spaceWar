@@ -65,7 +65,7 @@ Sprite loadTexture(const char* file, SDL_Renderer *renderer)
         //Get rid of old loaded surface
         SDL_FreeSurface( loadedSurface );
     }
-
+    
     return result;
 }
 

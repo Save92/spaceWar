@@ -44,7 +44,7 @@ EnemyShip * initialisationLittleBomberEnemy(int width,int height,int typeStart,i
     enemyShip->verticalSide = side;
     enemyShip->width = WIDTH_LITTLE_BOMBER;
     enemyShip->height = HEIGHT_LITTLE_BOMBER;
-    enemyShip->speed = (float)(height/width) * RATIO_SPEED;
+    enemyShip->speed = (float)(height/width) * RATIO_SPEED / 1.5;
     enemyShip->color[0] = 106;
     enemyShip->color[1] = 98;
     enemyShip->color[2] = 81;

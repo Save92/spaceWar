@@ -20,7 +20,7 @@
 
 
 int level = 0;
-int levelUp = 100;
+int levelUp = 80;
 int Time_app = ApparitionTime;
 int maxShotLevelEnemi = 1 ;
 
@@ -906,6 +906,7 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y){
     sprintf(str,"end %s",__func__);
     customLog(0 , "GAME" , str);
     free(str);
+    //SDL_DestroyTexture(tex);
 }
 
 
@@ -958,7 +959,7 @@ void IncrementPower(UserShip * ship )
 {
      customLog(0 , "GAME" ,  __func__);
     
-    levelUp = levelUp * 10;
+    levelUp = levelUp * 2;
     addSpeed( ship);
     addShotLevel( ship );
     if(maxShotLevelEnemi < MAX_POWER)
@@ -980,8 +981,8 @@ void decreasePower(UserShip * ship)
     
     if(levelUp > LIMIT_LEVEL_UP)
     {
-        levelUp /= 10 ;
-        level /= 10;
+        levelUp /= 2 ;
+        level /= 2;
     }
      
     decreaseShotLevel(ship);

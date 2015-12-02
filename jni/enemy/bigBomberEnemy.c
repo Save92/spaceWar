@@ -44,7 +44,7 @@ EnemyShip * initialisationBigBomberEnemy(int width,int height,int typeStart,int 
     enemyShip->verticalSide = side;
     enemyShip->width = WIDTH_BOMBER;
     enemyShip->height = HEIGHT_BOMBER;
-    enemyShip->speed = (float)(height/width) * RATIO_SPEED;
+    enemyShip->speed = (float)(height/width) * RATIO_SPEED / 2;
     enemyShip->color[0] = 106;
     enemyShip->color[1] = 98;
     enemyShip->color[2] = 81;

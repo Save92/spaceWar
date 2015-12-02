@@ -21,6 +21,8 @@ void renderLife(Game * game,SDL_Renderer *renderer)
     int x = 0 + (game->width/10);
     int y = 0 + (game->height/15);
     renderTexture(texture, renderer, x, y);
+    SDL_FreeSurface(surf);
+    SDL_DestroyTexture(texture);
     
 }
 

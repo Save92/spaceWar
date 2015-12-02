@@ -22,6 +22,8 @@ void renderScore(Game * game,SDL_Renderer *renderer)
     int x = 0 + (game->width/10);
     int y = 0 + (game->height/10);
     renderTexture(texture, renderer, x, y);
+    SDL_FreeSurface(surf);
+    SDL_DestroyTexture(texture);
     
 }
 
@@ -48,6 +50,8 @@ void renderHighScore(Game * game,SDL_Renderer *renderer)
     int x = 0 + (game->width/2);
     int y = 0 + (game->height/10);
     renderTexture(texture, renderer, x, y);
+    SDL_FreeSurface(surf);
+    SDL_DestroyTexture(texture);
 }
 
 
@@ -60,9 +64,9 @@ void addScore(EnemyShip enemy, int * score )
             break;
         case 1 :   *score += 20;
             break;
-        case 2 :   *score += 20;
+        case 2 :   *score += 30;
             break;
-        case 3 :   *score += 20;
+        case 3 :   *score += 40;
             break;
 
         default : *score += 10;
