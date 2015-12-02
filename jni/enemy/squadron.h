@@ -2,7 +2,6 @@
 //  squadron.h
 //  
 //
-//  Created by thierry allard saint albin on 12/10/2015.
 //
 //
 
@@ -17,14 +16,16 @@
 #include "SDL.h"
 #include "SDL_mixer.h"
 typedef struct Squadron Squadron;
+
+//Une escouade est définie selon une taille, une taille maximal, une visibilité
+//Elle permet d'accéder à un nouvel ennemie et à une nouvel escouade
+
 struct Squadron
 {
     EnemyShip * nextEnemyShip;
     int size;
     int maxSize;
     int visible;
-    int appearNext;
-    int checkForNext;
     Squadron * nextSquadron;
     
 };
@@ -35,10 +36,9 @@ void addEnemyToSquadron(EnemyShip * enemy,Squadron * squadron);
 void moveSquadron(Squadron * squadron,int width,int height,ListShoot * listShootEnnemy,Mix_Chunk * tie_shoot,int playMusic);
 void drawMySquadron(SDL_Renderer* renderer , Squadron * squadron);
 int allVisible(Squadron * squadron);
-int sendNextSquadron(Squadron * squadron,int width,int height);
+
 void freeSquadron(Squadron * squadron);
 EnemyShip * getlastEnemyShip(Squadron * squadron);
-void changeAppearNext(Squadron * squadron,int height);
 void setVisibilitySquadron(Squadron * squadron);
 
 

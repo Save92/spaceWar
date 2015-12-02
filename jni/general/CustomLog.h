@@ -9,6 +9,7 @@
 #include "../SDL/src/core/android/SDL_android.h"
 #include <android/log.h>
 #include <jni.h>
+#include "constant.h"
 
 
 void customLog(int t ,  char * fct,  char * description);

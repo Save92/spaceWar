@@ -2,14 +2,13 @@
 //  score.c
 //  
 //
-//  Created by thierry allard saint albin on 19/11/2015.
 //
 //
 
 #include "score.h"
 #include "./game.h"
 
-
+//Fonction d'écriture du score
 void renderScore(Game * game,SDL_Renderer *renderer)
 {
     SDL_Color couleur= {255, 255, 255};
@@ -27,7 +26,7 @@ void renderScore(Game * game,SDL_Renderer *renderer)
     
 }
 
-
+//Fonction d'écriture du high score
 void renderHighScore(Game * game,SDL_Renderer *renderer)
 {
     SDL_Color couleur= {255, 255, 255};
@@ -55,7 +54,7 @@ void renderHighScore(Game * game,SDL_Renderer *renderer)
 }
 
 
-
+//Ajout du score
 void addScore(EnemyShip enemy, int * score )
 {
     switch(enemy.typeShip)

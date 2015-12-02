@@ -13,9 +13,8 @@
 
 
 void drawLittleBomberEnemy(SDL_Renderer* renderer , EnemyShip * enemyShip);
-void moveLittleBomberEnemy(EnemyShip * enemyShip,int widthScreen, int heightScreen);
 EnemyShip * initialisationLittleBomberEnemy(int width,int height,int typeStart,int side,int distance,int verticalLine,int typeShip,int typeMovement,int shotLevel);
-int  LittleBomberEnemyCanShoot(EnemyShip * enemyShip);
+
 
 
 

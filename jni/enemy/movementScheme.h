@@ -2,7 +2,6 @@
 //  movementScheme.h
 //  
 //
-//  Created by thierry allard saint albin on 12/10/2015.
 //
 //
 
@@ -14,7 +13,8 @@
 
 
 
-
+//Schéma de mouvement définis par une position de départ et une ligne verticale et horizontal
+//On peut imaginer des schéma de mouvement avec des tableaux de lignes
 typedef struct MovementScheme
 {
     
@@ -28,6 +28,6 @@ typedef struct MovementScheme
     
 } MovementScheme;
 
-
+//Fonction d'initialisation des Mouvements
 MovementScheme * initializeMovementScheme(int startX,int startY,int distanceHorizontalLimit,int horizontalLimit,int distanceFromVerticalLimit,int verticalLimit,int typeMovementScheme);
 #endif /* movementScheme_h */

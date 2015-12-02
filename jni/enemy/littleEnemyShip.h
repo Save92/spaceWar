@@ -2,7 +2,6 @@
 //  littleEnemyShip.h
 //  
 //
-//  Created by thierry allard saint albin on 12/10/2015.
 //
 //
 
@@ -17,7 +16,7 @@
 
 
 void drawLittleEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip);
-void moveLittleEnemyShip(EnemyShip * enemyShip,int widthScreen, int heightScreen);
+
 EnemyShip * initialisationLittleEnemyShip(int width,int height,int typeStart,int side,int distance,int verticalLine,int typeShip,int typeMovement,int shotLevel);
 int  LittleEnemyShipCanShoot(EnemyShip * enemyShip);
 

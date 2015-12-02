@@ -2,7 +2,6 @@
 //  life.h
 //  
 //
-//  Created by thierry allard saint albin on 19/11/2015.
 //
 //
 
@@ -18,6 +17,6 @@
 
 
 
-
+//Fonction d'écriture de la vie
 void renderLife(Game * game,SDL_Renderer *renderer);
 #endif /* life_h */

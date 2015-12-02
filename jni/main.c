@@ -103,7 +103,7 @@ void drawCircle(SDL_Renderer* renderer,int x_centre,int y_centre,int rayon)
 
 jint Java_esgi_fouriam_SDLActivity_setPref(JNIEnv * env, jobject thiz, jstring name, jint commandValue, jint musicValue, jint vibrationValue, jint score){
     
-    __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "--------------------------------------------------------------------");
+   // __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "--------------------------------------------------------------------");
     
     nativeName = (*env)->GetStringUTFChars(env, name, 0);
     // use your string
@@ -235,7 +235,7 @@ int main(int argc, char *argv[])
 
         
         if (game->myShip->life <= 0) {
-            __android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "IN_GAMEOVER");
+            //__android_log_print(ANDROID_LOG_DEBUG, "MAIN",   "IN_GAMEOVER");
             gameOver(game);
             //renderTexture(background.texture, renderer, 0, 0);
             print_gameOver(game,renderer);

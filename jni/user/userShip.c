@@ -2,7 +2,6 @@
 //  userShip.c
 //
 //
-//  Created by thierry allard saint albin on 22/09/2015.
 //
 //
 
@@ -17,6 +16,8 @@
 #include "../general/CustomLog.h"
 
 #define SPEED_DIVIDENDE 4
+
+// déssiner le vaisseau de l'utilisateur
 void drawMyShip(SDL_Renderer* renderer , UserShip * myShip)
 {
     myShip->cntMovement++;
@@ -36,7 +37,7 @@ void drawMyShip(SDL_Renderer* renderer , UserShip * myShip)
         renderTexture(myShip->myShipSprite.texture, renderer, myShip->rectangle->x, myShip->rectangle->y);
     }
 }
-
+//déplacer le vaisseau [Mode Accel]
 void moveMyShip(UserShip * myShip,int TypeMove,int widthScreen, int heightScreen, double coef)
 {
     int newValue;
@@ -77,12 +78,14 @@ void moveMyShip(UserShip * myShip,int TypeMove,int widthScreen, int heightScreen
             
     }
 }
+
+//Déplacer le vaisseau en mode touch
 void moveMyShipTouch(int posX , int posY ,UserShip * myShip,int widthScreen,int heightScreen)
 {
-     __android_log_print(ANDROID_LOG_DEBUG, "UserShip", "moveMyShipTouch");
+    // __android_log_print(ANDROID_LOG_DEBUG, "UserShip", "moveMyShipTouch");
     
-    __android_log_print(ANDROID_LOG_DEBUG, "UserShip", "[FINGER] PosX %d , PosY %d", posX, posY);
-    __android_log_print(ANDROID_LOG_DEBUG, "UserShip", "[UserShip] Pos %d , PosY %d", myShip->posX, myShip->posY);
+    //__android_log_print(ANDROID_LOG_DEBUG, "UserShip", "[FINGER] PosX %d , PosY %d", posX, posY);
+    //__android_log_print(ANDROID_LOG_DEBUG, "UserShip", "[UserShip] Pos %d , PosY %d", myShip->posX, myShip->posY);
     int coef = (int)1/DIVIDENDE_SPEED;
     int ecart = coef * myShip->speed;
     int tempPosX = myShip->posX;
@@ -108,21 +111,22 @@ void moveMyShipTouch(int posX , int posY ,UserShip * myShip,int widthScreen,int 
     {
         tempPosY -= ecart;
     }
-     __android_log_print(ANDROID_LOG_DEBUG, "UserShip", "[TEMPOS] PosX %d , PosY %d", tempPosX, tempPosY);
+    // __android_log_print(ANDROID_LOG_DEBUG, "UserShip", "[TEMPOS] PosX %d , PosY %d", tempPosX, tempPosY);
     if(tempPosX > 0  && tempPosX < (widthScreen -  myShip->rectangle->w))
     {
-        __android_log_print(ANDROID_LOG_DEBUG, "UserShip", "[TEMPOS] move in X");
+        //__android_log_print(ANDROID_LOG_DEBUG, "UserShip", "[TEMPOS] move in X");
         myShip->posX = tempPosX;
     }
     
     if(tempPosY > 0  && tempPosY < (heightScreen -  myShip->rectangle->h))
     {
-        __android_log_print(ANDROID_LOG_DEBUG, "UserShip", "[TEMPOS] move in Y");
+        //__android_log_print(ANDROID_LOG_DEBUG, "UserShip", "[TEMPOS] move in Y");
         myShip->posY = tempPosY;
     }
     
 }
 
+//Déplacement général pour le moce Accélérométre
 void moveMyShipGeneral(float * accelValues,int sizeAccelValues ,UserShip * myShip,int widthScreen, int heightScreen){
 
     char values[30];
@@ -157,13 +161,13 @@ void moveMyShipGeneral(float * accelValues,int sizeAccelValues ,UserShip * myShi
 }
 
 
-
+//Libération du vaisseau
 void freeShip(UserShip * myShip)
 {
     free(myShip->rectangle);
     free(myShip);
 }
-
+//Initialisation du vaisseau
 UserShip * initialisationUserShip(int width,int height)
 {
     SDL_Rect  * rectangle = malloc( sizeof(SDL_Rect));
@@ -187,14 +191,14 @@ UserShip * initialisationUserShip(int width,int height)
     //myShip->myShipSprite = NULL;
     return myShip;
 }
-
+//SI le vaisseau de l'utilisateur est en vie
 int userShipIsAlive(UserShip * userShip)
 {
     if(userShip->life == 0)
         return FALSE;
     return TRUE;
 }
-
+//Décrémenter la vie de l'utilisateur
 void decreaseLife( UserShip * myShip )
 {
     if(myShip->life >0)
@@ -206,12 +210,14 @@ void decreaseLife( UserShip * myShip )
         myShip->visible = INVISIBLE;
     }
 }
+
+//Ajouter de la vie à l'utilisateur
 void addLife( UserShip * myShip )
 {
     if(myShip->life < MAX_LIFE && myShip->visible == VISIBLE)
         (myShip->life)++;
 }
-
+//ajouter de la vitesse au vaisseau
 void addSpeed( UserShip * myShip )
 {
     if(myShip->speed < MAX_SPEED)
@@ -219,6 +225,7 @@ void addSpeed( UserShip * myShip )
         myShip->speed = myShip->speed + myShip->speed/SPEED_DIVIDENDE;
     }
 }
+//décrémenter la vitesse du vaisseau
 void decreaseSpeed( UserShip * myShip )
 {
     if(myShip->speed > 1)
@@ -227,7 +234,7 @@ void decreaseSpeed( UserShip * myShip )
     }
 }
 
-
+//Incrémenter la puissance de tir
 void addShotLevel( UserShip * myShip )
 {
     if(myShip->shotLevel < MAX_POWER)
@@ -235,6 +242,7 @@ void addShotLevel( UserShip * myShip )
         myShip->shotLevel++;
     }
 }
+//Décrémenter la puissance de tir
 void decreaseShotLevel( UserShip * myShip )
 {
     if(myShip->shotLevel > 1)
@@ -242,7 +250,7 @@ void decreaseShotLevel( UserShip * myShip )
         myShip->shotLevel--;
     }
 }
-
+//Tir en continue
 int myShipContinousShoot( UserShip * myShip )
 {
     if(myShip->cntMovement >= RATE_IMAGE_SHOOT && myShip->canShoot == TRUE && myShip->life > 0 )

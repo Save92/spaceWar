@@ -2,7 +2,6 @@
 //  enemy.c
 //
 //
-//  Created by thierry allard saint albin on 12/10/2015.
 //
 //
 #include "../SDL/src/core/android/SDL_android.h"
@@ -24,7 +23,7 @@
 
 void drawEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip)
 {
-    
+    customLog(1 , "ENEMY" ,  __func__);
     switch (enemyShip->type) {
         case 0:
             drawLittleEnemyShip(renderer , enemyShip);
@@ -42,7 +41,10 @@ void drawEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip)
             drawLittleEnemyShip(renderer , enemyShip);
             break;
     }
-    
+    char * str = malloc(sizeof(char)* 255);
+    sprintf(str,"end %s",__func__);
+    customLog(0 , "SQUADRON" , str);
+    free(str);
 }
 
 
@@ -101,7 +103,7 @@ EnemyShip * initialisationEnemyShip(int width,int height,int typeStart,int side,
      customLog(0 , "GAME" , __func__);
     // __android_log_print(ANDROID_LOG_DEBUG, "EnemyShip",   "initialisationEnemyShip"  );
         EnemyShip * enemyShip;
-     __android_log_print(ANDROID_LOG_DEBUG, "EnemyShip",   "initialisationEnemyShip %d",  typeShip  );
+     //__android_log_print(ANDROID_LOG_DEBUG, "EnemyShip",   "initialisationEnemyShip %d",  typeShip  );
     if(typeShip < 0)
         typeShip *= -1;
     
@@ -185,6 +187,7 @@ void moveEnemyShipZigZag(EnemyShip * enemyShip,int widthScreen,int heightScreen)
     
     if(enemyShip->cntFootStep % CHGM_DIRECTION == 0)
     {
+        //Bouge selon la densité de pixel sur l'écran
         enemyShip->posX = enemyShip->posX + (int)( (enemyShip->speed * widthScreen/heightScreen/3 ) * enemyShip->verticalSide );
     }
     enemyShip->cntFootStep++;
@@ -234,7 +237,7 @@ void setEnemyToInvisible(EnemyShip * enemy)
 {
     if(enemy)
     {
-        __android_log_print(ANDROID_LOG_DEBUG, "Enemy", " INVISIBLE");
+        //__android_log_print(ANDROID_LOG_DEBUG, "Enemy", " INVISIBLE");
         enemy->visible = INVISIBLE;
     }
 }

@@ -2,7 +2,6 @@
 //  littleEnemyShip.c
 //  
 //
-//  Created by thierry allard saint albin on 12/10/2015.
 //
 //
 
@@ -18,6 +17,7 @@
 
 void drawLittleEnemyShip(SDL_Renderer* renderer , EnemyShip * enemyShip)
 {
+    customLog(1 , "ENEMY" ,  __func__);
     enemyShip->rectangle->x = enemyShip->posX;
     enemyShip->rectangle->y = enemyShip->posY;
     enemyShip->rectangle->w = enemyShip->width;
