@@ -52,9 +52,10 @@ public class MainActivity extends Activity
         settings = getSharedPreferences(PREFS_NAME, 0);
         score = settings.getInt("highScore", 0);
         highScoreName = settings.getString("nameHighScore", "");
+        
+        highScore = (TextView) findViewById(R.id.highScore);
         if(score != 0 || highScoreName != "") {
 
-        highScore = (TextView) findViewById(R.id.highScore);
         highScore.setText(highScoreName + " : " +score.toString());
         } else {
             highScore.setVisibility(View.GONE);

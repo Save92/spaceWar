@@ -29,6 +29,7 @@
 /Users/Save92/Documents/NDKProject/SpaceWar/res/drawable-xhdpi/star_menu.png \
 /Users/Save92/Documents/NDKProject/SpaceWar/res/drawable-xxhdpi/configurationtitle.png \
 /Users/Save92/Documents/NDKProject/SpaceWar/res/drawable-xxhdpi/ic_cellphone_white_36dp.png \
+/Users/Save92/Documents/NDKProject/SpaceWar/res/drawable-xxhdpi/ic_launcher.png \
 /Users/Save92/Documents/NDKProject/SpaceWar/res/drawable-xxhdpi/ic_music_note_off_white_36dp.png \
 /Users/Save92/Documents/NDKProject/SpaceWar/res/drawable-xxhdpi/ic_music_note_white_36dp.png \
 /Users/Save92/Documents/NDKProject/SpaceWar/res/drawable-xxhdpi/ic_settings_white_36dp.png \
@@ -70,6 +71,7 @@
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/res/drawable-xhdpi/star_menu.png \
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/res/drawable-xxhdpi/configurationtitle.png \
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/res/drawable-xxhdpi/ic_cellphone_white_36dp.png \
+/Users/Save92/Documents/NDKProject/SpaceWar/bin/res/drawable-xxhdpi/ic_launcher.png \
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/res/drawable-xxhdpi/ic_music_note_off_white_36dp.png \
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/res/drawable-xxhdpi/ic_music_note_white_36dp.png \
 /Users/Save92/Documents/NDKProject/SpaceWar/bin/res/drawable-xxhdpi/ic_settings_white_36dp.png \
