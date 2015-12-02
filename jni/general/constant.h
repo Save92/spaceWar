@@ -16,7 +16,7 @@
 
 #define TOUCH_GESTION 2
 #define ACCEL_GESTION 1
-
+#define DEBUG_MODE 0
 
 
 //GAME

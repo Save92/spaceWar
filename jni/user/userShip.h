@@ -2,7 +2,6 @@
 //  userShip.h
 //  
 //
-//  Created by thierry allard saint albin on 22/09/2015.
 //
 //
 

@@ -18,6 +18,7 @@
 
 void drawLittleBomberEnemy(SDL_Renderer* renderer , EnemyShip * enemyShip)
 {
+    customLog(1 , "ENEMY" ,  __func__);
     enemyShip->rectangle->x = enemyShip->posX;
     enemyShip->rectangle->y = enemyShip->posY;
     enemyShip->rectangle->w = enemyShip->width;
@@ -90,19 +91,7 @@ EnemyShip * initialisationLittleBomberEnemy(int width,int height,int typeStart,i
 }
 
 
-void moveLittleBomberEnemy(EnemyShip * enemyShip,int widthScreen, int heightScreen)
-{
-    enemyShip->posY++;
-    if(enemyShip->cntFootStep % enemyShip->changeDirection == 0)
-    {
-        enemyShip->posX = (int)(enemyShip->posX + (enemyShip->speed * enemyShip->verticalSide));
-    }
-    enemyShip->cntFootStep++;
-    
-    
-    
-    setVisibilityEnemy(enemyShip,widthScreen,heightScreen);
-}
+
     
 int  LittleBomberEnemyCanShoot(EnemyShip * enemyShip)
 {
